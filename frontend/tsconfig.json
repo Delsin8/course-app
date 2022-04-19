@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "ES6",
+        "target": "ES2015",
+        "esModuleInterop": true,
+        "strict": true,
+        "allowJs": true,
+        "moduleResolution": "Node",
+        "jsx": "react-jsx"
+    },
+    "include": [
+        "src"
+    ]
+}

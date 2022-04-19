@@ -1,0 +1,18 @@
+$borderRadius: 5px;
+$fontSize: 14px;
+$padding: 4px;
+
+.btn {
+  border-radius: $borderRadius;
+  background-color: white;
+  font-size: $fontSize;
+  padding: $padding;
+  cursor: pointer;
+}
+
+.btnOutlined {
+}
+
+.btnContained {
+  border: none;
+}

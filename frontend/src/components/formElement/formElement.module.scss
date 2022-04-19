@@ -1,0 +1,15 @@
+.wrapper {
+  margin: 12px 0;
+}
+
+.formElement {
+  width: 18%;
+  border: none;
+  border-bottom: 1px solid #5a5a5a;
+  outline: none;
+  font-size: 16px;
+  padding-bottom: 4px;
+}
+.formElement::placeholder {
+  color: #5a5a5a;
+}

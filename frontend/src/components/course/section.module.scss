@@ -1,0 +1,73 @@
+.container {
+  border-radius: 10px;
+  border: 1px solid grey;
+  max-width: fit-content;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+}
+
+.circle {
+  background: #f07d91;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sectionTitle {
+  font-size: 28px;
+}
+
+.verticalLine {
+  padding-right: 6px;
+  border-right: 1px solid black;
+}
+
+.difficultyLevel {
+  border: 1px solid #39e739;
+  color: #39e739;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.lessonsAmount {
+  color: grey;
+  font-style: italic;
+}
+
+// Course
+// --------------------------
+$br: 8px;
+.wrapper {
+  border: 1px solid black;
+  border-radius: $br;
+  cursor: pointer;
+}
+
+// .imageWrapper {
+// }
+.imageWrapper img {
+  height: 100%;
+  width: 100%;
+  border-radius: $br $br 0 0;
+}
+
+.price {
+  margin: 4px 0;
+  text-align: center;
+}
+.price:hover {
+  background: rgb(230, 230, 230);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+}
