@@ -8,7 +8,14 @@
   transform: translate(-50%, 0);
   //   width: 80%;
   gap: 10px;
+  background: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
 }
 
 .test {
@@ -23,8 +30,18 @@
   content: 'asd';
 }
 
+.mainSection {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
 .courses {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.filterItems {
+  display: flex;
+  gap: 10px;
 }

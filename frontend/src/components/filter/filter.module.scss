@@ -1,0 +1,18 @@
+.filterItem {
+  margin: 10px 0;
+  border: 1px solid purple;
+  color: purple;
+  border-radius: 12px;
+  padding: 2px 6px;
+}
+
+.filterWrapper {
+}
+
+.filterProperties {
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

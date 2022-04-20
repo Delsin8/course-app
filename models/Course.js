@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const objectID = mongoose.Types.ObjectId
 
-const CourseSchema = new mongoose.Schema({
+const CourseSchema = new mongoose.Schema(
+  {
     title: { type: String, required: true },
     description: { type: String, required: true },
     authors: [{ type: objectID, ref: 'User', required: true }],
@@ -11,7 +12,18 @@ const CourseSchema = new mongoose.Schema({
     // publisher: { type: String, required: true },
     language: { type: String, required: true },
     created_at: { type: Date, default: Date.now() },
-    updated_at: { type: Date, default: Date.now() }
+    updated_at: { type: Date, default: Date.now() },
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+)
+
+CourseSchema.virtual('sections', {
+  ref: 'Section',
+  localField: '_id',
+  foreignField: 'course',
 })
 
 const Course = mongoose.model('Course', CourseSchema)

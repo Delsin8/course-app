@@ -1,11 +1,15 @@
 import React from 'react'
 import style from './section.module.scss'
-import { course2 } from '../../../types'
+import { course2, Course } from '../../../types'
 import { BiBook } from 'react-icons/bi'
 import { AiOutlineClockCircle, AiFillStar } from 'react-icons/ai'
 import { BsFillPeopleFill } from 'react-icons/bs'
 
-const Course: React.FC<course2> = ({
+export const countHours = (d: number) => {
+  return Math.round(d / 60)
+}
+
+const Course: React.FC<course2 & Course> = ({
   authors,
   description,
   duration,
@@ -16,10 +20,6 @@ const Course: React.FC<course2> = ({
   title,
   votes,
 }) => {
-  const countHours = (d: number) => {
-    return Math.round(d / 60)
-  }
-
   return (
     <div className={style.wrapper}>
       {/* img */}
