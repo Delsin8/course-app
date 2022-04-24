@@ -1,11 +1,13 @@
 .container {
-  border-radius: 10px;
-  border: 1px solid grey;
-  max-width: fit-content;
   display: flex;
   align-items: center;
-  padding: 8px;
   gap: 8px;
+
+  max-width: fit-content;
+  // border: 1px solid #f07d91;
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 0 0 2px #f07d91;
 }
 
 .circle {

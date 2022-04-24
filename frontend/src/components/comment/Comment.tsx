@@ -1,4 +1,5 @@
 import style from './comment.module.scss'
+import { AiFillStar } from 'react-icons/ai'
 
 const comment = {
   username: 'Jobber',
@@ -9,14 +10,28 @@ const comment = {
 const Comment = () => {
   return (
     <div className={style.wrapper}>
-      <div>
+      <div className={style.userSection}>
         <div className={style.imageWrapper}>
           <img src="/images/3.jfif" />
         </div>
-        <div>{comment.username}</div>
+        <div style={{ fontWeight: '500' }}>{comment.username}</div>
       </div>
-      <div>
-        <div>{comment.date}</div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+          justifyContent: 'start',
+        }}
+      >
+        <div className={style.flexCentered}>
+          <div className={style.flexCentered}>
+            {[0, 1, 2, 3, 4].map(s => (
+              <AiFillStar key={s} />
+            ))}
+          </div>
+          <div className={style.date}>{comment.date}</div>
+        </div>
         <div>{comment.body}</div>
       </div>
     </div>

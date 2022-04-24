@@ -17,9 +17,9 @@ const Author: React.FC = () => {
         </div>
         {/* info */}
         <div>
-          <h3 style={{ margin: '6px 0' }}>{author.name}</h3>
-          <div>Courses: {author.courses}</div>
-          <div>Students: {author.students}</div>
+          <h3 style={{ margin: '2px 0' }}>{author.name}</h3>
+          <div className={style.grey}>Courses: {author.courses}</div>
+          <div className={style.grey}>Students: {author.students}</div>
         </div>
       </div>
       {/* biography */}

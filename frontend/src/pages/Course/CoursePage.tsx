@@ -5,11 +5,12 @@ import Layout from '../../layouts/Layout/Layout'
 import Author from '../../components/author/Author'
 import Comment from '../../components/comment/Comment'
 import { BiBook } from 'react-icons/bi'
-import { AiFillStar, AiOutlineClockCircle } from 'react-icons/ai'
+import { AiFillStar, AiOutlineClockCircle, AiFillHeart } from 'react-icons/ai'
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { countHours } from '../../components/course/Course'
 import { useEffect, useState } from 'react'
 import { Course, course2 } from '../../../types'
+import Title from '../../components/typography/Title'
 
 export interface d {
   title: string
@@ -52,26 +53,38 @@ const Course = () => {
 
     fetchCourse()
   }, [])
-  console.log(data)
   return (
     <Layout>
       {/* info */}
       <div className={style.infoSection}>
-        <h2 className={style.centered}>Title</h2>
-        <div>Description</div>
+        <Title centered noMarginBottom>
+          {data?.title}
+        </Title>
+        <div className={style.description}>{data?.description}</div>
       </div>
       {/* course content */}
-      <div className={style.sections}>
-        {data?.sections.map(d => (
-          <Section key={d.title} {...d} />
-        ))}
-      </div>
-      <div style={{ textAlign: 'center', margin: '6px 0' }}>
-        Show full course content
+      <div className={style.sectionsWrapper}>
+        <div style={{ paddingBottom: '.4rem', fontWeight: '500' }}>
+          This course consists of these sections:
+        </div>
+        <div className={style.sections}>
+          {data?.sections.map(d => (
+            <Section key={d.title} {...d} />
+          ))}
+        </div>
+        <div
+          style={{
+            textAlign: 'center',
+            textDecoration: 'underline',
+            fontSize: '.8rem',
+          }}
+        >
+          Show full course content
+        </div>
       </div>
       {/* authors */}
       <div>
-        <div>Authors: 3</div>
+        <Title>Authors: 3</Title>
         <div
           style={{
             display: 'grid',
@@ -85,21 +98,23 @@ const Course = () => {
         </div>
       </div>
       {/* comments */}
-      <div>Comments</div>
-      {[0, 1, 2].map(c => (
-        <Comment key={c} />
-      ))}
+      <Title centered>Comments</Title>
+      <div className={style.commentSection}>
+        {[0, 1, 2].map(c => (
+          <Comment key={c} />
+        ))}
+      </div>
       {/* buying window */}
       <div className={style.purchaseSection}>
         <div style={{ alignSelf: 'center', fontSize: '2rem' }}>18.99$</div>
 
         <div>
-          <ContainedButton backgroundColor="#486876" color="white">
+          <OutlinedButton outlineColor="#9A43B9" color="#9A43B9" glowing big>
             Buy now
-          </ContainedButton>
+          </OutlinedButton>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: '1rem' }}>
           <div>
             <div className={style.stat}>
               <BiBook />
@@ -107,23 +122,23 @@ const Course = () => {
             </div>
             <div className={style.stat}>
               <AiOutlineClockCircle />
-              {countHours(456)}h
+              {countHours(456)}
             </div>
           </div>
           <div>
-            <div className={style.stat} style={{ justifyContent: 'end' }}>
-              4.5 (154)
+            <div className={style.stat}>
               <AiFillStar />
+              4.5 (154)
             </div>
             <div className={style.stat}>
-              10 students
               <BsFillPeopleFill />
+              10 students
             </div>
           </div>
         </div>
 
-        <div className={style.test}>
-          <div className={style.box}></div>
+        <div className={style.wishlistButtonWrapper}>
+          <AiFillHeart style={{ fontSize: '32px' }} />
         </div>
       </div>
     </Layout>

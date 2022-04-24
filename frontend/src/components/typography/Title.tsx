@@ -1,7 +1,21 @@
 import style from './typography.module.scss'
 
-const Title: React.FC = ({ children }) => {
-  return <h2>{children}</h2>
+interface TitleOptions {
+  centered?: boolean
+  noMarginBottom?: boolean
+  noMarginTop?: boolean
+}
+
+const Title: React.FC<TitleOptions> = ({
+  children,
+  centered,
+  noMarginBottom,
+  noMarginTop,
+}) => {
+  const classes = `${centered ? style.centered : ''} ${
+    noMarginBottom ? style.noMarginBottom : ''
+  } ${noMarginTop ? style.noMarginTop : ''}`
+  return <h2 className={classes}>{children}</h2>
 }
 
 export default Title

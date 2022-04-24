@@ -6,11 +6,15 @@ export const OutlinedButton: React.FC<outlinedButton> = ({
   children,
   color,
   outlineColor,
+  glowing,
+  big,
 }) => {
   return (
     <div>
       <button
-        className={style.btn}
+        className={`${style.btn} ${glowing ? style.glowing : ''} ${
+          big ? style.big : ''
+        }`}
         style={{ color, border: `1px solid ${outlineColor}` }}
       >
         {children}

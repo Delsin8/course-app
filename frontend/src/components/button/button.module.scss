@@ -1,6 +1,8 @@
 $borderRadius: 5px;
 $fontSize: 14px;
 $padding: 4px;
+$glowingColor: #e292fe;
+$glowingColor2: #ce4afd;
 
 .btn {
   border-radius: $borderRadius;
@@ -15,4 +17,24 @@ $padding: 4px;
 
 .btnContained {
   border: none;
+}
+
+// glowing button
+@keyframes glowing {
+  0% {
+    box-shadow: $glowingColor;
+  }
+  50% {
+    box-shadow: 0 0 6px $glowingColor2;
+  }
+  100% {
+    box-shadow: $glowingColor;
+  }
+}
+.glowing {
+  animation: glowing 3000ms infinite;
+}
+
+.big {
+  font-size: 1.2rem;
 }

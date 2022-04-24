@@ -3,10 +3,12 @@ export interface button {
   paddingHorizontal?: string
   paddingVertical?: string
   margin?: string
+  big?: boolean
 }
 
 export interface outlinedButton extends button {
   outlineColor: string
+  glowing?: boolean
 }
 
 export interface containedButton extends button {
