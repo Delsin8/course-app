@@ -8,6 +8,8 @@ import { BiBook } from 'react-icons/bi'
 import { AiFillStar, AiOutlineClockCircle } from 'react-icons/ai'
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { countHours } from '../../components/course/Course'
+import { useEffect, useState } from 'react'
+import { Course, course2 } from '../../../types'
 
 export interface d {
   title: string
@@ -16,35 +18,51 @@ export interface d {
   duration: number
 }
 
-const data: d[] = [
-  {
-    title: 'first',
-    difficulty: 'Beginner',
-    lessons: 10,
-    duration: 12,
-  },
-  {
-    title: 'second',
-    difficulty: 'Advanced',
-    lessons: 15,
-    duration: 4,
-  },
-  {
-    title: 'third',
-    difficulty: 'Intermediate',
-    lessons: 23,
-    duration: 26,
-  },
-]
+export interface ISection {
+  title: string
+  difficulty:
+    | 'Beginner'
+    | 'Intermediate'
+    | ' Advanced'
+    | 'Expert'
+    | 'All levels'
+  lessonsAmount: number
+  duration: number
+}
+
+interface course3 extends Course {
+  sections: ISection[]
+}
 
 const Course = () => {
+  const [data, setData] = useState<course3>()
+
+  useEffect(() => {
+    const url = `http://localhost:5000/api/courses/61ebd93d5b288295c5227a2d`
+    const options: RequestInit = {
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+    const fetchCourse = async () => {
+      const response = await fetch(url, options)
+      if (response.ok) setData(await response.json())
+      else console.log('Something went wrong')
+    }
+
+    fetchCourse()
+  }, [])
+  console.log(data)
   return (
     <Layout>
-      {/* description */}
-      <div className={style.descriptionWrapper}>Description</div>
+      {/* info */}
+      <div className={style.infoSection}>
+        <h2 className={style.centered}>Title</h2>
+        <div>Description</div>
+      </div>
       {/* course content */}
       <div className={style.sections}>
-        {data.map(d => (
+        {data?.sections.map(d => (
           <Section key={d.title} {...d} />
         ))}
       </div>

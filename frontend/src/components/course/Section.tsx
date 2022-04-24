@@ -1,18 +1,24 @@
 import React from 'react'
 import style from './section.module.scss'
-import { d } from '../../pages/Course/CoursePage'
+import { d, ISection } from '../../pages/Course/CoursePage'
+import CountTime from '../../utils/countTime'
 
-const Section: React.FC<d> = ({ title, difficulty, lessons, duration }) => {
+const Section: React.FC<ISection> = ({
+  title,
+  difficulty,
+  lessonsAmount,
+  duration,
+}) => {
   return (
     <div className={style.container}>
       <div className={style.circle}>
-        <div className={style.duration}>{duration}h</div>
+        <div className={style.duration}>{CountTime(duration)}</div>
       </div>
 
       <div className={style.textContainer}>
         <div className={style.sectionTitle}>{title}</div>
         <div className={style.smallFontSize} style={{ color: 'grey' }}>
-          {lessons} lessons
+          {lessonsAmount} lessons
         </div>
         <div
           className={`${style.smallFontSize} ${style.fontItalic}`}

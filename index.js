@@ -8,6 +8,7 @@ const reviewRoutes = require('./routes/review.routes')
 const wishlistRoutes = require('./routes/wishlist.routes')
 const sectionRoutes = require('./routes/section.routes')
 const lessonRoutes = require('./routes/lesson.routes')
+// const commentRoutes = require('./routes/comment.routes')
 const cors = require('cors')
 
 const app = express()

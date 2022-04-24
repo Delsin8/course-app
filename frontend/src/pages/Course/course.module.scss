@@ -32,7 +32,8 @@
 
 .mainSection {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 5fr;
+  gap: 20px;
 }
 
 .courses {
@@ -44,4 +45,8 @@
 .filterItems {
   display: flex;
   gap: 10px;
+}
+
+.centered {
+  text-align: center;
 }

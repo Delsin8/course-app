@@ -10,6 +10,9 @@ const CourseSchema = new mongoose.Schema(
     preview_video: { type: String, default: './videos/default_preview.smth' },
     // publishing_date: { type: Date, required: true },
     // publisher: { type: String, required: true },
+
+    // rating
+
     language: { type: String, required: true },
     created_at: { type: Date, default: Date.now() },
     updated_at: { type: Date, default: Date.now() },
@@ -22,6 +25,12 @@ const CourseSchema = new mongoose.Schema(
 
 CourseSchema.virtual('sections', {
   ref: 'Section',
+  localField: '_id',
+  foreignField: 'course',
+})
+
+CourseSchema.virtual('reviews', {
+  ref: 'Review',
   localField: '_id',
   foreignField: 'course',
 })

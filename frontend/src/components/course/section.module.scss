@@ -72,13 +72,11 @@
 // --------------------------
 $br: 8px;
 .wrapper {
-  border: 1px solid black;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 8px 4px;
   border-radius: $br;
   cursor: pointer;
 }
 
-// .imageWrapper {
-// }
 .imageWrapper img {
   height: 100%;
   width: 100%;
@@ -86,7 +84,7 @@ $br: 8px;
 }
 
 .price {
-  margin: 4px 0;
+  margin: 4px 0 0 0;
   text-align: center;
 }
 .price:hover {
