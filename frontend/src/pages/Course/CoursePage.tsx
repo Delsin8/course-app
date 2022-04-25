@@ -11,6 +11,7 @@ import { countHours } from '../../components/course/Course'
 import { useEffect, useState } from 'react'
 import { Course, course2 } from '../../../types'
 import Title from '../../components/typography/Title'
+import { client } from '../../api/client'
 
 export interface d {
   title: string
@@ -21,12 +22,7 @@ export interface d {
 
 export interface ISection {
   title: string
-  difficulty:
-    | 'Beginner'
-    | 'Intermediate'
-    | ' Advanced'
-    | 'Expert'
-    | 'All levels'
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'All levels'
   lessonsAmount: number
   duration: number
 }
@@ -53,6 +49,17 @@ const Course = () => {
 
     fetchCourse()
   }, [])
+
+  const purchaseCourse = () => {
+    client.post(
+      'http://localhost:5000/api/purchased-courses',
+      JSON.stringify({
+        user: '61e6e49cc9e2a8deeea84c1e',
+        course: data?._id,
+      })
+    )
+  }
+
   return (
     <Layout>
       {/* info */}
@@ -108,7 +115,7 @@ const Course = () => {
       <div className={style.purchaseSection}>
         <div style={{ alignSelf: 'center', fontSize: '2rem' }}>18.99$</div>
 
-        <div>
+        <div onClick={purchaseCourse}>
           <OutlinedButton outlineColor="#9A43B9" color="#9A43B9" glowing big>
             Buy now
           </OutlinedButton>

@@ -10,6 +10,7 @@ import CoursePage from './pages/Course/CoursePage'
 import HomePage from './pages/Home/HomePage'
 import SigninPage from './pages/Auth/SigninPage'
 import SignupPage from './pages/Auth/SignupPage'
+import LessonPage from './pages/Lesson/Lesson'
 
 const App = () => {
   return (

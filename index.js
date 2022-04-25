@@ -8,7 +8,7 @@ const reviewRoutes = require('./routes/review.routes')
 const wishlistRoutes = require('./routes/wishlist.routes')
 const sectionRoutes = require('./routes/section.routes')
 const lessonRoutes = require('./routes/lesson.routes')
-// const commentRoutes = require('./routes/comment.routes')
+const purchasedCourseRoutes = require('./routes/purchasedCourse.routes')
 const cors = require('cors')
 
 const app = express()
@@ -24,6 +24,7 @@ app.use('/api/sections', sectionRoutes)
 app.use('/api/lessons', lessonRoutes)
 app.use('/api/reviews', reviewRoutes)
 app.use('/api/wishlists', wishlistRoutes)
+app.use('/api/purchased-courses', purchasedCourseRoutes)
 
 async function start() {
   try {
