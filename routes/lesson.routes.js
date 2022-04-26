@@ -27,10 +27,35 @@ router.put('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
   const id = req.params.id
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    Lesson.findById(id, (err, data) => {
-      if (err) return res.status(400).json(err)
-      res.json(data)
-    })
+    // with questions
+    if (req.query.full === '1') {
+      Lesson.findById(id)
+        .populate([
+          {
+            path: 'questions',
+            populate: [
+              {
+                path: 'answers',
+                model: 'Answer',
+                populate: 'user',
+              },
+              {
+                path: 'user',
+                model: 'User',
+              },
+            ],
+          },
+        ])
+        .exec((err, data) => {
+          if (err) return res.status(400).json(err)
+          return res.json(data)
+        })
+    } else {
+      Lesson.findById(id, (err, data) => {
+        if (err) return res.status(400).json(err)
+        res.json(data)
+      })
+    }
   } else res.status(404).send('No results found.')
 })
 

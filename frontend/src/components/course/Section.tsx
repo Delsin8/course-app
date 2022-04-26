@@ -1,9 +1,10 @@
 import React from 'react'
 import style from './section.module.scss'
-import { d, ISection } from '../../pages/Course/CoursePage'
+import { d } from '../../pages/Course/CoursePage'
 import CountTime from '../../utils/countTime'
+import { section } from '../../../types'
 
-const Section: React.FC<ISection> = ({
+const Section: React.FC<section> = ({
   title,
   difficulty,
   lessonsAmount,

@@ -1,0 +1,39 @@
+.questionWrapper {
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.body {
+  font-size: 0.8rem;
+}
+
+.author {
+  color: #636363;
+  font-size: 1rem;
+  font-weight: 100;
+  //   font-style: italic;
+  cursor: pointer;
+}
+.author:hover {
+  color: #000000;
+}
+
+.answersWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answerWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.answerButton {
+  font-size: 24px;
+  cursor: pointer;
+}

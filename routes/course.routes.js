@@ -42,177 +42,109 @@ router.get('/:id', async (req, res) => {
   //   }).populate('sections')
   // } else res.status(404).send('No results found.')
 
-  const [course] = await Course.aggregate([
-    {
-      $match: { _id: mongoose.Types.ObjectId(id) },
-    },
-    // {
-    //   $lookup: {
-    //     from: 'sections',
-    //     localField: '_id',
-    //     foreignField: 'course',
-    //     as: 'sections',
-    //   },
-    // },
-    // {
-    //   $unwind: {
-    //     path: '$sections',
-    //     // preserveNullAndEmptyArrays: true,
-    //   },
-    // },
-    {
-      $lookup: {
-        from: 'sections',
-        let: {
-          courseID: '$_id',
+  if (req.query.content === '1') {
+    Course.findById(id)
+      .select('_id')
+      .populate([
+        {
+          path: 'sections',
+          populate: [
+            {
+              path: 'lessons',
+              model: 'Lesson',
+            },
+          ],
         },
-        pipeline: [
-          {
-            $match: {
-              $expr: {
-                $eq: ['$course', '$$courseID'],
-              },
-            },
-          },
-          {
-            $lookup: {
-              from: 'lessons',
-              localField: '_id',
-              foreignField: 'section',
-              as: 'lessons',
-            },
-          },
-          {
-            $unwind: {
-              path: '$lessons',
-              preserveNullAndEmptyArrays: true,
-            },
-          },
-          {
-            $group: {
-              _id: '$_id',
-              lessonsAmount: { $count: {} },
-              duration: { $sum: '$lessons.duration' },
-              doc: { $first: '$$CURRENT' },
-            },
-          },
-
-          {
-            $replaceRoot: {
-              newRoot: {
-                $mergeObjects: [
-                  {
-                    duration: '$duration',
-                    lessonsAmount: '$lessonsAmount',
-                  },
-                  '$doc',
-                ],
-              },
-            },
-          },
-          { $unset: 'lessons' },
-          // {
-          //   $lookup: {
-          //     from: 'lessons',
-          //     let: {
-          //       sectionID: '$_id',
-          //     },
-          //     pipeline: [
-          //       {
-          //         $match: { $expr: { $eq: ['$section', '$$sectionID'] } },
-          //       },
-          //       {
-          //         $unwind: {
-          //           path: '$lessons',
-          //           preserveNullAndEmptyArrays: true,
-          //         },
-          //       },
-          //       {
-          //         $group: {
-          //           _id: null,
-          //           duration: { $sum: '$duration' },
-          //           lessons: { $count: {} },
-          //           // doc: { $first: '$$ROOT' },
-          //         },
-          //       },
-          //       {
-          //         $replaceRoot: {
-          //           newRoot: {
-          //             // $mergeObjects: [
-          //             //   {
-          //             duration: '$duration',
-          //             lessons: '$lessons',
-          //             //   },
-          //             // ],
-          //           },
-          //         },
-          //       },
-          //     ],
-          //     as: 'lessons',
-          //   },
-          // },
-          // {
-          //   $unwind: {
-          //     path: '$lessons',
-          //     preserveNullAndEmptyArrays: true,
-          //   },
-          // },
-          // {
-          //   $match: {
-          //     'lessons.duration': { $gt: 0 },
-          //   },
-          // },
-          // {
-          //   $group: {
-          //     _id: '$_id',
-          //     duration: { $sum: '$lessons.duration' },
-          //     lessons: {
-          //       $count: {},
-          //     },
-          //     doc: { $first: '$$ROOT' },
-          //   },
-          // },
-          // {
-          //   $replaceRoot: {
-          //     newRoot: {
-          //       $mergeObjects: [
-          //         {
-          //           duration: '$duration',
-          //           lessons: '$lessons',
-          //         },
-          //         '$doc',
-          //       ],
-          //     },
-          //   },
-          // },
-        ],
-        as: 'sections',
+      ])
+      .exec((err, data) => {
+        if (err) return res.status(400).json(err)
+        return res.json(data)
+      })
+  } else {
+    const [course] = await Course.aggregate([
+      {
+        $match: { _id: mongoose.Types.ObjectId(id) },
       },
-    },
-    // {
-    //   $group: {
-    //     _id: '$_id',
-    //     lessons: { $count: {} },
-    //     doc: { $first: '$$ROOT' },
-    //   },
-    // },
-    // {
-    //   $replaceRoot: {
-    //     newRoot: {
-    //       $mergeObjects: [
-    //         {
-    //           // duration: { $sum: '$sections.duration' },
-    //           // lessons: { $sum: '$sections.lessons' },
-    //           sections: '$sections',
-    //         },
-    //         '$doc',
-    //       ],
-    //     },
-    //   },
-    // },
-  ])
+      {
+        $lookup: {
+          from: 'sections',
+          let: {
+            courseID: '$_id',
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ['$course', '$$courseID'],
+                },
+              },
+            },
+            {
+              $lookup: {
+                from: 'lessons',
+                localField: '_id',
+                foreignField: 'section',
+                as: 'lessons',
+              },
+            },
+            {
+              $unwind: {
+                path: '$lessons',
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+            {
+              $group: {
+                _id: '$_id',
+                lessonsAmount: { $count: {} },
+                duration: { $sum: '$lessons.duration' },
+                doc: { $first: '$$CURRENT' },
+              },
+            },
 
-  res.json(course)
+            {
+              $replaceRoot: {
+                newRoot: {
+                  $mergeObjects: [
+                    {
+                      duration: '$duration',
+                      lessonsAmount: '$lessonsAmount',
+                    },
+                    '$doc',
+                  ],
+                },
+              },
+            },
+            { $unset: 'lessons' },
+          ],
+          as: 'sections',
+        },
+      },
+      // {
+      //   $group: {
+      //     _id: '$_id',
+      //     lessons: { $count: {} },
+      //     doc: { $first: '$$ROOT' },
+      //   },
+      // },
+      // {
+      //   $replaceRoot: {
+      //     newRoot: {
+      //       $mergeObjects: [
+      //         {
+      //           // duration: { $sum: '$sections.duration' },
+      //           // lessons: { $sum: '$sections.lessons' },
+      //           sections: '$sections',
+      //         },
+      //         '$doc',
+      //       ],
+      //     },
+      //   },
+      // },
+    ])
+
+    res.json(course)
+  }
 })
 
 router.get('/', async (req, res) => {

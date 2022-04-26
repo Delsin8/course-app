@@ -1,13 +1,8 @@
-import { IFilter } from '../../pages/Course/CoursesPage'
 import style from './filter.module.scss'
 
 interface s {
   setFilters: any
   courseAmount: { name: string; amount: any }[]
-}
-
-const calculateAmount = (filterItem: IFilter) => {
-  // return
 }
 
 const Filter: React.FC<s> = ({ setFilters, courseAmount }) => {

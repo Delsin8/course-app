@@ -1,7 +1,7 @@
-import { IFilter } from '../../pages/Course/CoursesPage'
+import { filter } from '../../../types'
 import style from './filter.module.scss'
 
-const FilterItem: React.FC<IFilter> = ({ type, value }) => {
+const FilterItem: React.FC<filter> = ({ type, value }) => {
   return (
     <div className={style.filterItem}>
       {(type === 'price_from' && 'from') ||

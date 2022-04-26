@@ -11,12 +11,13 @@ import HomePage from './pages/Home/HomePage'
 import SigninPage from './pages/Auth/SigninPage'
 import SignupPage from './pages/Auth/SignupPage'
 import LessonPage from './pages/Lesson/Lesson'
+// import UserPage from './pages/User/UserPage'
 
 const App = () => {
   return (
     <>
       <Header />
-      <CoursePage />
+      <CoursesPage />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/course" element={<CoursePage />} />

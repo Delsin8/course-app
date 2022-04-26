@@ -1,10 +1,11 @@
 import style from './course.module.scss'
-import { Course as ICourse } from '../../../types'
+import { Course as ICourse, course2, filter } from '../../../types'
 import Course from '../../components/course/Course'
 import Layout from '../../layouts/Layout/Layout'
 import FilterItem from '../../components/filter/FilterItem'
 import Filter from '../../components/filter/Filter'
 import { useEffect, useState } from 'react'
+import { getFilteredCourses } from '../../functions/filter'
 
 interface ICourse2 extends ICourse {
   avg_rating: number
@@ -13,13 +14,8 @@ interface ICourse2 extends ICourse {
   duration: number
 }
 
-export interface IFilter {
-  type: 'price_from' | 'price_to' | 'rating' | 'duration'
-  value: any
-}
-
 const CoursesPage = () => {
-  const [courses, setCourses] = useState<ICourse2[]>([])
+  const [courses, setCourses] = useState<course2[]>([])
   useEffect(() => {
     const url = 'http://localhost:5000/api/courses?full=1'
     const options: RequestInit = {
@@ -37,10 +33,10 @@ const CoursesPage = () => {
   }, [])
 
   // filters
-  const [filters, setFilters] = useState<IFilter[]>([])
+  const [filters, setFilters] = useState<filter[]>([])
 
   const handleSetFilters = (
-    newFilter: IFilter,
+    newFilter: filter,
     e?: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (newFilter.type !== 'duration') {
@@ -60,45 +56,6 @@ const CoursesPage = () => {
       return
     }
     setFilters([...filters, newFilter])
-  }
-
-  const getFilteredCourses = () => {
-    let filtered = [...courses]
-
-    // price from
-    const price_from = filters.find(f => f.type === 'price_from')
-    if (price_from)
-      filtered = filtered.filter(
-        c => c.price >= filters.find(f => f.type === 'price_from')?.value
-      )
-    // price to
-    const price_to = filters.find(f => f.type === 'price_to')
-    if (price_to)
-      filtered = filtered.filter(
-        c => c.price <= filters.find(f => f.type === 'price_to')?.value
-      )
-    // rating
-    const rating = filters.find(f => f.type === 'rating')
-    if (rating)
-      filtered = filtered.filter(
-        c => c.avg_rating >= filters.find(f => f.type === 'rating')?.value
-      )
-
-    // duration
-    const durationArr: string[] = []
-    filters.map(f => f.type === 'duration' && durationArr.push(f.value))
-    if (durationArr.length > 0) {
-      filtered = filtered.filter(
-        c =>
-          (durationArr.find(d => d === 'short') && c.duration < 6 * 60) ||
-          (durationArr.find(d => d === 'medium')
-            ? c.duration > 6 * 60 && c.duration < 12 * 60
-            : false) ||
-          (durationArr.find(d => d === 'long') && c.duration > 12 * 60)
-      )
-    }
-
-    return filtered
   }
 
   const coursesAmount = () => {
@@ -126,15 +83,16 @@ const CoursesPage = () => {
       // duration
       {
         name: 'duration_short',
-        amount: courses.filter(c => c.duration < 6).length,
+        amount: courses.filter(c => c.duration < 6 * 60).length,
       },
       {
         name: 'duration_medium',
-        amount: courses.filter(c => c.duration > 6 && c.duration < 12).length,
+        amount: courses.filter(c => c.duration > 6 * 60 && c.duration < 12 * 60)
+          .length,
       },
       {
         name: 'duration_long',
-        amount: courses.filter(c => c.duration > 6).length,
+        amount: courses.filter(c => c.duration > 12 * 60).length,
       },
     ]
 
@@ -148,7 +106,6 @@ const CoursesPage = () => {
       {/* filter */}
       <div className={style.mainSection}>
         <Filter setFilters={handleSetFilters} courseAmount={coursesAmount()} />
-        {/* courses */}
         {/* filter items */}
         <div>
           <div className={style.filterItems}>
@@ -157,13 +114,13 @@ const CoursesPage = () => {
             ))}
           </div>
           <div className={style.courses}>
-            {getFilteredCourses().map(course => (
+            {getFilteredCourses(courses, filters).map(course => (
               <Course
                 key={course._id}
                 {...course}
                 lessons={course.lessons}
                 duration={course.duration}
-                rating={course.avg_rating}
+                avg_rating={course.avg_rating}
                 students={566}
                 votes={course.votes}
               />

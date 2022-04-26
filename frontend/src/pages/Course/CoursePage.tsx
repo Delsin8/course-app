@@ -9,7 +9,7 @@ import { AiFillStar, AiOutlineClockCircle, AiFillHeart } from 'react-icons/ai'
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { countHours } from '../../components/course/Course'
 import { useEffect, useState } from 'react'
-import { Course, course2 } from '../../../types'
+import { Course, course2, section } from '../../../types'
 import Title from '../../components/typography/Title'
 import { client } from '../../api/client'
 
@@ -20,15 +20,8 @@ export interface d {
   duration: number
 }
 
-export interface ISection {
-  title: string
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'All levels'
-  lessonsAmount: number
-  duration: number
-}
-
 interface course3 extends Course {
-  sections: ISection[]
+  sections: section[]
 }
 
 const Course = () => {

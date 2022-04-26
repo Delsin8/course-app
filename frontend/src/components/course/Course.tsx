@@ -13,25 +13,37 @@ export const countHours = (d: number) => {
   return duration
 }
 
-const Course: React.FC<course2 & Course> = ({
+const Course: React.FC<course2> = ({
   authors,
   description,
   duration,
   lessons,
   price,
-  rating,
+  avg_rating,
   students,
   title,
   votes,
 }) => {
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} title={title}>
       {/* img */}
       <div className={style.imageWrapper}>
         <img src="/images/3.jfif" />
       </div>
       {/* title */}
-      <h3 style={{ textAlign: 'center', margin: '4px 0' }}>{title}</h3>
+      <h4
+        style={{
+          padding: '0 4px',
+          textAlign: 'center',
+          margin: '4px 0',
+          width: '98%',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {title}
+      </h4>
       {/* stats */}
       <div
         style={{
@@ -52,7 +64,9 @@ const Course: React.FC<course2 & Course> = ({
         </div>
         <div>
           <div className={style.stat} style={{ justifyContent: 'end' }}>
-            {rating === null ? 'not rated' : `${rating.toFixed(1)}(${votes})`}
+            {avg_rating === null
+              ? 'not rated'
+              : `${avg_rating.toFixed(1)}(${votes})`}
             <AiFillStar />
           </div>
           <div className={style.stat}>
