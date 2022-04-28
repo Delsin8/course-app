@@ -11,7 +11,7 @@ const Filter: React.FC<s> = ({ setFilters, courseAmount }) => {
       {/* price */}
       <div className={style.filterWrapper}>
         <div style={{ textAlign: 'center' }}>Price</div>
-        <div style={{ display: 'flex', gap: '4px' }}>
+        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
           <input
             id="price_from"
             name="price_from"

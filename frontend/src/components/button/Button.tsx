@@ -27,8 +27,7 @@ export const ContainedButton: React.FC<containedButton> = ({
   children,
   color,
   backgroundColor,
-  paddingHorizontal,
-  paddingVertical,
+  padding,
   margin,
 }) => {
   return (
@@ -38,7 +37,7 @@ export const ContainedButton: React.FC<containedButton> = ({
         style={{
           color,
           backgroundColor: `${backgroundColor}`,
-          padding: `${paddingVertical + ' ' + paddingHorizontal}`,
+          padding: `${padding}`,
           margin: `${margin}`,
         }}
       >

@@ -1,11 +1,15 @@
 import style from './course.module.scss'
-import { Course as ICourse, course2, filter } from '../../../types'
+import { course, Course as ICourse, course2, filter } from '../../../types'
 import Course from '../../components/course/Course'
 import Layout from '../../layouts/Layout/Layout'
 import FilterItem from '../../components/filter/FilterItem'
 import Filter from '../../components/filter/Filter'
 import { useEffect, useState } from 'react'
-import { getFilteredCourses } from '../../functions/filter'
+import { getCoursesAmount, getFilteredCourses } from '../../functions/filter'
+import _ from 'lodash'
+import { order, Sort, sortBy } from '../../components/sortingWindow/sort.types'
+import SortingWindow from '../../components/sortingWindow/SortingWindow'
+import Pagination from './Pagination'
 
 interface ICourse2 extends ICourse {
   avg_rating: number
@@ -16,6 +20,7 @@ interface ICourse2 extends ICourse {
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState<course2[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const url = 'http://localhost:5000/api/courses?full=1'
     const options: RequestInit = {
@@ -25,8 +30,10 @@ const CoursesPage = () => {
     }
     const fetchCourses = async () => {
       const response = await fetch(url, options)
-      if (response.ok) setCourses(await response.json())
-      else console.log('Something went wrong')
+      if (response.ok) {
+        setCourses(await response.json())
+        setIsLoading(false)
+      } else console.log('Something went wrong')
     }
 
     fetchCourses()
@@ -35,10 +42,7 @@ const CoursesPage = () => {
   // filters
   const [filters, setFilters] = useState<filter[]>([])
 
-  const handleSetFilters = (
-    newFilter: filter,
-    e?: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleSetFilters = (newFilter: filter) => {
     if (newFilter.type !== 'duration') {
       const filtered = filters.filter(f => f.type !== newFilter.type)
       setFilters([...filtered, newFilter])
@@ -49,7 +53,6 @@ const CoursesPage = () => {
       f => f.type === 'duration' && f.value === newFilter.value
     )
     if (exists) {
-      // && !e?.target.checked
       const index = filters.indexOf(exists)
       const [removedFilter] = filters.splice(index, 1)
       setFilters(filters.filter(f => f != removedFilter))
@@ -58,63 +61,88 @@ const CoursesPage = () => {
     setFilters([...filters, newFilter])
   }
 
-  const coursesAmount = () => {
-    const items: { name: string; amount: any }[] = [
-      {
-        name: 'rating_all',
-        amount: courses.length,
-      },
-      {
-        name: 'rating_3',
-        amount: courses.filter(c => c.avg_rating >= 3).length,
-      },
-      {
-        name: 'rating_35',
-        amount: courses.filter(c => c.avg_rating >= 3.5).length,
-      },
-      {
-        name: 'rating_4',
-        amount: courses.filter(c => c.avg_rating >= 4).length,
-      },
-      {
-        name: 'rating_45',
-        amount: courses.filter(c => c.avg_rating >= 4.5).length,
-      },
-      // duration
-      {
-        name: 'duration_short',
-        amount: courses.filter(c => c.duration < 6 * 60).length,
-      },
-      {
-        name: 'duration_medium',
-        amount: courses.filter(c => c.duration > 6 * 60 && c.duration < 12 * 60)
-          .length,
-      },
-      {
-        name: 'duration_long',
-        amount: courses.filter(c => c.duration > 12 * 60).length,
-      },
-    ]
+  // sorting
+  const [showSortingWindow, setShowSortingWindow] = useState(false)
 
-    return items
+  const defaultSort: Sort = { sortBy: 'students', order: 'desc' }
+  const [sort, setSort] = useState<Sort>(defaultSort)
+
+  const getPreparedCourses = (
+    courses: course2[],
+    filters: filter[],
+    sort: Sort
+  ) => {
+    const filtered = getFilteredCourses(courses, filters)
+    const sorted = _.orderBy(filtered, sort.sortBy, sort.order)
+
+    // const paginated = sorted.slice(indexOfFirstCourse, indexOfLastCourse)
+
+    return sorted
   }
 
+  const handleSetSort = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const target = e.target as typeof e.target & {
+      sortBy: { value: sortBy }
+      order: { value: order }
+    }
+
+    const newSorting: Sort = {
+      sortBy: target.sortBy.value,
+      order: target.order.value,
+    }
+
+    setSort(newSorting)
+  }
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const [coursesPerPage, setCoursesPerPage] = useState(3)
+  const indexOfLastCourse = currentPage * coursesPerPage
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage
+
+  // get final version of courses
+  const getCourses = (courses: course2[], filters: filter[], sort: Sort) => {
+    const finalCourses = getPreparedCourses(courses, filters, sort)
+    return finalCourses.slice(indexOfFirstCourse, indexOfLastCourse)
+  }
+
+  if (isLoading) return <div>Loading</div>
   return (
     <Layout>
-      <button onClick={() => console.log(filters)}>Click</button>
+      <button onClick={() => setSort({ sortBy: 'price', order: 'asc' })}>
+        price asc
+      </button>
       {/* <div className={style.wrapper}> */}
       {/* filter */}
       <div className={style.mainSection}>
-        <Filter setFilters={handleSetFilters} courseAmount={coursesAmount()} />
+        <Filter
+          setFilters={handleSetFilters}
+          courseAmount={getCoursesAmount(courses)}
+        />
         {/* filter items */}
         <div>
           <div className={style.filterItems}>
+            {/*  */}
+            <div
+              onClick={() => setShowSortingWindow(!showSortingWindow)}
+              className={style.sortButton}
+            >
+              Sort
+            </div>
+            {showSortingWindow && (
+              <SortingWindow
+                setSorting={setSort}
+                showWindow={setShowSortingWindow}
+              />
+            )}
+            {/*  */}
             {filters.map(f => (
               <FilterItem key={Math.random()} {...f} />
             ))}
           </div>
           <div className={style.courses}>
-            {getFilteredCourses(courses, filters).map(course => (
+            {getCourses(courses, filters, sort).map(course => (
               <Course
                 key={course._id}
                 {...course}
@@ -126,6 +154,12 @@ const CoursesPage = () => {
               />
             ))}
           </div>
+          <Pagination
+            coursesAmount={getPreparedCourses(courses, filters, sort).length}
+            coursesPerPage={coursesPerPage}
+            currentPage={currentPage}
+            setPage={setCurrentPage}
+          />
         </div>
       </div>
       {/* </div> */}

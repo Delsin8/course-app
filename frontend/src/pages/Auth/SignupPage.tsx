@@ -45,8 +45,7 @@ const SigninPage = () => {
         <ContainedButton
           backgroundColor="#3C3C3C"
           color="white"
-          paddingHorizontal="20px"
-          paddingVertical="6px"
+          padding="6px 20px"
           margin="10px 0"
         >
           Register

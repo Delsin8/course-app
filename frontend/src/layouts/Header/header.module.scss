@@ -26,26 +26,3 @@ ul li a {
 .logo {
   font-size: 32px;
 }
-
-.searchWrapper {
-  display: flex;
-  width: 24%;
-}
-.search {
-  border: 1px solid black;
-  border-radius: $br 0 0 $br;
-  height: 20px;
-  width: 100%;
-  outline: none;
-  padding-left: 10px;
-}
-.searchButton {
-  border: 1px solid black;
-  border-radius: 0 $br $br 0;
-  height: 20px;
-  padding: 1px 2px;
-  cursor: pointer;
-}
-.searchButton:hover {
-  background: rgb(244, 243, 243);
-}

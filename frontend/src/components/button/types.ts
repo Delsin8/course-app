@@ -1,7 +1,6 @@
 export interface button {
   color: string
-  paddingHorizontal?: string
-  paddingVertical?: string
+  padding?: string
   margin?: string
   big?: boolean
 }

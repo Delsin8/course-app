@@ -60,8 +60,10 @@
 }
 
 .filterItems {
+  position: relative;
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .centered {
@@ -78,4 +80,26 @@
 .stat {
   display: flex;
   align-items: center;
+}
+
+.sortButton {
+  cursor: pointer;
+}
+
+// pagination
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.paginationItem {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+.paginationItemActive {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
