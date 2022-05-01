@@ -1,6 +1,5 @@
 import React from 'react'
-import style from './section.module.scss'
-import { d } from '../../pages/Course/CoursePage'
+import style from './course.module.scss'
 import CountTime from '../../utils/countTime'
 import { section } from '../../../types'
 

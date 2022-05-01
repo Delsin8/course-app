@@ -18,7 +18,7 @@ interface ICourse2 extends ICourse {
   duration: number
 }
 
-const CoursesPage = () => {
+const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
   const [courses, setCourses] = useState<course2[]>([])
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
@@ -97,7 +97,7 @@ const CoursesPage = () => {
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1)
-  const [coursesPerPage, setCoursesPerPage] = useState(3)
+  const coursesPerPage = 5
   const indexOfLastCourse = currentPage * coursesPerPage
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage
 
@@ -109,7 +109,7 @@ const CoursesPage = () => {
 
   if (isLoading) return <div>Loading</div>
   return (
-    <Layout>
+    <Layout big>
       <button onClick={() => setSort({ sortBy: 'price', order: 'asc' })}>
         price asc
       </button>

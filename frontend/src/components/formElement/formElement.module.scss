@@ -1,14 +1,26 @@
+@use '../../styles/mixins';
+
 .wrapper {
   margin: 12px 0;
 }
 
 .formElement {
-  width: 18%;
+  width: 100%;
   border: none;
   border-bottom: 1px solid #5a5a5a;
   outline: none;
   font-size: 16px;
   padding-bottom: 4px;
+
+  @include mixins.md {
+    width: 80%;
+  }
+  @include mixins.lg {
+    width: 50%;
+  }
+  @include mixins.xxl {
+    width: 40%;
+  }
 }
 .formElement::placeholder {
   color: #5a5a5a;

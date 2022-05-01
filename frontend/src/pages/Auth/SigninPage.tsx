@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ContainedButton } from '../../components/button/Button'
 import FormElement from '../../components/formElement/FormElement'
 import Title from '../../components/typography/Title'
+import Layout from '../../layouts/Layout/Layout'
 import style from './authPages.module.scss'
 
 const initialState = {
@@ -23,28 +24,30 @@ const SigninPage = () => {
   }
 
   return (
-    <div className={style.wrapper}>
-      {/* welcome */}
-      <Title>Welcome</Title>
-      {/* form */}
-      <form onSubmit={e => handleSubmit(e)}>
-        <FormElement name="email" placeholder="Email" />
-        <FormElement name="password" placeholder="Password" />
+    <Layout>
+      <div className={style.wrapper}>
+        {/* welcome */}
+        <Title>Welcome</Title>
+        {/* form */}
+        <form onSubmit={e => handleSubmit(e)}>
+          <FormElement name="email" placeholder="Email" />
+          <FormElement name="password" placeholder="Password" />
 
-        <ContainedButton
-          backgroundColor="#3C3C3C"
-          color="white"
-          padding="6px 20px"
-          margin="10px 0"
-        >
-          Log in
-        </ContainedButton>
-      </form>
+          <ContainedButton
+            backgroundColor="#3C3C3C"
+            color="white"
+            padding="6px 20px"
+            margin="10px 0"
+          >
+            Log in
+          </ContainedButton>
+        </form>
 
-      <div className={style.link}>
-        <Link to="/signup">Don't have an account?</Link>
+        <div className={style.link}>
+          <Link to="/signup">Don't have an account?</Link>
+        </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 

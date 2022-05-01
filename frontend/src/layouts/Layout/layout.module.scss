@@ -1,4 +1,28 @@
+@use '../../styles/mixins' as m;
+
 .layout {
-  width: 60%;
+  width: 95%;
+  padding: 4px;
+  @include m.md {
+    width: 80%;
+  }
+  @include m.lg {
+    width: 70%;
+  }
+  @include m.xl {
+    width: 60%;
+  }
   margin: 0 auto;
+}
+
+.big {
+  @include m.md {
+    width: 95% !important;
+  }
+  @include m.lg {
+    width: 90% !important;
+  }
+  @include m.xl {
+    width: 80% !important;
+  }
 }

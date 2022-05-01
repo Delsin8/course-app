@@ -1,17 +1,4 @@
-.purchaseSection {
-  display: flex;
-  align-items: center;
-  position: fixed;
-  padding: 8px;
-  border-radius: 7px;
-  bottom: 2%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  //   width: 80%;
-  gap: 16px;
-  background: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
+@use '../../styles/mixins' as m;
 
 .infoSection {
   margin-bottom: 1rem;
@@ -29,8 +16,20 @@
 }
 .sections {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 6px;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  @include m.xsm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @include m.md {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @include m.lg {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  @include m.xxl {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }
 
 .box {
@@ -43,14 +42,27 @@
 
 .mainSection {
   display: grid;
-  grid-template-columns: 1fr 5fr;
   gap: 20px;
+  grid-template-columns: 1fr;
+  @include m.lg {
+    grid-template-columns: 1fr 5fr;
+  }
 }
 
 .courses {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: 1fr;
+
+  @include m.sm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @include m.lg {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @include m.xxl {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .commentSection {
@@ -70,20 +82,23 @@
   text-align: center;
 }
 
-.wishlistButtonWrapper {
-  display: flex;
-  align-items: center;
-  box-shadow: 0 0 2px #b9b9b9;
-  border-radius: 6px;
-}
-
-.stat {
-  display: flex;
-  align-items: center;
-}
-
 .sortButton {
   cursor: pointer;
+}
+
+.authorSection {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  @include m.md {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @include m.lg {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @include m.xxl {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 // pagination

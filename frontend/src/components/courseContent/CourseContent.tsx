@@ -3,7 +3,7 @@ import { course, section } from '../../../types'
 import { client } from '../../api/client'
 import style from './courseContent.module.scss'
 
-const CourseContent: React.FC = ({}) => {
+const CourseContent: React.FC<{ inactive?: boolean }> = ({ inactive }) => {
   const [data, setData] = useState<course>()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -27,7 +27,7 @@ const CourseContent: React.FC = ({}) => {
   if (isLoading) return <div>Loading</div>
 
   return (
-    <div className={style.wrapper}>
+    <div className={`${style.wrapper} ${inactive ? style.inactive : ''}`}>
       {data?.sections.map(s => (
         <div className={style.sectionWrapper} key={s._id}>
           <div className={style.title}>{s.title}</div>

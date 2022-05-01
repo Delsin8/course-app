@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as m;
+
 $br: 8px;
 
 .wrapper {
@@ -36,4 +38,11 @@ $br: 8px;
 .lessonDuration {
   font-size: 0.8rem;
   color: grey;
+}
+
+.inactive {
+  display: none;
+  @include m.lg {
+    display: block;
+  }
 }

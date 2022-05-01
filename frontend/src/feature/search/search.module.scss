@@ -1,8 +1,15 @@
+@use '../../styles/mixins' as m;
 $br: 8px;
 
 .searchWrapper {
   display: flex;
-  width: 24%;
+  width: 70%;
+  @include m.lg {
+    width: 40%;
+  }
+  @include m.xxl {
+    width: 30%;
+  }
 }
 .search {
   border: 1px solid black;

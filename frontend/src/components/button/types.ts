@@ -1,4 +1,4 @@
-export interface button {
+export interface button extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color: string
   padding?: string
   margin?: string

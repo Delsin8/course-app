@@ -7,7 +7,7 @@ interface s {
 
 const Filter: React.FC<s> = ({ setFilters, courseAmount }) => {
   return (
-    <div>
+    <div className={style.wrapper}>
       {/* price */}
       <div className={style.filterWrapper}>
         <div style={{ textAlign: 'center' }}>Price</div>

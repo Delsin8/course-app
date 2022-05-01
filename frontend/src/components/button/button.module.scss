@@ -5,6 +5,7 @@ $glowingColor: #e292fe;
 $glowingColor2: #ce4afd;
 
 .btn {
+  white-space: nowrap;
   border-radius: $borderRadius;
   background-color: white;
   font-size: $fontSize;

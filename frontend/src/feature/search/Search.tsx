@@ -1,15 +1,18 @@
 import { useRef } from 'react'
 import { BiSearch } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 import style from './search.module.scss'
 
 const Search = () => {
-  const searchRef = useRef(null)
+  const searchRef = useRef<HTMLInputElement | null>(null)
 
   return (
-    <div className={style.searchWrapper} onClick={() => console.log(searchRef)}>
+    <div className={style.searchWrapper}>
       <input ref={searchRef} className={style.search} placeholder="Search..." />
       <span className={style.searchButton}>
-        <BiSearch />
+        <Link to={`/courses?search=${searchRef.current}`}>
+          <BiSearch />
+        </Link>
       </span>
     </div>
   )

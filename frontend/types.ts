@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export interface Course {
   _id: string
   title: string
@@ -85,4 +87,9 @@ export interface answer {
 export interface filter {
   type: 'price_from' | 'price_to' | 'rating' | 'duration'
   value: any
+}
+
+export interface tab {
+  name: string
+  content: ReactNode
 }

@@ -1,9 +1,12 @@
+@use '../../styles/mixins' as m;
 $br: 8px;
 
 .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: relative;
   padding: 0 5%;
   font-size: 20px;
   border-bottom: 1px solid black;
@@ -25,4 +28,37 @@ ul li a {
 
 .logo {
   font-size: 32px;
+}
+
+.mobileMenuButton {
+  @include m.lg {
+    display: none;
+  }
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  right: 5%;
+
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 100;
+  background-color: white;
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  @include m.lg {
+    display: none;
+  }
+}
+
+.inactive {
+  display: none;
+  @include m.lg {
+    display: block;
+  }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './section.module.scss'
+import style from './course.module.scss'
 import { course2, Course } from '../../../types'
 import { BiBook } from 'react-icons/bi'
 import { AiOutlineClockCircle, AiFillStar } from 'react-icons/ai'

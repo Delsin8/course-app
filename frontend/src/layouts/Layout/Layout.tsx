@@ -1,7 +1,15 @@
 import style from './layout.module.scss'
 
-const Layout: React.FC = ({ children }) => {
-  return <main className={style.layout}>{children}</main>
+interface layout {
+  big?: boolean
+}
+
+const Layout: React.FC<layout> = ({ children, big }) => {
+  return (
+    <main className={`${style.layout} ${big ? style.big : ''}`}>
+      {children}
+    </main>
+  )
 }
 
 export default Layout
