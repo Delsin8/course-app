@@ -33,8 +33,10 @@ const Course = () => {
     }
     const fetchCourse = async () => {
       const response = await fetch(url, options)
-      if (response.ok) setData(await response.json())
-      else console.log('Something went wrong')
+      if (response.ok) {
+        setData(await response.json())
+        setIsLoading(false)
+      } else console.log('Something went wrong')
     }
 
     fetchCourse()

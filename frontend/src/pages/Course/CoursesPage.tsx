@@ -34,13 +34,13 @@ const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
       const response = await fetch(url, options)
       if (response.ok) {
         setCourses(await response.json())
-        const time = 1000
-        function delay(time: number) {
-          return new Promise(resolve => setTimeout(resolve, time))
-        }
+        // const time = 1000
+        // function delay(time: number) {
+        //   return new Promise(resolve => setTimeout(resolve, time))
+        // }
 
-        delay(time).then(() => setIsLoading(false))
-        // setIsLoading(false)
+        // delay(time).then(() => setIsLoading(false))
+        setIsLoading(false)
       } else console.log('Something went wrong')
     }
 
