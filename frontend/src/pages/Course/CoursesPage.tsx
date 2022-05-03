@@ -10,6 +10,7 @@ import _ from 'lodash'
 import { order, Sort, sortBy } from '../../components/sortingWindow/sort.types'
 import SortingWindow from '../../components/sortingWindow/SortingWindow'
 import Pagination from './Pagination'
+import SkeletonCoursesPage from './Skeleton/SkeletonCoursesPage'
 
 interface ICourse2 extends ICourse {
   avg_rating: number
@@ -21,6 +22,7 @@ interface ICourse2 extends ICourse {
 const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
   const [courses, setCourses] = useState<course2[]>([])
   const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     const url = 'http://localhost:5000/api/courses?full=1'
     const options: RequestInit = {
@@ -32,7 +34,13 @@ const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
       const response = await fetch(url, options)
       if (response.ok) {
         setCourses(await response.json())
-        setIsLoading(false)
+        const time = 1000
+        function delay(time: number) {
+          return new Promise(resolve => setTimeout(resolve, time))
+        }
+
+        delay(time).then(() => setIsLoading(false))
+        // setIsLoading(false)
       } else console.log('Something went wrong')
     }
 
@@ -107,7 +115,7 @@ const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
     return finalCourses.slice(indexOfFirstCourse, indexOfLastCourse)
   }
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <SkeletonCoursesPage />
   return (
     <Layout big>
       <button onClick={() => setSort({ sortBy: 'price', order: 'asc' })}>

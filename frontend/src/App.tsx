@@ -17,7 +17,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <LessonPage />
+      <CoursesPage />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/course" element={<CoursePage />} />

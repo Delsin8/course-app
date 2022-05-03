@@ -118,3 +118,15 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+// skeleton
+.skeletonSpace {
+  margin-bottom: 2rem;
+}
+.filterWrapper {
+  display: none;
+
+  @include m.lg {
+    display: inline;
+  }
+}

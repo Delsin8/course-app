@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { Course, course2, section } from '../../../types'
 import Title from '../../components/typography/Title'
 import BuyingWindow from '../../components/course/BuyingWindow'
+import SkeletonCoursePage from './Skeleton/SkeletonCoursePage'
 
 export interface d {
   title: string
@@ -21,6 +22,7 @@ interface course3 extends Course {
 
 const Course = () => {
   const [data, setData] = useState<course3>()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const url = `http://localhost:5000/api/courses/61ebd93d5b288295c5227a2d`
@@ -37,6 +39,8 @@ const Course = () => {
 
     fetchCourse()
   }, [])
+
+  if (isLoading) return <SkeletonCoursePage />
 
   return (
     <Layout>

@@ -1,4 +1,5 @@
 @use '../../styles/mixins' as m;
+@use '../../styles/colors' as c;
 
 $br: 8px;
 
@@ -45,4 +46,11 @@ $br: 8px;
   @include m.lg {
     display: block;
   }
+}
+
+// skeleton ui
+.skeleton {
+  background-color: c.$skeleton;
+  border-radius: $br;
+  min-height: 300px;
 }

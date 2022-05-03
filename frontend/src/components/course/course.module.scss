@@ -157,3 +157,10 @@ $br: 8px;
     font-size: 1.5rem;
   }
 }
+
+// skeleton
+.skeleton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

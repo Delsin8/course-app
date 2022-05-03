@@ -1,0 +1,51 @@
+@use '../../styles/skeleton' as s;
+@use '../../styles/mixins' as m;
+
+.skeleton {
+  background-color: s.$backgroundColor;
+  border-radius: s.$br;
+  margin-bottom: 6px;
+}
+
+.title {
+  height: 20px;
+  width: 30%;
+}
+
+.line {
+  height: 12px;
+  min-width: 80px;
+}
+
+.circle {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+}
+
+// rectangle
+.course {
+  height: 25vh;
+  width: 100%;
+  @include m.lg {
+    height: 20vh;
+  }
+}
+
+.filter {
+  height: 50vh;
+  width: 100%;
+  @include m.lg {
+    height: 40vh;
+  }
+}
+
+// modificators
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.full {
+  width: 100%;
+}

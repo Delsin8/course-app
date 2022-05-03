@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { course, section } from '../../../types'
 import { client } from '../../api/client'
 import style from './courseContent.module.scss'
+import SkeletonCourseContent from './SkeletonCourseContent'
 
 const CourseContent: React.FC<{ inactive?: boolean }> = ({ inactive }) => {
   const [data, setData] = useState<course>()
@@ -16,6 +17,12 @@ const CourseContent: React.FC<{ inactive?: boolean }> = ({ inactive }) => {
 
       if (response.status === 200) {
         setData(response.data)
+        // const time = 30000
+        // function delay(time: number) {
+        //   return new Promise(resolve => setTimeout(resolve, time))
+        // }
+
+        // delay(time).then(() => setIsLoading(false))
         setIsLoading(false)
       }
       // else error
@@ -24,10 +31,13 @@ const CourseContent: React.FC<{ inactive?: boolean }> = ({ inactive }) => {
     fetchCourseContent()
   }, [])
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <SkeletonCourseContent inactive={inactive} />
 
   return (
-    <div className={`${style.wrapper} ${inactive ? style.inactive : ''}`}>
+    <div
+      id="test"
+      className={`${style.wrapper} ${inactive ? style.inactive : ''}`}
+    >
       {data?.sections.map(s => (
         <div className={style.sectionWrapper} key={s._id}>
           <div className={style.title}>{s.title}</div>

@@ -9,7 +9,6 @@ interface qna {
 }
 
 const Qna: React.FC<qna> = ({ lesson, inactive }) => {
-  console.log(lesson)
   if (!lesson) return <span></span>
   return (
     <div
