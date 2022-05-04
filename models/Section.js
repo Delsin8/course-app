@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const objectID = mongoose.Types.ObjectId
+const Lesson = require('./Lesson')
 
 const SectionSchema = new mongoose.Schema(
   {
@@ -18,6 +19,15 @@ const SectionSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 )
+
+SectionSchema.pre('remove', async function (next) {
+  const lessons = await Lesson.find({ section: this._id })
+  lessons.forEach(lesson => {
+    lesson.remove()
+  })
+
+  next()
+})
 
 SectionSchema.virtual('lessons', {
   ref: 'Lesson',

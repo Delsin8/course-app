@@ -9,11 +9,11 @@ const UserPage = () => {
       <div className={style.wrapper}>
         <Title centered>User Settings</Title>
         <form>
-          <FormElement name="first_name" placeholder="First Name" />
+          {/* <FormElement name="first_name" placeholder="First Name" />
           <FormElement name="last_name" placeholder="Last Name" />
           <FormElement name="profession" placeholder="Profession" />
           <FormElement name="country" placeholder="Country" />
-          <FormElement name="birthday" placeholder="Birthday" />
+          <FormElement name="birthday" placeholder="Birthday" /> */}
         </form>
       </div>
     </Layout>

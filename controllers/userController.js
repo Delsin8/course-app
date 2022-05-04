@@ -28,17 +28,8 @@ const signup = async (req, res) => {
     last_name,
   })
   try {
-    // create a wishlist and attach to the user
-    const wishlist = new Wishlist({
-      user: user._id,
-    })
-    user.wishlist = wishlist
     user.save((err, data) => {
       if (err) return res.sendStatus(400)
-
-      wishlist.save(error => {
-        if (error) return res.sendStatus(400)
-      })
       return res.status(200).send(data)
     })
   } catch (err) {
@@ -95,11 +86,14 @@ const updateUser = (req, res) => {
   )
 }
 
-const deleteUser = (req, res) => {
-  User.findByIdAndDelete(req.params.id, (err, doc, res) => {
-    if (err) return res.status(400).send(err)
-    res.status(204).json({ message: 'User was deleted' })
-  })
+const deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+    user.remove()
+    res.sendStatus(204)
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 module.exports = { signup, signin, getUsers, updateUser, deleteUser }

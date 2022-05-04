@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const objectID = mongoose.Types.ObjectId
+const Section = require('./Section')
+const Review = require('./Review')
 
 const CourseSchema = new mongoose.Schema(
   {
@@ -22,6 +24,24 @@ const CourseSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 )
+
+CourseSchema.pre('remove', async function (next) {
+  const sections = await Section.find({ course: this._id })
+  sections.forEach(section => {
+    section.remove()
+  })
+
+  next()
+})
+
+CourseSchema.pre('remove', async function (next) {
+  const reviews = await Review.find({ course: this._id })
+  reviews.forEach(review => {
+    review.remove()
+  })
+
+  next()
+})
 
 CourseSchema.virtual('sections', {
   ref: 'Section',

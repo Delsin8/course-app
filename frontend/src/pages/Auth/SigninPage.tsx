@@ -6,21 +6,12 @@ import Title from '../../components/typography/Title'
 import Layout from '../../layouts/Layout/Layout'
 import style from './authPages.module.scss'
 
-const initialState = {
-  email: '',
-  password: '',
-}
-
 const SigninPage = () => {
-  const [formData, setFormData] = useState(initialState)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { email, password } = e.target as typeof e.target & {
-      email: { value: string }
-      password: { value: string }
-    }
-    setFormData({ email: email.value, password: password.value })
   }
 
   return (
@@ -29,9 +20,13 @@ const SigninPage = () => {
         {/* welcome */}
         <Title>Welcome</Title>
         {/* form */}
-        <form onSubmit={e => handleSubmit(e)}>
-          <FormElement name="email" placeholder="Email" />
-          <FormElement name="password" placeholder="Password" />
+        <form onSubmit={handleSignin}>
+          <FormElement name="email" placeholder="Email" onChange={setEmail} />
+          <FormElement
+            name="password"
+            placeholder="Password"
+            onChange={setPassword}
+          />
 
           <ContainedButton
             backgroundColor="#3C3C3C"

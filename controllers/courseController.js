@@ -279,14 +279,14 @@ const updateCourse = (req, res) => {
 }
 
 const deleteCourse = async (req, res) => {
-  const course = await Course.findById(req.params.id)
-  if (course) {
-    course.delete(err => {
-      if (err) return res.sendStatus(400)
-      return res.json('Course was deleted')
-    })
+  try {
+    const course = await Course.findById(req.params.id)
+    course.remove()
+
+    res.sendStatus(204)
+  } catch (error) {
+    res.status(400).send(error)
   }
-  res.sendStatus(404)
 }
 
 module.exports = {
