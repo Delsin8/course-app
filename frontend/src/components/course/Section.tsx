@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './course.module.scss'
 import CountTime from '../../utils/countTime'
-import { section } from '../../../types'
+import { section } from '../../types'
 
 const Section: React.FC<section> = ({
   title,

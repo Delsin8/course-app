@@ -1,5 +1,5 @@
 import style from './course.module.scss'
-import { course, Course as ICourse, course2, filter } from '../../../types'
+import { course, course as ICourse, course2, filter } from '../../types'
 import Course from '../../components/course/Course'
 import Layout from '../../layouts/Layout/Layout'
 import FilterItem from '../../components/filter/FilterItem'

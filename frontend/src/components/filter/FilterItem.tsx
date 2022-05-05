@@ -1,4 +1,4 @@
-import { filter } from '../../../types'
+import { filter } from '../../types'
 import style from './filter.module.scss'
 
 const FilterItem: React.FC<filter> = ({ type, value }) => {

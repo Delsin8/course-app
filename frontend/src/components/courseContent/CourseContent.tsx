@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { course, section } from '../../../types'
+import { course, section } from '../../types'
 import { client } from '../../api/client'
 import style from './courseContent.module.scss'
 import SkeletonCourseContent from './SkeletonCourseContent'

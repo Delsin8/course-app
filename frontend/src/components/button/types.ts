@@ -1,8 +1,9 @@
-export interface button extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface button {
   color: string
   padding?: string
   margin?: string
   big?: boolean
+  children?: React.ReactNode
 }
 
 export interface outlinedButton extends button {

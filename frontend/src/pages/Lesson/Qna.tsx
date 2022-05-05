@@ -1,5 +1,5 @@
 import { ReactHTMLElement } from 'react'
-import { lesson } from '../../../types'
+import { lesson } from '../../types'
 import Question from '../../components/qna/Question'
 import style from './lesson.module.scss'
 

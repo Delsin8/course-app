@@ -1,4 +1,4 @@
-import { course2, filter } from '../../types'
+import { course2, filter } from '../types'
 
 export const getFilteredCourses = (courses: course2[], filters: filter[]) => {
   return courses.filter(c => {

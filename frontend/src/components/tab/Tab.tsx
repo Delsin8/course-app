@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { tab as ITab } from '../../../types'
+import { tab as ITab } from '../../types'
 import style from './tab.module.scss'
 
 interface tab {

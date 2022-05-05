@@ -1,44 +1,37 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "start": "webpack serve --config webpack.config.js --hot --mode development",
-    "dev": "webpack --config webpack.config.js --mode development",
-    "build": "webpack --config webpack.config.js --mode production"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-redux": "^7.1.22",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.0",
+    "@types/node": "^16.11.33",
+    "@types/react": "^18.0.8",
+    "@types/react-dom": "^18.0.3",
     "@types/react-router-dom": "^5.3.3",
-    "react": "^17.0.2",
-    "react-content-loader": "^6.2.0",
-    "react-dom": "^17.0.2",
+    "dotenv": "^16.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-icons": "^4.3.1",
-    "react-router-dom": "^6.2.1",
-    "sass": "^1.49.0",
-    "webpack": "^5.67.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.3"
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "sass": "^1.51.0",
+    "typescript": "^4.6.4",
+    "web-vitals": "^2.1.4"
   },
-  "devDependencies": {
-    "@babel/core": "^7.16.12",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "babel-loader": "^8.2.3",
-    "css-loader": "^6.5.1",
-    "eslint": "^8.9.0",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "sass-loader": "^12.4.0",
-    "style-loader": "^3.3.1",
-    "ts-loader": "^9.2.6"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [

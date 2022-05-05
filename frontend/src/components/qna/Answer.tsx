@@ -1,4 +1,4 @@
-import { answer } from '../../../types'
+import { answer } from '../../types'
 import style from './qna.module.scss'
 import { HiReply } from 'react-icons/hi'
 

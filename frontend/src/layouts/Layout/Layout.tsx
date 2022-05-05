@@ -2,6 +2,7 @@ import style from './layout.module.scss'
 
 interface layout {
   big?: boolean
+  children?: React.ReactNode
 }
 
 const Layout: React.FC<layout> = ({ children, big }) => {

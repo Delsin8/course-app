@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { question, user } from '../../../types'
+import { question, user } from '../../types'
 import Answer from './Answer'
 import style from './qna.module.scss'
 import { MdQuestionAnswer } from 'react-icons/md'

@@ -4,6 +4,7 @@ interface TitleOptions {
   centered?: boolean
   noMarginBottom?: boolean
   noMarginTop?: boolean
+  children?: React.ReactNode
 }
 
 const Title: React.FC<TitleOptions> = ({

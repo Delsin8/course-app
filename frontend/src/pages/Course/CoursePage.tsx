@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout/Layout'
 import Author from '../../components/author/Author'
 import Comment from '../../components/comment/Comment'
 import { useEffect, useState } from 'react'
-import { Course, course2, section } from '../../../types'
+import { course, course2, section } from '../../types'
 import Title from '../../components/typography/Title'
 import BuyingWindow from '../../components/course/BuyingWindow'
 import SkeletonCoursePage from './Skeleton/SkeletonCoursePage'
@@ -16,7 +16,7 @@ export interface d {
   duration: number
 }
 
-interface course3 extends Course {
+interface course3 extends course {
   sections: section[]
 }
 

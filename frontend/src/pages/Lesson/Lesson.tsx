@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { lesson, tab } from '../../../types'
+import { lesson, tab } from '../../types'
 import { client } from '../../api/client'
 import CourseContent from '../../components/courseContent/CourseContent'
 import Question from '../../components/qna/Question'
 import Tab from '../../components/tab/Tab'
 import Layout from '../../layouts/Layout/Layout'
 import style from './lesson.module.scss'
-import Qna from './qna'
+import Qna from './Qna'
 
 const LessonPage = () => {
   const [lesson, setLesson] = useState<lesson>()
