@@ -1,5 +1,5 @@
 import React from 'react'
-import { outlinedButton, containedButton } from './types'
+import { outlinedButton, containedButton } from './button.types'
 import style from './button.module.scss'
 
 export const OutlinedButton: React.FC<outlinedButton> = ({

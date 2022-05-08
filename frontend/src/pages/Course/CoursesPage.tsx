@@ -11,6 +11,7 @@ import { order, Sort, sortBy } from '../../components/sortingWindow/sort.types'
 import SortingWindow from '../../components/sortingWindow/SortingWindow'
 import Pagination from './Pagination'
 import SkeletonCoursesPage from './Skeleton/SkeletonCoursesPage'
+import { Link, useSearchParams } from 'react-router-dom'
 
 interface ICourse2 extends ICourse {
   avg_rating: number
@@ -19,12 +20,17 @@ interface ICourse2 extends ICourse {
   duration: number
 }
 
-const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
+const CoursesPage: React.FC = () => {
   const [courses, setCourses] = useState<course2[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    const url = 'http://localhost:5000/api/courses?full=1'
+    const search = searchParams.get('search')
+    const url = `http://localhost:5000/api/courses?full=1${
+      search ? `&search=${search}` : ''
+    }
+    `
     const options: RequestInit = {
       headers: {
         'content-type': 'application/json',
@@ -34,18 +40,12 @@ const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
       const response = await fetch(url, options)
       if (response.ok) {
         setCourses(await response.json())
-        // const time = 1000
-        // function delay(time: number) {
-        //   return new Promise(resolve => setTimeout(resolve, time))
-        // }
-
-        // delay(time).then(() => setIsLoading(false))
         setIsLoading(false)
       } else console.log('Something went wrong')
     }
 
     fetchCourses()
-  }, [])
+  }, [searchParams])
 
   // filters
   const [filters, setFilters] = useState<filter[]>([])
@@ -118,9 +118,7 @@ const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
   if (isLoading) return <SkeletonCoursesPage />
   return (
     <Layout big>
-      <button onClick={() => setSort({ sortBy: 'price', order: 'asc' })}>
-        price asc
-      </button>
+      <button onClick={() => console.log()}>price asc</button>
       {/* <div className={style.wrapper}> */}
       {/* filter */}
       <div className={style.mainSection}>
@@ -151,15 +149,20 @@ const CoursesPage: React.FC<{ search?: string }> = ({ search }) => {
           </div>
           <div className={style.courses}>
             {getCourses(courses, filters, sort).map(course => (
-              <Course
+              <Link
                 key={course._id}
-                {...course}
-                lessons={course.lessons}
-                duration={course.duration}
-                avg_rating={course.avg_rating}
-                students={566}
-                votes={course.votes}
-              />
+                to={`/courses/${course._id}`}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <Course
+                  {...course}
+                  lessons={course.lessons}
+                  duration={course.duration}
+                  avg_rating={course.avg_rating}
+                  students={566}
+                  votes={course.votes}
+                />
+              </Link>
             ))}
           </div>
           <Pagination

@@ -1,0 +1,22 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.review {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 1%;
+}
+.review:hover {
+  box-shadow: 0 0 0 0.5px black;
+  border-radius: 4px;
+}
+
+.star {
+  font-size: 2rem;
+}
+.star:hover {
+  color: rgb(105, 105, 105);
+}

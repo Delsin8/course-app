@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { client } from '../../api/client'
 import { ContainedButton } from '../../components/button/Button'
 import FormElement from '../../components/formElement/FormElement'
 import Title from '../../components/typography/Title'
@@ -10,8 +11,15 @@ const SigninPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSignin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const response = await client.post(
+      'http://localhost:5000/api/users/signin',
+      JSON.stringify({ email, password })
+    )
+    if (response.data) {
+      localStorage.setItem('token', JSON.stringify(response.data.token))
+    }
   }
 
   return (

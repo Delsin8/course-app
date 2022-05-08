@@ -1,5 +1,5 @@
 @use '../../styles/mixins' as m;
-@use '../../styles/colors' as c;
+@use '../../styles/skeleton' as s;
 
 $br: 8px;
 
@@ -50,7 +50,7 @@ $br: 8px;
 
 // skeleton ui
 .skeleton {
-  background-color: c.$skeleton;
+  background-color: s.$backgroundColor;
   border-radius: $br;
   min-height: 300px;
 }

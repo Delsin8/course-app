@@ -2,10 +2,10 @@ import {
   SkeletonCircle,
   SkeletonLine,
   SkeletonTitle,
-} from '../Skeleton/Skeleton'
-import style from './comment.module.scss'
+} from '../skeleton/Skeleton'
+import style from './review.module.scss'
 
-const SkeletonComment = () => {
+const SkeletonReview = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.userSection}>
@@ -14,11 +14,11 @@ const SkeletonComment = () => {
       </div>
       <div style={{ flex: 1 }}>
         {[0, 1, 2, 3, 4].map(c => (
-          <SkeletonLine key={`comment_line${c}`} />
+          <SkeletonLine key={`review_line${c}`} />
         ))}
       </div>
     </div>
   )
 }
 
-export default SkeletonComment
+export default SkeletonReview

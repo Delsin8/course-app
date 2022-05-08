@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { lesson, tab } from '../../types'
 import { client } from '../../api/client'
 import CourseContent from '../../components/courseContent/CourseContent'
-import Question from '../../components/qna/Question'
 import Tab from '../../components/tab/Tab'
 import Layout from '../../layouts/Layout/Layout'
 import style from './lesson.module.scss'
@@ -15,17 +14,16 @@ const LessonPage = () => {
   const tabs: tab[] = [
     {
       name: 'Course content',
-      content: <CourseContent />,
+      content: <CourseContent courseID={lesson?.section.course} />,
     },
     {
       name: 'Q&A',
       content: <Qna lesson={lesson} />,
     },
   ]
-
   useEffect(() => {
     const fetchLesson = async () => {
-      const id = '625fbdaefafd1addcb318891'
+      const id = window.location.pathname.split('/').pop()
       const response = await client.get(
         `http://localhost:5000/api/lessons/${id}?full=1`
       )
@@ -57,7 +55,7 @@ const LessonPage = () => {
           <Qna lesson={lesson} inactive />
         </div>
         {/* section */}
-        <CourseContent inactive />
+        <CourseContent courseID={lesson?.section.course} inactive />
       </div>
     </Layout>
   )

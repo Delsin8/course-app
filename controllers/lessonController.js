@@ -29,6 +29,9 @@ const getLesson = (req, res) => {
               },
             ],
           },
+          {
+            path: 'section',
+          },
         ])
         .exec((err, data) => {
           if (err) return res.status(400).json(err)

@@ -5,11 +5,12 @@ const {
   updatePurchasedCourse,
   deletePurchasedCourse,
 } = require('../controllers/purchasedCourseController')
+const authMiddleware = require('../middlewares/auth.middleware')
 
 const router = Router()
 
-router.post('/', createPurchasedCourse)
-router.get('/:id', getPurchasedCourse)
+router.post('/', authMiddleware, createPurchasedCourse)
+router.get('/', authMiddleware, getPurchasedCourse)
 router.put('/:id', updatePurchasedCourse)
 router.delete('/:id', deletePurchasedCourse)
 

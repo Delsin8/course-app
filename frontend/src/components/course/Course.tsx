@@ -28,7 +28,7 @@ const Course: React.FC<course2> = ({
     <div className={style.wrapper} title={title}>
       {/* img */}
       <div className={style.imageWrapper}>
-        <img src="/images/3.jfif" />
+        <img src="/images/PEPE.png" />
       </div>
       {/* title */}
       <h4

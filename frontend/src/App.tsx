@@ -10,17 +10,18 @@ import CoursePage from './pages/Course/CoursePage'
 import HomePage from './pages/Home/HomePage'
 import SigninPage from './pages/Auth/SigninPage'
 import SignupPage from './pages/Auth/SignupPage'
-import LessonPage from './pages/Lesson/Lesson'
+import LessonPage from './pages/Lesson/LessonPage'
 // import UserPage from './pages/User/UserPage'
 
 const App = () => {
   return (
     <>
       <Header />
-      <SignupPage />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/course" element={<CoursePage />} />
+        <Route path="/courses/:courseID" element={<CoursePage />} />
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/lessons/:lessonID" element={<LessonPage />} />
 
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />

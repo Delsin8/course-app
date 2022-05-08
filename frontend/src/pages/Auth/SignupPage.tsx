@@ -13,10 +13,10 @@ const SigninPage = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
 
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (password === confirmPassword) {
-      client.post(
+      await client.post(
         'http://localhost:5000/api/users/signup',
         JSON.stringify({ email, first_name: name, password })
       )

@@ -1,5 +1,6 @@
-import style from './comment.module.scss'
+import style from './review.module.scss'
 import { AiFillStar } from 'react-icons/ai'
+import { review } from '../../types'
 
 const comment = {
   username: 'Jobber',
@@ -7,14 +8,27 @@ const comment = {
   date: new Date().toDateString(),
 }
 
-const Comment = () => {
+const Review: React.FC<review> = ({
+  body,
+  user,
+  course,
+  rating,
+  created_at,
+}) => {
+  const rating_arr = []
+  for (let i = 0; i < rating; i++) {
+    rating_arr.push(i)
+  }
+
   return (
     <div className={style.wrapper}>
       <div className={style.userSection}>
         <div className={style.imageWrapper}>
-          <img src="/images/3.jfif" />
+          <img src="/images/PEPE.png" />
         </div>
-        <div style={{ fontWeight: '500' }}>{comment.username}</div>
+        <div className={style.name} style={{ fontWeight: '500' }}>
+          {user.first_name}
+        </div>
       </div>
       <div
         style={{
@@ -26,11 +40,13 @@ const Comment = () => {
       >
         <div className={style.flexCentered}>
           <div className={style.flexCentered}>
-            {[0, 1, 2, 3, 4].map(s => (
+            {rating_arr.map(s => (
               <AiFillStar key={s} />
             ))}
           </div>
-          <div className={style.date}>{comment.date}</div>
+          <div className={style.date}>
+            {new Date(created_at).toDateString()}
+          </div>
         </div>
         <div>{comment.body}</div>
       </div>
@@ -38,4 +54,4 @@ const Comment = () => {
   )
 }
 
-export default Comment
+export default Review

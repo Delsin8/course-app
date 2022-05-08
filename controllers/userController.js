@@ -1,13 +1,12 @@
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { authMiddleware } = require('../middlewares')
 const User = require('../models/User')
 const Course = require('../models/Course')
 const Wishlist = require('../models/Wishlist')
 
 const generateToken = (id, first_name) => {
   const payload = { id, first_name }
-  return jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: 600 })
+  return jwt.sign({ payload }, process.env.SECRET_KEY, { expiresIn: 1600 })
 }
 
 const signup = async (req, res) => {
@@ -30,7 +29,7 @@ const signup = async (req, res) => {
   try {
     user.save((err, data) => {
       if (err) return res.sendStatus(400)
-      return res.status(200).send(data)
+      return res.sendStatus(200)
     })
   } catch (err) {
     res.sendStatus(400).json(err)
@@ -47,12 +46,9 @@ const signin = async (req, res) => {
   if (!checkPassword) return res.status(400).send('Credentials are wrong')
 
   const token = generateToken(user._id, user.first_name)
-  if (!res.cookie.token) {
-    res.cookie('token', token, { maxAge: 10000, httpOnly: true })
-    return res.send(res.cookie.token)
-  }
+  res.json({ token })
 
-  return res.status(200).send('You were logged in')
+  // return res.status(200).send('You were logged in')
 }
 
 // const getUser = router.get('/', (req, res) => {
@@ -67,6 +63,8 @@ const signin = async (req, res) => {
 const getUsers = (req, res) => {
   User.find({})
     .populate('reviews')
+    .populate('courses_owned')
+    .populate('students')
     .exec((err, data) => {
       if (err) return res.status(400).json(err)
       res.json(data)

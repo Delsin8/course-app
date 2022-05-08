@@ -1,0 +1,39 @@
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 30%;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+
+  cursor: pointer;
+}
+
+.header,
+.body {
+  border-bottom: 1px solid rgb(193, 193, 193);
+}
+
+.header,
+.body,
+.footer {
+  padding: 2% 4%;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.centered {
+  text-align: center;
+}

@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema(
     first_name: { type: String, required: true },
     last_name: { type: String },
     profession: { type: String },
+    bio: { type: String },
     balance: { type: Number, default: 0 },
     wishlist: { type: objectID, ref: 'Wishlist' },
     created_at: { type: Date, default: Date.now() },
@@ -56,11 +57,21 @@ UserSchema.virtual('reviews', {
   localField: '_id',
   foreignField: 'user',
 })
-// UserSchema.virtual('courses_owned', {
-//   ref: 'Review',
-//   localField: '_id',
-//   foreignField: 'user',
-// })
+
+UserSchema.virtual('courses_owned', {
+  ref: 'Course',
+  localField: '_id',
+  foreignField: 'authors',
+  count: true,
+})
+
+UserSchema.virtual('students', {
+  ref: 'PurchasedCourse',
+  localField: '_id',
+  foreignField: 'user',
+  count: true,
+})
+
 // UserSchema.virtual('courses_purchased', {
 //   ref: 'Review',
 //   localField: '_id',

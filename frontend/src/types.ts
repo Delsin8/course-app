@@ -4,7 +4,7 @@ export interface course {
   _id: string
   title: string
   description: string
-  authors: string[]
+  authors: author[]
   price: number
   preview_video: string
   language: string
@@ -35,8 +35,9 @@ export interface course {
   _id: string
   title: string
   description: string
-  authors: string[]
+  authors: author[]
   sections: section[]
+  reviews: review[]
   price: number
   preview_video: string
   language: string
@@ -57,6 +58,7 @@ export interface section {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'All levels'
   lessonsAmount: number
   lessons: lesson[]
+  course: string
   duration: number
 }
 
@@ -65,7 +67,7 @@ export interface lesson {
   title: string
   description: string
   duration: number
-  section: string
+  section: section
   questions: question[]
 }
 
@@ -92,4 +94,26 @@ export interface filter {
 export interface tab {
   name: string
   content: ReactNode
+}
+
+export interface wishlist {
+  user: user
+  courses: course[]
+}
+
+export interface author extends user {
+  students: number
+  courses_owned: number
+  bio?: string
+}
+
+export interface review {
+  _id: string
+  body: string
+  course: string
+  user: user
+  rating: 1 | 2 | 3 | 4 | 5
+  is_edited: boolean
+  created_at: Date
+  updated_at: Date
 }

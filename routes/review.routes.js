@@ -4,10 +4,11 @@ const {
   updateReview,
   deleteReview,
 } = require('../controllers/reviewController')
+const authMiddleware = require('../middlewares/auth.middleware')
 
 const router = Router()
 
-router.post('/', createReview)
+router.post('/', authMiddleware, createReview)
 router.put('/:id', updateReview)
 router.delete('/:id', deleteReview)
 

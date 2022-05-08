@@ -1,7 +1,10 @@
 const Review = require('../models/Review')
 
 const createReview = (req, res) => {
-  const { body, user, course, rating } = req.body
+  const { body, course, rating } = req.body
+  const user = req.user.payload.id
+  if (!user) return res.sendStatus(400)
+
   Review.create({ body, user, course, rating }, (err, data) => {
     if (err) return res.status(400).send(err)
     res.status(201).json(data)

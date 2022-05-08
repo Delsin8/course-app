@@ -1,7 +1,9 @@
+const mongoose = require('mongoose')
 const PurchasedCourse = require('../models/PurchasedCourse')
 
 const createPurchasedCourse = async (req, res) => {
-  const { user, course } = req.body
+  const { course } = req.body
+  const user = req.user.payload.id
 
   const candidate = await PurchasedCourse.findOne({ user, course })
   if (candidate)
@@ -13,11 +15,71 @@ const createPurchasedCourse = async (req, res) => {
   })
 }
 
-const getPurchasedCourse = (req, res) => {
-  PurchasedCourse.find({}, (err, data) => {
-    if (err) return res.status(400).json(err)
-    res.json(data)
-  })
+const getPurchasedCourse = async (req, res) => {
+  const user = req.user.payload.id
+
+  const course = await PurchasedCourse.aggregate([
+    {
+      $match: { user: mongoose.Types.ObjectId(user) },
+    },
+    {
+      $lookup: {
+        from: 'courses',
+        let: {
+          courseID: '$course',
+        },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $eq: ['$_id', '$$courseID'],
+              },
+            },
+          },
+          {
+            $lookup: {
+              from: 'sections',
+              pipeline: [
+                {
+                  $match: {
+                    $expr: {
+                      $eq: ['$course', '$$courseID'],
+                    },
+                  },
+                },
+                {
+                  $lookup: {
+                    from: 'lessons',
+                    localField: '_id',
+                    foreignField: 'section',
+                    as: 'lessons',
+                  },
+                },
+              ],
+              as: 'sections',
+            },
+          },
+        ],
+        as: 'course',
+      },
+    },
+    { $unwind: { path: '$course' } },
+    {
+      $replaceRoot: {
+        newRoot: '$course',
+      },
+    },
+  ])
+
+  return res.json(course)
+
+  // PurchasedCourse.find({ user })
+  //   .populate('course')
+  //   .select('course -_id')
+  //   .exec((err, data) => {
+  //     if (err) return res.status(400).json(err)
+  //     res.json(data)
+  //   })
 }
 
 const updatePurchasedCourse = (req, res) => {

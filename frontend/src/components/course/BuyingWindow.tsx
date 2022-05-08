@@ -13,12 +13,24 @@ interface buyingWindow {
 
 const BuyingWindow: React.FC<buyingWindow> = ({ courseID }) => {
   const purchaseCourse = () => {
+    const token = localStorage.getItem('token')
     client.post(
       'http://localhost:5000/api/purchased-courses',
       JSON.stringify({
-        user: '61e6e49cc9e2a8deeea84c1e',
         course: courseID,
-      })
+      }),
+      { headers: { 'x-api-key': token } }
+    )
+  }
+
+  const addToWishlist = () => {
+    const token = localStorage.getItem('token')
+    client.put(
+      'http://localhost:5000/api/wishlists',
+      JSON.stringify({
+        course: courseID,
+      }),
+      { headers: { 'x-api-key': token } }
     )
   }
 
@@ -55,7 +67,7 @@ const BuyingWindow: React.FC<buyingWindow> = ({ courseID }) => {
         </div>
       </div>
 
-      <div className={style.wishlistButtonWrapper}>
+      <div className={style.wishlistButtonWrapper} onClick={addToWishlist}>
         <AiFillHeart style={{ fontSize: '32px' }} />
       </div>
     </div>

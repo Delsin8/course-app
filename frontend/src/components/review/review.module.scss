@@ -19,6 +19,15 @@
   border-radius: 50%;
 }
 
+.name {
+  max-width: 64px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .flexCentered {
   display: flex;
   align-items: center;

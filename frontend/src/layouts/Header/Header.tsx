@@ -1,15 +1,20 @@
 import { Link } from 'react-router-dom'
 import style from './header.module.scss'
 import { GiFlowerTwirl } from 'react-icons/gi'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { OutlinedButton } from '../../components/button/Button'
 import UserProfile from '../../components/userProfile/UserProfile'
 import Search from '../../feature/search/Search'
 import { IoMdMenu } from 'react-icons/io'
+import DisplayWindow from '../../components/display-window/DisplayWindow'
+import PurchasedCourses from '../../feature/purchasedCourse/PurchasedCourses'
+import { VscBook } from 'react-icons/vsc'
+import { GrFavorite } from 'react-icons/gr'
+import Wishlist from '../../feature/wishlist/Wishlist'
 
 const Header = () => {
   const [isOpenedMenu, setIsOpenedMenu] = useState(false)
-  const user = false
+  const user = true
 
   return (
     <header>
@@ -21,7 +26,7 @@ const Header = () => {
             </Link>
           </li>
           <li className={style.inactive}>
-            <Link to="/course">Course</Link>
+            <Link to="/courses">Courses</Link>
           </li>
           <li className={style.inactive}>
             <Link to="/">Github</Link>
@@ -31,8 +36,16 @@ const Header = () => {
         <Search />
         {/* user */}
         {user ? (
-          <UserProfile />
+          // <UserProfile />
+          <div className={`${style.userSection} ${style.inactiveFlex}`}>
+            <DisplayWindow
+              component={<PurchasedCourses />}
+              icon={<VscBook />}
+            />
+            <DisplayWindow component={<Wishlist />} icon={<GrFavorite />} />
+          </div>
         ) : (
+          // <PurchasedCourseMain />
           <Link to="/signup" className={style.inactive}>
             <OutlinedButton color="#7814A7" outlineColor="#7814A7">
               Signup
@@ -46,10 +59,17 @@ const Header = () => {
         {isOpenedMenu && (
           <div className={style.mobileMenu}>
             <div>
-              <Link to="/course">Course</Link>
+              <Link to="/courses">Courses</Link>
             </div>
             <div>
               <Link to="/">Github</Link>
+            </div>
+            <div>
+              <DisplayWindow
+                component={<PurchasedCourses />}
+                icon={<VscBook />}
+              />
+              <DisplayWindow component={<Wishlist />} icon={<GrFavorite />} />
             </div>
           </div>
         )}

@@ -56,6 +56,18 @@ ul li a {
   }
 }
 
+.userSection {
+  display: flex;
+  gap: 10px;
+}
+
+.inactiveFlex {
+  display: none;
+  @include m.lg {
+    display: flex;
+  }
+}
+
 .inactive {
   display: none;
   @include m.lg {

@@ -99,6 +99,54 @@ const getCourse = async (req, res) => {
           as: 'sections',
         },
       },
+      // authors
+      // {
+      //   $unwind: {
+      //     path: '$authors',
+      //     preserveNullAndEmptyArrays: true,
+      //   },
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'users',
+      //     let: {
+      //       authors: '$authors',
+      //     },
+      //     pipeline: [
+      //       {
+      //         $match: {
+      //           $expr: {
+      //             $in: ['$_id', '$$authors'],
+      //           },
+      //         },
+      //       },
+      //       {
+      //         $lookup: {
+      //           from: 'courses',
+      //           pipeline: [
+      //             // {
+      //             //   $unwind: {
+      //             //     path: '$authors',
+      //             //   },
+      //             // },
+      //             {
+      //               $match: {
+      //                 $expr: {
+      //                   authors: {
+      //                     $in: ['authors', '$$authors'],
+      //                     // $in: ['$_id', '$$authors'],
+      //                   },
+      //                 },
+      //               },
+      //             },
+      //           ],
+      //           as: 'test',
+      //         },
+      //       },
+      //     ],
+      //     as: 'authors',
+      //   },
+      // },
       // {
       //   $group: {
       //     _id: '$_id',
@@ -121,8 +169,24 @@ const getCourse = async (req, res) => {
       //   },
       // },
     ])
-
-    res.json(course)
+    const courseWithAuthors = await Course.populate(course, [
+      {
+        path: 'authors',
+        populate: [
+          {
+            path: 'students',
+          },
+          { path: 'courses_owned' },
+        ],
+      },
+      {
+        path: 'reviews',
+        populate: {
+          path: 'user',
+        },
+      },
+    ])
+    res.json(courseWithAuthors)
   }
 }
 
@@ -130,7 +194,7 @@ const getCourses = async (req, res) => {
   // with reviews
   if (req.query.full === '1') {
     // try {
-    const course = await Course.aggregate([
+    const courses = await Course.aggregate([
       {
         $match: {},
       },
@@ -250,8 +314,15 @@ const getCourses = async (req, res) => {
         $unset: 'reviews',
       },
     ])
-
-    res.json(course)
+    if (req.query.search) {
+      const filtratedCourses = courses.filter(c => {
+        const title = c.title.toLowerCase()
+        if (title.includes(req.query.search.toLowerCase())) return true
+        return false
+      })
+      return res.json(filtratedCourses)
+    }
+    res.json(courses)
     // } catch (error) {
     //   res.status(400).json(error)
     // }

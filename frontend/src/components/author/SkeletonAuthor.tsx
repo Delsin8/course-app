@@ -2,7 +2,7 @@ import {
   SkeletonCircle,
   SkeletonLine,
   SkeletonTitle,
-} from '../Skeleton/Skeleton'
+} from '../skeleton/Skeleton'
 import style from './author.module.scss'
 
 const SkeletonAuthor = () => {
