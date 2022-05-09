@@ -4,6 +4,7 @@ import { course2, course } from '../../types'
 import { BiBook } from 'react-icons/bi'
 import { AiOutlineClockCircle, AiFillStar } from 'react-icons/ai'
 import { BsFillPeopleFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 
 export const countHours = (d: number) => {
   const hours = Math.round(d / 60)
@@ -14,6 +15,7 @@ export const countHours = (d: number) => {
 }
 
 const Course: React.FC<course2> = ({
+  _id,
   authors,
   description,
   duration,
@@ -25,7 +27,7 @@ const Course: React.FC<course2> = ({
   votes,
 }) => {
   return (
-    <div className={style.wrapper} title={title}>
+    <Link to={`/courses/${_id}`} className={style.wrapper} title={title}>
       {/* img */}
       <div className={style.imageWrapper}>
         <img src="/images/PEPE.png" />
@@ -77,7 +79,7 @@ const Course: React.FC<course2> = ({
       </div>
       {/* price */}
       <h2 className={style.price}>{price}$</h2>
-    </div>
+    </Link>
   )
 }
 

@@ -28,11 +28,11 @@ const signup = async (req, res) => {
   })
   try {
     user.save((err, data) => {
-      if (err) return res.sendStatus(400)
-      return res.sendStatus(200)
+      if (err) return res.status(400).json(err)
+      return res.json({ message: "You've been successfully registered" })
     })
   } catch (err) {
-    res.sendStatus(400).json(err)
+    res.status(400).json(err)
   }
 }
 
@@ -40,7 +40,7 @@ const signin = async (req, res) => {
   const { email, password } = req.body
   //validate input data
   const user = await User.findOne({ email })
-  if (!user) return res.status(400).send('Credentials are wrong')
+  if (!user) return res.status(400).json({ message: 'Credentials are wrong' })
 
   const checkPassword = await bcryptjs.compare(password, user.password)
   if (!checkPassword) return res.status(400).send('Credentials are wrong')

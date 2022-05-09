@@ -4,7 +4,6 @@ interface ICustomConfig {
 
 interface IConfig {
   method: string
-  //'GET' | 'POST' | 'PUT' | 'DELETE'
   headers: {}
   body?: BodyInit | null | undefined
 }
@@ -14,7 +13,6 @@ interface IClient {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE'
   body?: BodyInit | null | undefined
   customConfig: ICustomConfig
-  // = {}
 }
 
 export const client = async ({

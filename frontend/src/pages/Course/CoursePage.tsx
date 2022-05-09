@@ -17,7 +17,7 @@ interface course3 extends course {
   sections: section[]
 }
 
-const Course = () => {
+const CoursePage = () => {
   const [data, setData] = useState<course3>()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -106,4 +106,4 @@ const Course = () => {
   )
 }
 
-export default Course
+export default CoursePage

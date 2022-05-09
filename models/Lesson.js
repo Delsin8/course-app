@@ -4,9 +4,9 @@ const Question = require('./Question')
 
 const LessonSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    description: { type: String },
-    duration: { type: Number, required: true },
+    title: { type: String, required: true, minlength: 10, maxlength: 60 },
+    description: { type: String, maxlength: 400 },
+    duration: { type: Number, required: true, minlength: 1, maxlength: 600 },
     section: { type: objectID, ref: 'Section', required: true },
     created_at: { type: Date, default: Date.now() },
     updated_at: { type: Date, default: Date.now() },

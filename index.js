@@ -14,7 +14,7 @@ const purchasedCourseRoutes = require('./routes/purchasedCourse.routes')
 const cors = require('cors')
 
 const app = express()
-const port = process.env.PORT || 1000
+const port = process.env.PORT || 5000
 
 app.use(express.json())
 app.use(cookieParser())

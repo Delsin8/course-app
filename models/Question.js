@@ -4,8 +4,8 @@ const Answer = require('./Answer')
 
 const QuestionSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    body: { type: String, required: true },
+    title: { type: String, required: true, minlength: 10, maxlength: 60 },
+    body: { type: String, required: true, minlength: 3, maxlength: 400 },
     user: { type: objectID, ref: 'User', required: true },
     lesson: { type: objectID, ref: 'Lesson', required: true },
     created_at: { type: Date, default: Date.now() },

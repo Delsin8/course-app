@@ -1,4 +1,3 @@
-import FormElement from '../../components/formElement/FormElement'
 import Title from '../../components/typography/Title'
 import Layout from '../../layouts/Layout/Layout'
 import style from './user.module.scss'

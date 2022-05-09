@@ -149,20 +149,15 @@ const CoursesPage: React.FC = () => {
           </div>
           <div className={style.courses}>
             {getCourses(courses, filters, sort).map(course => (
-              <Link
+              <Course
                 key={course._id}
-                to={`/courses/${course._id}`}
-                style={{ textDecoration: 'none', color: 'black' }}
-              >
-                <Course
-                  {...course}
-                  lessons={course.lessons}
-                  duration={course.duration}
-                  avg_rating={course.avg_rating}
-                  students={566}
-                  votes={course.votes}
-                />
-              </Link>
+                {...course}
+                lessons={course.lessons}
+                duration={course.duration}
+                avg_rating={course.avg_rating}
+                students={566}
+                votes={course.votes}
+              />
             ))}
           </div>
           <Pagination

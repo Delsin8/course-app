@@ -4,7 +4,7 @@ const Lesson = require('./Lesson')
 
 const SectionSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
+    title: { type: String, required: true, minlength: 3, maxlength: 30 },
     difficulty: {
       type: String,
       enum: ['Beginner', 'Intermediate', 'Advanced', 'Expert', 'All levels'],

@@ -5,8 +5,13 @@ const Review = require('./Review')
 
 const CourseSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    description: { type: String, required: true },
+    title: { type: String, required: true, minlength: 10, maxlength: 60 },
+    description: {
+      type: String,
+      required: true,
+      minlength: 20,
+      maxlength: 400,
+    },
     authors: [
       {
         type: objectID,
