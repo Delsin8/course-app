@@ -12,16 +12,14 @@ const CourseSchema = new mongoose.Schema(
       minlength: 20,
       maxlength: 400,
     },
-    authors: [
-      {
-        type: objectID,
-        ref: 'User',
-        required: true,
-        validate: a => Array.isArray(a) && a.length > 0,
-      },
-    ],
+    authors: {
+      type: [objectID],
+      ref: 'User',
+      required: true,
+      validate: a => Array.isArray(a) && a.length > 0,
+    },
     price: { type: Number, required: true },
-    preview_video: { type: String, default: './videos/default_preview.smth' },
+    // preview_video: { type: String, default: './videos/default_preview.smth' },
     // publishing_date: { type: Date, required: true },
     // publisher: { type: String, required: true },
 
