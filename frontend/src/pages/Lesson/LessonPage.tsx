@@ -6,10 +6,15 @@ import Tab from '../../components/tab/Tab'
 import Layout from '../../layouts/Layout/Layout'
 import style from './lesson.module.scss'
 import Qna from './Qna'
+import { useParams } from 'react-router-dom'
+import Title from '../../components/typography/Title'
+import Modal from '../../components/modal/Modal'
+import QuestionBody from './Modal/QuestionBody'
 
 const LessonPage = () => {
   const [lesson, setLesson] = useState<lesson>()
   const [isLoading, setIsLoading] = useState(true)
+  const { lessonID } = useParams()
 
   const tabs: tab[] = [
     {
@@ -23,9 +28,8 @@ const LessonPage = () => {
   ]
   useEffect(() => {
     const fetchLesson = async () => {
-      const id = window.location.pathname.split('/').pop()
       const response = await client.get(
-        `http://localhost:5000/api/lessons/${id}?full=1`
+        `http://localhost:5000/api/lessons/${lessonID}?full=1`
       )
 
       if (response.status === 200) {
@@ -36,7 +40,7 @@ const LessonPage = () => {
     }
 
     fetchLesson()
-  }, [])
+  }, [lessonID])
 
   if (isLoading) return <div>Loading</div>
   return (
@@ -52,6 +56,15 @@ const LessonPage = () => {
           {/* tabs */}
           <Tab tabs={tabs} inactive />
           {/* question */}
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <Title>Questions</Title>
+            <Modal
+              body={<QuestionBody lessonID={lesson!._id} />}
+              title={lesson!.title}
+            >
+              Ask a question
+            </Modal>
+          </div>
           <Qna lesson={lesson} inactive />
         </div>
         {/* section */}

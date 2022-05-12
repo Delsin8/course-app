@@ -1,7 +1,9 @@
 const Answer = require('../models/Answer')
 
 const createAnswer = (req, res) => {
-  const { body, user, question } = req.body
+  const user = req.user.payload.id
+
+  const { body, question } = req.body
   Answer.create({ body, user, question }, (err, data) => {
     if (err) return res.status(400).send(err)
     res.status(201).json(data)

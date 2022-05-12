@@ -4,7 +4,7 @@ import { HiReply } from 'react-icons/hi'
 
 const Answer: React.FC<answer> = ({ _id, body, question, user }) => {
   return (
-    <div className={style.answerWrapper}>
+    <div className={style.flex}>
       <div>
         <HiReply style={{ transform: 'rotate(180deg)' }} />
       </div>

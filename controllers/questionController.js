@@ -1,7 +1,9 @@
 const Question = require('../models/Question')
 
 const createQuestion = (req, res) => {
-  const { title, body, user, lesson } = req.body
+  const user = req.user.payload.id
+  const { title, body, lesson } = req.body
+
   Question.create({ title, body, user, lesson }, (err, data) => {
     if (err) return res.status(400).send(err)
     res.status(201).json(data)

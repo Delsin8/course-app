@@ -6,10 +6,11 @@ const {
   updateQuestion,
   deleteQuestion,
 } = require('../controllers/questionController')
+const authMiddleware = require('../middlewares/auth.middleware')
 
 const router = Router()
 
-router.post('/', createQuestion)
+router.post('/', authMiddleware, createQuestion)
 router.get('/:id', getQuestion)
 router.get('/', getQuestions)
 router.put('/:id', updateQuestion)

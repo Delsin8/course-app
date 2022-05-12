@@ -14,6 +14,7 @@ const PurchasedCourseItem: React.FC<purchasedCourseItem> = ({ course }) => {
     if (lesson) return lesson.lessons[0]._id
     return ''
   }
+  console.log(course)
   return (
     <Link
       to={`/lessons/${getLessonID(course)}`}

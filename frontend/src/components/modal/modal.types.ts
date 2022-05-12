@@ -1,17 +1,13 @@
 import { ReactNode } from 'react'
 import { outlinedButton } from '../button/button.types'
 
-interface modalBasic {
+export interface modal {
   title: string
   children?: ReactNode
   body: JSX.Element
 }
 
-export interface modal extends modalBasic {
-  //   colo
-}
-
-export interface modalContainer extends modalBasic {
+export interface modalContainer extends modal {
   //   body: ReactNode
   // footer
   setOpen: React.Dispatch<React.SetStateAction<boolean>>

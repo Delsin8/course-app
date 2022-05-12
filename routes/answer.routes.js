@@ -5,10 +5,11 @@ const {
   updateAnswer,
   deleteAnswer,
 } = require('../controllers/answerController')
+const authMiddleware = require('../middlewares/auth.middleware')
 
 const router = Router()
 
-router.post('/', createAnswer)
+router.post('/', authMiddleware, createAnswer)
 router.get('/', getAnswer)
 router.put('/:id', updateAnswer)
 router.delete('/:id', deleteAnswer)

@@ -24,7 +24,7 @@ const HomePage = () => {
     fetchCourses()
   }, [])
 
-  console.log(courses)
+  // console.log(courses)
 
   const getNewestCourses = (courses: course2[]) => {
     const sortedCourses = _.orderBy(courses, 'created_at', 'desc')

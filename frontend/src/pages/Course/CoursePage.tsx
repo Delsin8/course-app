@@ -3,7 +3,7 @@ import style from './course.module.scss'
 import Layout from '../../layouts/Layout/Layout'
 import Author from '../../components/author/Author'
 import Review from '../../components/review/Review'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { course, course2, section } from '../../types'
 import Title from '../../components/typography/Title'
 import BuyingWindow from '../../components/course/BuyingWindow'
@@ -12,6 +12,13 @@ import { OutlinedButton } from '../../components/button/Button'
 import Modal from '../../components/modal/Modal'
 import ReviewBody, { ratingType } from './Modal/ReviewBody'
 import { client } from '../../api/client'
+import { UserContext } from '../../UserContext'
+import {
+  notifyFailure,
+  notifySuccess,
+} from '../../components/notification/Notification'
+import { ToastContainer } from 'react-toastify'
+import { useParams } from 'react-router-dom'
 
 interface course3 extends course {
   sections: section[]
@@ -20,10 +27,11 @@ interface course3 extends course {
 const CoursePage = () => {
   const [data, setData] = useState<course3>()
   const [isLoading, setIsLoading] = useState(true)
+  const { user } = useContext(UserContext)
+  const { courseID } = useParams()
 
   useEffect(() => {
-    const sectionID = window.location.pathname.split('/').pop()
-    const url = `http://localhost:5000/api/courses/${sectionID}`
+    const url = `http://localhost:5000/api/courses/${courseID}`
     const options: RequestInit = {
       headers: {
         'content-type': 'application/json',
@@ -38,19 +46,24 @@ const CoursePage = () => {
     }
 
     fetchCourse()
-  }, [])
+  }, [isLoading, courseID])
 
   if (isLoading) return <SkeletonCoursePage />
 
   const sendReview = async (text: string, rating: ratingType) => {
-    const url = 'http://localhost:5000/api/reviews'
-    const token = localStorage.getItem('token')
+    try {
+      const url = 'http://localhost:5000/api/reviews'
+      const token = localStorage.getItem('token')
 
-    await client.post(
-      url,
-      JSON.stringify({ body: text, rating, course: data?._id }),
-      { headers: { 'x-api-key': token } }
-    )
+      setIsLoading(true)
+      await client.post(
+        url,
+        JSON.stringify({ body: text, rating, course: data?._id }),
+        { headers: { 'x-api-key': token } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <Layout>
@@ -96,12 +109,20 @@ const CoursePage = () => {
         {data?.reviews.map(c => (
           <Review key={c._id} {...c} />
         ))}
-        <Modal title="Some title" body={<ReviewBody dispatch={sendReview} />}>
-          Write a review
-        </Modal>
+        {user && (
+          <Modal title="Some title" body={<ReviewBody dispatch={sendReview} />}>
+            Write a review
+          </Modal>
+        )}
       </div>
       {/* buying window */}
-      <BuyingWindow courseID={data?._id!} />
+      <BuyingWindow
+        courseID={data?._id!}
+        notifySuccess={notifySuccess}
+        notifyFailure={notifyFailure}
+      />
+
+      <ToastContainer />
     </Layout>
   )
 }

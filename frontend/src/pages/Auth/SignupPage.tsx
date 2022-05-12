@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { client } from '../../api/client'
@@ -7,6 +6,12 @@ import Title from '../../components/typography/Title'
 import Layout from '../../layouts/Layout/Layout'
 import style from './authPages.module.scss'
 
+import { ToastContainer } from 'react-toastify'
+import {
+  notifyFailure,
+  notifySuccess,
+} from '../../components/notification/Notification'
+
 interface input {
   email: string
   first_name: string
@@ -14,7 +19,7 @@ interface input {
   repeat_password: string
 }
 
-const SigninPage = () => {
+const SignupPage = () => {
   const {
     register,
     handleSubmit,
@@ -23,11 +28,16 @@ const SigninPage = () => {
   } = useForm<input>()
 
   const handleSignup: SubmitHandler<input> = async data => {
-    const { email, first_name, password, repeat_password } = data
-    await client.post(
-      'http://localhost:5000/api/users/signup',
-      JSON.stringify({ email, first_name, password })
-    )
+    try {
+      const { email, first_name, password } = data
+      await client.post(
+        'http://localhost:5000/api/users/signup',
+        JSON.stringify({ email, first_name, password })
+      )
+      notifySuccess('You have successfully registered')
+    } catch (error) {
+      notifyFailure('Something went wrong')
+    }
   }
 
   return (
@@ -123,4 +133,4 @@ const SigninPage = () => {
   )
 }
 
-export default SigninPage
+export default SignupPage

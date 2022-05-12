@@ -6,7 +6,7 @@ const Wishlist = require('../models/Wishlist')
 
 const generateToken = (id, first_name) => {
   const payload = { id, first_name }
-  return jwt.sign({ payload }, process.env.SECRET_KEY, { expiresIn: 1600 })
+  return jwt.sign({ payload }, process.env.SECRET_KEY, { expiresIn: 1200 })
 }
 
 const signup = async (req, res) => {
@@ -51,14 +51,12 @@ const signin = async (req, res) => {
   // return res.status(200).send('You were logged in')
 }
 
-// const getUser = router.get('/', (req, res) => {
-//   User.findById()
-//     .populate('reviews')
-//     .exec((err, data) => {
-//       if (err) return res.status(400).json(err)
-//       res.json(data)
-//     })
-// })
+const getUser = (req, res) => {
+  const user = req.user.payload.id
+  const userExists = User.exists({ _id: user })
+  if (userExists) return res.json({ valid: true })
+  return res.json({ valid: false })
+}
 
 const getUsers = (req, res) => {
   User.find({})
@@ -94,4 +92,4 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = { signup, signin, getUsers, updateUser, deleteUser }
+module.exports = { signup, signin, getUser, getUsers, updateUser, deleteUser }

@@ -5,6 +5,14 @@ import Title from '../../components/typography/Title'
 import Layout from '../../layouts/Layout/Layout'
 import style from './authPages.module.scss'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useContext } from 'react'
+import { UserContext } from '../../UserContext'
+
+import { ToastContainer } from 'react-toastify'
+import {
+  notifyFailure,
+  notifySuccess,
+} from '../../components/notification/Notification'
 
 interface input {
   email: string
@@ -15,18 +23,24 @@ const SigninPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<input>()
 
+  const { setUser } = useContext(UserContext)
+
   const handleSignin: SubmitHandler<input> = async data => {
     const { email, password } = data
-    const response = await client.post(
-      'http://localhost:5000/api/users/signin',
-      JSON.stringify({ email, password })
-    )
-    if (response.data) {
+
+    try {
+      const response = await client.post(
+        'http://localhost:5000/api/users/signin',
+        JSON.stringify({ email, password })
+      )
       localStorage.setItem('token', JSON.stringify(response.data.token))
+      setUser(true)
+      notifySuccess('You have successfully logged in')
+    } catch (error) {
+      notifyFailure('Credentials are wrong')
     }
   }
 
@@ -80,6 +94,8 @@ const SigninPage = () => {
           <Link to="/signup">Don't have an account?</Link>
         </div>
       </div>
+
+      <ToastContainer />
     </Layout>
   )
 }

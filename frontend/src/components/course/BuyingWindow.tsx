@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { AiFillHeart, AiFillStar, AiOutlineClockCircle } from 'react-icons/ai'
 import { BiBook } from 'react-icons/bi'
 import { BsFillPeopleFill } from 'react-icons/bs'
@@ -7,31 +7,65 @@ import CountTime from '../../utils/countTime'
 import { OutlinedButton } from '../button/Button'
 import style from './course.module.scss'
 
+import {
+  notifyFailure as failure,
+  notifySuccess as success,
+} from '../../components/notification/Notification'
+import { UserContext } from '../../UserContext'
+
 interface buyingWindow {
   courseID: string
+  notifySuccess: typeof success
+  notifyFailure: typeof failure
 }
 
-const BuyingWindow: React.FC<buyingWindow> = ({ courseID }) => {
+const BuyingWindow: React.FC<buyingWindow> = ({
+  courseID,
+  notifyFailure,
+  notifySuccess,
+}) => {
+  const { user } = useContext(UserContext)
+
   const purchaseCourse = () => {
-    const token = localStorage.getItem('token')
-    client.post(
-      'http://localhost:5000/api/purchased-courses',
-      JSON.stringify({
-        course: courseID,
-      }),
-      { headers: { 'x-api-key': token } }
-    )
+    if (!user) {
+      notifyFailure('You need to be logged in')
+      return
+    }
+
+    try {
+      const token = localStorage.getItem('token')
+      client.post(
+        'http://localhost:5000/api/purchased-courses',
+        JSON.stringify({
+          course: courseID,
+        }),
+        { headers: { 'x-api-key': token } }
+      )
+      notifySuccess('The course has been added to your library')
+    } catch (error) {
+      notifyFailure('Something went wrong')
+    }
   }
 
   const addToWishlist = () => {
-    const token = localStorage.getItem('token')
-    client.put(
-      'http://localhost:5000/api/wishlists',
-      JSON.stringify({
-        course: courseID,
-      }),
-      { headers: { 'x-api-key': token } }
-    )
+    if (!user) {
+      notifyFailure('You need to be logged in')
+      return
+    }
+
+    try {
+      const token = localStorage.getItem('token')
+      client.put(
+        'http://localhost:5000/api/wishlists',
+        JSON.stringify({
+          course: courseID,
+        }),
+        { headers: { 'x-api-key': token } }
+      )
+      notifySuccess('The course has been added to your wishlist')
+    } catch (error) {
+      notifyFailure('Something went wrong')
+    }
   }
 
   return (

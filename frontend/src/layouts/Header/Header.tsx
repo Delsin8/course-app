@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import style from './header.module.scss'
 import { GiFlowerTwirl } from 'react-icons/gi'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { OutlinedButton } from '../../components/button/Button'
 import UserProfile from '../../components/userProfile/UserProfile'
 import Search from '../../feature/search/Search'
@@ -11,10 +11,12 @@ import PurchasedCourses from '../../feature/purchasedCourse/PurchasedCourses'
 import { VscBook } from 'react-icons/vsc'
 import { GrFavorite } from 'react-icons/gr'
 import Wishlist from '../../feature/wishlist/Wishlist'
+import { client } from '../../api/client'
+import { UserContext } from '../../UserContext'
 
 const Header = () => {
   const [isOpenedMenu, setIsOpenedMenu] = useState(false)
-  const user = true
+  const { user } = useContext(UserContext)
 
   return (
     <header>
@@ -36,13 +38,13 @@ const Header = () => {
         <Search />
         {/* user */}
         {user ? (
-          // <UserProfile />
           <div className={`${style.userSection} ${style.inactiveFlex}`}>
             <DisplayWindow
               component={<PurchasedCourses />}
               icon={<VscBook />}
             />
             <DisplayWindow component={<Wishlist />} icon={<GrFavorite />} />
+            <UserProfile />
           </div>
         ) : (
           // <PurchasedCourseMain />
