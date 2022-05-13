@@ -1,4 +1,6 @@
 const Lesson = require('../models/Lesson')
+const Section = require('../models/Section')
+const PurchasedCourse = require('../models/PurchasedCourse')
 
 const createLesson = (req, res) => {
   const { title, description, duration, section } = req.body
@@ -11,6 +13,8 @@ const createLesson = (req, res) => {
 const getLesson = (req, res) => {
   const id = req.params.id
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
+    // const
+
     // with questions
     if (req.query.full === '1') {
       Lesson.findById(id)
@@ -33,9 +37,18 @@ const getLesson = (req, res) => {
             path: 'section',
           },
         ])
-        .exec((err, data) => {
+        .exec(async (err, data) => {
           if (err) return res.status(400).json(err)
-          return res.json(data)
+
+          const { section } = data
+          const { course } = section
+          const user = req.user.payload.id
+          const isOwned = await PurchasedCourse.exists({ course, user })
+
+          if (isOwned) {
+            return res.json(data)
+          }
+          return res.status(401).json({ message: "You don't own this course" })
         })
     } else {
       Lesson.findById(id, (err, data) => {

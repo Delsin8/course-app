@@ -28,9 +28,12 @@ const LessonPage = () => {
   ]
   useEffect(() => {
     const fetchLesson = async () => {
-      const response = await client.get(
-        `http://localhost:5000/api/lessons/${lessonID}?full=1`
-      )
+      const url = `http://localhost:5000/api/lessons/${lessonID}?full=1`
+      const token = localStorage.getItem('token')
+
+      const response = await client.get(url, {
+        headers: { 'x-api-key': token },
+      })
 
       if (response.status === 200) {
         setIsLoading(false)

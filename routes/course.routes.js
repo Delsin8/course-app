@@ -6,7 +6,7 @@ const {
   updateCourse,
   deleteCourse,
 } = require('../controllers/courseController')
-const authMiddleware = require('../middlewares/auth.middleware')
+const auth = require('../middlewares/auth.middleware')
 
 const router = Router()
 

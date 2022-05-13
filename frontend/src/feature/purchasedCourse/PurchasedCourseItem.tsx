@@ -14,13 +14,13 @@ const PurchasedCourseItem: React.FC<purchasedCourseItem> = ({ course }) => {
     if (lesson) return lesson.lessons[0]._id
     return ''
   }
-  console.log(course)
+
   return (
     <Link
       to={`/lessons/${getLessonID(course)}`}
       className={`${style.flex} ${style.item}`}
     >
-      <div>
+      <div onClick={() => console.log(course)}>
         <img src="/images/PEPE.png" className={style.iconPurchasedCourse} />
       </div>
       <div className={style.title}>{course.title}</div>

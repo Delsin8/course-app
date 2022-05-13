@@ -55,20 +55,21 @@ const CoursePage = () => {
       const url = 'http://localhost:5000/api/reviews'
       const token = localStorage.getItem('token')
 
-      setIsLoading(true)
-      await client.post(
+      const res = await client.post(
         url,
         JSON.stringify({ body: text, rating, course: data?._id }),
         { headers: { 'x-api-key': token } }
       )
+      if (res.status < 204) setIsLoading(true)
     } catch (error) {
+      notifyFailure('This course was already reviewed by this account')
       console.log(error)
     }
   }
   return (
     <Layout>
       {/* info */}
-      <div className={style.infoSection}>
+      <div className={style.infoSection} onClick={() => console.log(data)}>
         <Title centered noMarginBottom>
           {data?.title}
         </Title>

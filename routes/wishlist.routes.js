@@ -3,11 +3,11 @@ const {
   getWishlist,
   updateWishlist,
 } = require('../controllers/wishlistController')
-const authMiddleware = require('../middlewares/auth.middleware')
+const auth = require('../middlewares/auth.middleware')
 
 const router = Router()
 
-router.get('/', authMiddleware, getWishlist)
-router.put('/', authMiddleware, updateWishlist)
+router.get('/', auth, getWishlist)
+router.put('/', auth, updateWishlist)
 
 module.exports = router

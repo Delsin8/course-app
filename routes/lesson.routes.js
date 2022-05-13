@@ -5,11 +5,12 @@ const {
   updateLesson,
   deleteLesson,
 } = require('../controllers/lessonController')
+const auth = require('../middlewares/auth.middleware')
 
 const router = Router()
 
 router.post('/', createLesson)
-router.get('/:id', getLesson)
+router.get('/:id', auth, getLesson)
 router.put('/:id', updateLesson)
 router.delete('/:id', deleteLesson)
 

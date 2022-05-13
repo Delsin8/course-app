@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom'
 import style from './header.module.scss'
-import { GiFlowerTwirl } from 'react-icons/gi'
 import { useContext, useEffect, useState } from 'react'
 import { OutlinedButton } from '../../components/button/Button'
 import UserProfile from '../../components/userProfile/UserProfile'
 import Search from '../../feature/search/Search'
-import { IoMdMenu } from 'react-icons/io'
 import DisplayWindow from '../../components/display-window/DisplayWindow'
 import PurchasedCourses from '../../feature/purchasedCourse/PurchasedCourses'
-import { VscBook } from 'react-icons/vsc'
-import { GrFavorite } from 'react-icons/gr'
 import Wishlist from '../../feature/wishlist/Wishlist'
 import { client } from '../../api/client'
 import { UserContext } from '../../UserContext'
+
+import { GiFlowerTwirl } from 'react-icons/gi'
+import { IoMdMenu } from 'react-icons/io'
+import { VscBook } from 'react-icons/vsc'
+import { GrFavorite } from 'react-icons/gr'
+import { HiUserCircle } from 'react-icons/hi'
 
 const Header = () => {
   const [isOpenedMenu, setIsOpenedMenu] = useState(false)
@@ -44,7 +46,10 @@ const Header = () => {
               icon={<VscBook />}
             />
             <DisplayWindow component={<Wishlist />} icon={<GrFavorite />} />
-            <UserProfile />
+            <DisplayWindow
+              component={<UserProfile />}
+              icon={<HiUserCircle style={{ fontSize: '2.5rem' }} />}
+            />
           </div>
         ) : (
           // <PurchasedCourseMain />

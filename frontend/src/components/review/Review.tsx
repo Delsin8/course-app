@@ -48,7 +48,7 @@ const Review: React.FC<review> = ({
             {new Date(created_at).toDateString()}
           </div>
         </div>
-        <div>{comment.body}</div>
+        <div>{body || comment.body}</div>
       </div>
     </div>
   )

@@ -24,8 +24,6 @@ const HomePage = () => {
     fetchCourses()
   }, [])
 
-  // console.log(courses)
-
   const getNewestCourses = (courses: course2[]) => {
     const sortedCourses = _.orderBy(courses, 'created_at', 'desc')
     const highestRatedCourses = sortedCourses.slice(0, 5)
@@ -39,10 +37,12 @@ const HomePage = () => {
     return highestRatedCourses
   }
 
+  if (isLoading) return <div>Loading...</div>
+
   return (
     <Layout>
       {/* hero section */}
-      <div className={style.heroSection}>
+      <div onClick={() => console.log(courses)} className={style.heroSection}>
         <div className={style.heroSectionContent}>
           <img src="/images/hero_section_1.png" />
         </div>

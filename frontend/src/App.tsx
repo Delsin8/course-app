@@ -11,6 +11,7 @@ import LessonPage from './pages/Lesson/LessonPage'
 import { UserContext } from './UserContext'
 import { client } from './api/client'
 import NotFoundPage from './pages/NotFound/NotFoundPage'
+import UserPage from './pages/User/UserPage'
 // import UserPage from './pages/User/UserPage'
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
 
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />
+          <Route path="/user-settings" element={<UserPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
