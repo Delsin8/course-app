@@ -20,7 +20,7 @@ import {
 import { ToastContainer } from 'react-toastify'
 import { useParams } from 'react-router-dom'
 
-interface course3 extends course {
+export interface course3 extends course {
   sections: section[]
 }
 
@@ -31,7 +31,7 @@ const CoursePage = () => {
   const { courseID } = useParams()
 
   useEffect(() => {
-    const url = `http://localhost:5000/api/courses/${courseID}`
+    const url = `http://localhost:5000/api/courses/${courseID}?full=1`
     const options: RequestInit = {
       headers: {
         'content-type': 'application/json',
@@ -118,7 +118,7 @@ const CoursePage = () => {
       </div>
       {/* buying window */}
       <BuyingWindow
-        courseID={data?._id!}
+        course={data!}
         notifySuccess={notifySuccess}
         notifyFailure={notifyFailure}
       />

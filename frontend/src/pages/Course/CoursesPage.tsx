@@ -155,7 +155,7 @@ const CoursesPage: React.FC = () => {
                 lessons={course.lessons}
                 duration={course.duration}
                 avg_rating={course.avg_rating}
-                students={566}
+                students={course.students || 0}
                 votes={course.votes}
               />
             ))}

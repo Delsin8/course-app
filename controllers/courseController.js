@@ -220,20 +220,6 @@ const getCourses = async (req, res) => {
           doc: { $first: '$$ROOT' },
         },
       },
-      // {
-      //   $replaceRoot: {
-      //     newRoot: {
-      //       $mergeObjects: [
-      //         {
-      //           _id: '$_id',
-      //           avg_rating: '$avg_rating',
-      //           votes: '$votes',
-      //         },
-      //         '$doc',
-      //       ],
-      //     },
-      //   },
-      // },
       // lessons
       {
         $lookup: {
@@ -294,6 +280,49 @@ const getCourses = async (req, res) => {
           as: 'sections',
         },
       },
+      // number of students
+      {
+        $lookup: {
+          from: 'purchasedCourse',
+          localField: '_id',
+          foreignField: 'course',
+          let: {
+            courseID: '$_id',
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ['$course', '$$courseID'],
+                },
+              },
+            },
+            {
+              $group: {
+                _id: '$course',
+                students: { $count: {} },
+              },
+            },
+            {
+              $replaceRoot: {
+                newRoot: {
+                  $mergeObjects: {
+                    students: '$students',
+                  },
+                },
+              },
+            },
+          ],
+          as: 'students',
+        },
+      },
+      {
+        $unwind: {
+          path: '$students',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      // final result
       {
         $replaceRoot: {
           newRoot: {
@@ -303,6 +332,7 @@ const getCourses = async (req, res) => {
                 votes: '$votes',
                 duration: { $sum: '$sections.duration' },
                 lessons: { $sum: '$sections.lessons' },
+                students: '$students.students',
               },
               '$doc',
             ],

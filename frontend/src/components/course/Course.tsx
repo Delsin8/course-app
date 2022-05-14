@@ -71,8 +71,10 @@ const Course: React.FC<course2> = ({
               : `${avg_rating.toFixed(1)}(${votes})`}
             <AiFillStar />
           </div>
-          <div className={style.stat}>
-            <span style={{ paddingRight: '1px' }}>{students} students</span>
+          <div className={style.stat} style={{ justifyContent: 'end' }}>
+            <span style={{ paddingRight: '1px' }}>
+              {students || 0} students
+            </span>
             <BsFillPeopleFill />
           </div>
         </div>

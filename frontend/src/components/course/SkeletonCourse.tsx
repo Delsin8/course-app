@@ -1,7 +1,7 @@
 import { SkeletonCircle, SkeletonLine } from '../skeleton/Skeleton'
 import style from './course.module.scss'
 
-const SkeletonSection = () => {
+const SkeletonCourse = () => {
   return (
     <div className={style.skeleton}>
       <SkeletonCircle />
@@ -14,4 +14,4 @@ const SkeletonSection = () => {
   )
 }
 
-export default SkeletonSection
+export default SkeletonCourse

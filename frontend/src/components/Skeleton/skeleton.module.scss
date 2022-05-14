@@ -32,6 +32,11 @@
   }
 }
 
+.bigRectangle {
+  width: 100;
+  height: 50vh;
+}
+
 .filter {
   height: 50vh;
   width: 100%;
@@ -48,4 +53,8 @@
 
 .full {
   width: 100%;
+}
+
+.tall {
+  height: 30px;
 }

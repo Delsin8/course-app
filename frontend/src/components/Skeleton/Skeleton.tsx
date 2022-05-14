@@ -14,8 +14,15 @@ export const SkeletonTitle: React.FC<skeletonTitle> = ({ centered, full }) => {
   )
 }
 
-export const SkeletonLine = () => {
-  return <div className={`${style.skeleton} ${style.line}`}></div>
+interface skeletonLine {
+  tall?: boolean
+}
+export const SkeletonLine: React.FC<skeletonLine> = ({ tall }) => {
+  return (
+    <div
+      className={`${style.skeleton} ${style.line} ${tall ? style.tall : ''}`}
+    ></div>
+  )
 }
 
 export const SkeletonCircle = () => {
@@ -37,4 +44,8 @@ export const SkeletonRectangle: React.FC<skeletonRectangle> = ({
       }`}
     ></div>
   )
+}
+
+export const SkeletonBigRectangle = () => {
+  return <div className={`${style.skeleton} ${style.bigRectangle}`}></div>
 }

@@ -7,6 +7,7 @@ import Layout from '../../layouts/Layout/Layout'
 import { course, course2 } from '../../types'
 import _ from 'lodash'
 import Search from '../../feature/search/Search'
+import SkeletonHomePage from './Skeleton/SkeletonHomePage'
 
 const HomePage = () => {
   const [courses, setCourses] = useState<course2[]>([])
@@ -23,21 +24,38 @@ const HomePage = () => {
 
     fetchCourses()
   }, [])
-
   const getNewestCourses = (courses: course2[]) => {
-    const sortedCourses = _.orderBy(courses, 'created_at', 'desc')
-    const highestRatedCourses = sortedCourses.slice(0, 5)
+    const sortedCourses = _.orderBy(
+      courses,
+      ({ created_at }) => new Date(created_at),
+      'desc'
+    )
+    const newestCourses = sortedCourses.slice(0, 5)
 
-    return highestRatedCourses
+    return newestCourses
   }
   const getHighestRatedCourses = (courses: course2[]) => {
-    const sortedCourses = _.orderBy(courses, 'avg_rating', 'desc')
+    const sortedCourses = _.orderBy(
+      courses,
+      ({ avg_rating }) => avg_rating || '',
+      'desc'
+    )
+    const highestRatedCourses = sortedCourses.slice(0, 5)
+
+    return highestRatedCourses
+  }
+  const getMostPopularCourses = (courses: course2[]) => {
+    const sortedCourses = _.orderBy(
+      courses,
+      ({ students }) => students || '',
+      'desc'
+    )
     const highestRatedCourses = sortedCourses.slice(0, 5)
 
     return highestRatedCourses
   }
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <SkeletonHomePage />
 
   return (
     <Layout>
@@ -55,13 +73,19 @@ const HomePage = () => {
       <Title>Newest courses</Title>
       <div className={style.courses}>
         {getNewestCourses(courses).map(c => (
-          <Course key={`highest_rated_${c._id}`} {...c} />
+          <Course key={`newest_${c._id}`} {...c} />
         ))}
       </div>
       <Title>Highest rated courses</Title>
       <div className={style.courses}>
         {getHighestRatedCourses(courses).map(c => (
           <Course key={`highest_rated_${c._id}`} {...c} />
+        ))}
+      </div>
+      <Title>Post popular courses</Title>
+      <div className={style.courses}>
+        {getMostPopularCourses(courses).map(c => (
+          <Course key={`popular_${c._id}`} {...c} />
         ))}
       </div>
     </Layout>

@@ -3,6 +3,7 @@
 .layout {
   width: 95%;
   padding: 4px;
+
   @include m.md {
     width: 80%;
   }
@@ -12,7 +13,7 @@
   @include m.xl {
     width: 60%;
   }
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
 }
 
 .big {

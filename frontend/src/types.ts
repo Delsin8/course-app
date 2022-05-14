@@ -1,16 +1,22 @@
 import { ReactNode } from 'react'
 
-export interface course {
-  _id: string
-  title: string
-  description: string
-  authors: author[]
-  price: number
-  preview_video: string
-  language: string
-  created_at: Date
-  updated_at: Date
-}
+// export interface course {
+//   _id: string
+//   title: string
+//   description: string
+//   authors: author[]
+//   price: number
+//   lessons: number
+//   //
+//   duration: number
+//   avg_rating: number
+//   votes: number
+//   students: number
+
+//   language: string
+//   created_at: Date
+//   updated_at: Date
+// }
 
 export interface course2 {
   _id: string
@@ -25,9 +31,9 @@ export interface course2 {
   votes: number
   students: number
   //
-  // language: string
-  // created_at: Date
-  // updated_at: Date
+  language: string
+  created_at: Date
+  updated_at: Date
 }
 
 // real one
@@ -41,6 +47,15 @@ export interface course {
   price: number
   preview_video: string
   language: string
+
+  //
+  duration: number
+  avg_rating: number
+  votes: number
+  students: number
+  lessons: number
+  //
+
   created_at: Date
   updated_at: Date
 }
