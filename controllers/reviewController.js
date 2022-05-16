@@ -23,6 +23,15 @@ const createReview = async (req, res) => {
 //     })
 // })
 
+const getReviews = (req, res) => {
+  Review.find({ course: req.params.courseID })
+    .populate('user')
+    .exec((err, data) => {
+      if (err) return res.status(400).json(err)
+      res.json(data)
+    })
+}
+
 const updateReview = (req, res) => {
   const { body, rating } = req.body
 
@@ -44,4 +53,4 @@ const deleteReview = (req, res) => {
   })
 }
 
-module.exports = { createReview, updateReview, deleteReview }
+module.exports = { createReview, getReviews, updateReview, deleteReview }

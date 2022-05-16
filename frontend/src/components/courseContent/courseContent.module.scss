@@ -6,6 +6,10 @@ $br: 8px;
 .wrapper {
   border-radius: $br $br 0 0;
   box-shadow: 0 0 4px grey;
+
+  height: 50vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .sectionWrapper:first-child .title {

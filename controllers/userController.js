@@ -6,7 +6,7 @@ const Wishlist = require('../models/Wishlist')
 
 const generateToken = (id, first_name) => {
   const payload = { id, first_name }
-  return jwt.sign({ payload }, process.env.SECRET_KEY, { expiresIn: 1200 })
+  return jwt.sign({ payload }, process.env.SECRET_KEY, { expiresIn: '1d' })
 }
 
 const signup = async (req, res) => {

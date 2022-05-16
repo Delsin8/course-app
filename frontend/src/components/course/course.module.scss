@@ -11,11 +11,13 @@
 }
 
 .circle {
-  background: #f07d91;
+  flex-shrink: 0;
+  position: relative;
   height: 64px;
   width: 64px;
+
+  background: #f07d91;
   border-radius: 50%;
-  position: relative;
 }
 
 .duration {
@@ -28,6 +30,7 @@
 }
 
 .textContainer {
+  max-width: 150px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -35,11 +38,14 @@
 }
 
 .sectionTitle {
-  font-size: 1.2rem;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .smallFontSize {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .fontItalic {
@@ -99,18 +105,21 @@ $br: 8px;
 
 // buying window
 .purchaseSection {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  // align-items: center;
+  gap: 4px;
   position: fixed;
+  width: 90vw;
+  padding: 10px;
 
-  padding: 8px;
+  // padding: 8px;
   border-radius: 7px;
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  background: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  // background: white;
+  // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   .buyingWindowAdditional {
     display: none;
@@ -119,14 +128,17 @@ $br: 8px;
     }
   }
   @include m.md {
-    gap: 10px;
+    // gap: 10px;
+    width: 60vw;
     bottom: 1%;
   }
   @include m.lg {
-    gap: 12px;
+    // gap: 12px;
+    width: 45vw;
   }
   @include m.xxl {
-    gap: 16px;
+    // gap: 16px;
+    width: 30vw;
   }
 }
 
@@ -156,6 +168,27 @@ $br: 8px;
   @include m.md {
     font-size: 1.5rem;
   }
+}
+
+.btn {
+  width: 100%;
+  height: 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  color: white;
+  font-size: 1rem;
+}
+
+.buy {
+  background-color: black;
+}
+
+.add {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
 }
 
 // skeleton

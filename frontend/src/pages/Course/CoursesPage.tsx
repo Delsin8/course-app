@@ -69,6 +69,12 @@ const CoursesPage: React.FC = () => {
     setFilters([...filters, newFilter])
   }
 
+  const removeFilter = (filterToRemove: filter) => {
+    const filtered = filters.filter(f => f != filterToRemove)
+
+    setFilters(filtered)
+  }
+
   // sorting
   const [showSortingWindow, setShowSortingWindow] = useState(false)
 
@@ -105,7 +111,7 @@ const CoursesPage: React.FC = () => {
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1)
-  const coursesPerPage = 5
+  const coursesPerPage = 12
   const indexOfLastCourse = currentPage * coursesPerPage
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage
 
@@ -118,11 +124,11 @@ const CoursesPage: React.FC = () => {
   if (isLoading) return <SkeletonCoursesPage />
   return (
     <Layout big>
-      <button onClick={() => console.log()}>price asc</button>
       {/* <div className={style.wrapper}> */}
       {/* filter */}
       <div className={style.mainSection}>
         <Filter
+          filters={filters}
           setFilters={handleSetFilters}
           courseAmount={getCoursesAmount(courses)}
         />
@@ -144,7 +150,11 @@ const CoursesPage: React.FC = () => {
             )}
             {/*  */}
             {filters.map(f => (
-              <FilterItem key={Math.random()} {...f} />
+              <FilterItem
+                key={Math.random()}
+                filter={f}
+                removeFilter={removeFilter}
+              />
             ))}
           </div>
           <div className={style.courses}>

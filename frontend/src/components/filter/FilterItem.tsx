@@ -1,9 +1,16 @@
 import { filter } from '../../types'
 import style from './filter.module.scss'
 
-const FilterItem: React.FC<filter> = ({ type, value }) => {
+interface filterItem {
+  filter: filter
+  removeFilter: (f: filter) => void
+}
+
+const FilterItem: React.FC<filterItem> = ({ filter, removeFilter }) => {
+  const { type, value } = filter
+
   return (
-    <div className={style.filterItem}>
+    <div className={style.filterItem} onClick={() => removeFilter(filter)}>
       {(type === 'price_from' && 'from') ||
         (type === 'price_to' && 'to') ||
         type}

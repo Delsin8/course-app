@@ -16,7 +16,7 @@ fetchSections().then(res => {
   const lesson = new Lesson({
     title: faker.lorem.words(getRandomNumber(3, 7)),
     body: faker.lorem.sentences(1, 6),
-    duration: getRandomNumber(1, 600),
+    duration: getRandomNumber(1, 60),
     section: res[getRandomIndex(res.length)],
   })
 

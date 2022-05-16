@@ -6,7 +6,7 @@ const LessonSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, minlength: 10, maxlength: 60 },
     description: { type: String, maxlength: 400 },
-    duration: { type: Number, required: true, minlength: 1, maxlength: 600 },
+    duration: { type: Number, required: true, minlength: 1, maxlength: 60 },
     section: { type: objectID, ref: 'Section', required: true },
     created_at: { type: Date, default: Date.now() },
     updated_at: { type: Date, default: Date.now() },

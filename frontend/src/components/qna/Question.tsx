@@ -41,9 +41,11 @@ const Question: React.FC<question> = ({ _id, answers, body, title, user }) => {
       </div>
       {showAnswers && (
         <div className={style.answersWrapper}>
-          {answers.map(a => (
-            <Answer key={a._id} {...a} />
-          ))}
+          {answers.length > 0 ? (
+            answers.map(a => <Answer key={a._id} {...a} />)
+          ) : (
+            <div>There's no answers yet</div>
+          )}
         </div>
       )}
     </div>

@@ -82,6 +82,31 @@ const getPurchasedCourse = async (req, res) => {
   //   })
 }
 
+const checkPurchase = async (req, res) => {
+  try {
+    const user = req.user.payload.id
+    const course = req.params.id
+
+    PurchasedCourse.findOne({
+      user,
+      course,
+    })
+      .populate({
+        path: 'course',
+        populate: {
+          path: 'sections',
+          populate: 'lessons',
+        },
+      })
+      .exec((err, data) => {
+        if (err) return res.status(400).json(err)
+        return res.json(data)
+      })
+  } catch (error) {
+    res.status(400).json({ message: 'Something went wrong' })
+  }
+}
+
 const updatePurchasedCourse = (req, res) => {
   const { user, course } = req.body
 
@@ -108,4 +133,5 @@ module.exports = {
   getPurchasedCourse,
   updatePurchasedCourse,
   deletePurchasedCourse,
+  checkPurchase,
 }

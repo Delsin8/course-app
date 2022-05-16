@@ -62,6 +62,14 @@ ul li a {
   gap: 10px;
 }
 
+.authButtons {
+  display: flex;
+  gap: 4px;
+  border: 1px solid #d8d6d6;
+  border-radius: 6px;
+  padding: 4px;
+}
+
 .inactiveFlex {
   display: none;
   @include m.lg {

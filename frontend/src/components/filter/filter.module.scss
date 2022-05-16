@@ -2,9 +2,12 @@
 
 .wrapper {
   display: none;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 2rem;
 
   @include m.lg {
-    display: inline;
+    display: flex;
   }
 }
 
@@ -25,18 +28,24 @@
 }
 
 .filterProperties {
-  border: 1px solid black;
-  border-radius: 10px;
+  // border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 0 0 1px grey;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 4px;
+  gap: 6px;
+  padding: 6px;
 }
 
 .priceInput {
-  border: 1px solid grey;
+  border: none;
+  box-shadow: 0 0 1px grey;
   border-radius: 4px;
   width: 42%;
   outline: none;
   padding: 4px;
+}
+
+.sortButton {
+  cursor: pointer;
 }

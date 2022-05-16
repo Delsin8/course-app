@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AiFillHeart, AiFillStar, AiOutlineClockCircle } from 'react-icons/ai'
 import { BiBook } from 'react-icons/bi'
 import { BsFillPeopleFill } from 'react-icons/bs'
@@ -13,6 +13,7 @@ import {
 } from '../../components/notification/Notification'
 import { UserContext } from '../../UserContext'
 import { course, course2 } from '../../types'
+import { Link } from 'react-router-dom'
 
 interface buyingWindow {
   course: course
@@ -26,9 +27,46 @@ const BuyingWindow: React.FC<buyingWindow> = ({
   notifySuccess,
 }) => {
   const { user } = useContext(UserContext)
+  const [purchased, setPurchased] = useState<course>()
+  const [isLoading, setIsLoading] = useState(true)
+
   const { _id, avg_rating, lessons, price, votes, students, duration } = course
-  console.log(course)
-  const purchaseCourse = () => {
+
+  useEffect(() => {
+    const checkPurchase = async () => {
+      if (!user) {
+        setIsLoading(false)
+        return
+      }
+
+      try {
+        const token = localStorage.getItem('token')
+        const url = `http://localhost:5000/api/purchased-courses/check/${_id}`
+        const res = await client.get(url, { headers: { 'x-api-key': token } })
+
+        setIsLoading(false)
+        if (res.status < 204) {
+          setPurchased(res.data.course)
+          return
+        }
+      } catch (error) {
+        console.log(error)
+        setIsLoading(false)
+      }
+    }
+
+    checkPurchase()
+  }, [isLoading])
+
+  const getLessonID = (course: course) => {
+    const lesson = course.sections.find(c => {
+      return c.lessons.find(l => l)
+    })
+    if (lesson) return lesson.lessons[0]._id
+    return ''
+  }
+
+  const purchaseCourse = async () => {
     if (!user) {
       notifyFailure('You need to be logged in')
       return
@@ -36,14 +74,18 @@ const BuyingWindow: React.FC<buyingWindow> = ({
 
     try {
       const token = localStorage.getItem('token')
-      client.post(
+      const res = await client.post(
         'http://localhost:5000/api/purchased-courses',
         JSON.stringify({
           course: _id,
         }),
         { headers: { 'x-api-key': token } }
       )
-      notifySuccess('The course has been added to your library')
+
+      if (res.status < 204) {
+        setIsLoading(true)
+        notifySuccess('The course has been added to your library')
+      }
     } catch (error) {
       notifyFailure('Something went wrong')
     }
@@ -70,46 +112,27 @@ const BuyingWindow: React.FC<buyingWindow> = ({
     }
   }
 
+  if (isLoading) return <span></span>
+
   return (
     <div className={style.purchaseSection}>
-      <div className={style.buyingWindowPrice}>{price}$</div>
-
-      <div className={style.buyButtonWrapper} onClick={purchaseCourse}>
-        <OutlinedButton outlineColor="#9A43B9" color="#9A43B9" glowing>
+      {purchased ? (
+        <Link to={`/lessons/${getLessonID(purchased)}`}>
+          <button className={`${style.btn} ${style.buy}`}>
+            Go to the course
+          </button>
+        </Link>
+      ) : (
+        <button
+          className={`${style.btn} ${style.buy}`}
+          onClick={purchaseCourse}
+        >
           Buy now
-        </OutlinedButton>
-      </div>
-
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <div>
-          <div className={style.stat}>
-            <BiBook />
-            {lessons}{' '}
-            <span className={style.buyingWindowAdditional}>lessons</span>
-          </div>
-          <div className={style.stat}>
-            <AiOutlineClockCircle />
-            {CountTime(duration)}
-          </div>
-        </div>
-        <div>
-          <div className={style.stat}>
-            <AiFillStar />
-            {avg_rating === null
-              ? 'not rated'
-              : `${avg_rating.toFixed(1)}(${votes})`}
-          </div>
-          <div className={style.stat}>
-            <BsFillPeopleFill />
-            {students}{' '}
-            <span className={style.buyingWindowAdditional}>students</span>
-          </div>
-        </div>
-      </div>
-
-      <div className={style.wishlistButtonWrapper} onClick={addToWishlist}>
-        <AiFillHeart style={{ fontSize: '32px' }} />
-      </div>
+        </button>
+      )}
+      <button className={`${style.btn} ${style.add}`} onClick={addToWishlist}>
+        Add to wishlist
+      </button>
     </div>
   )
 }

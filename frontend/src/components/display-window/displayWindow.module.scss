@@ -2,6 +2,8 @@
   position: relative;
   font-size: 1rem;
   z-index: 100;
+
+  padding: 4px 6px 12px 6px;
 }
 
 .icon {
@@ -15,7 +17,6 @@
 // models
 .container {
   position: absolute;
-  top: 3rem;
   right: 0;
   // transform: translate(-50%, 0);
 

@@ -10,11 +10,16 @@ const DisplayWindow: React.FC<displayWindow> = ({ icon, component }) => {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className={style.wrapper}>
-      <div onClick={() => setOpen(!open)} className={style.icon}>
-        {icon}
-      </div>
-      {open && component}
+    <div
+      tabIndex={1}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      className={style.wrapper}
+      // onClick={() => console.log(123)}
+    >
+      <div className={style.icon}>{icon}</div>
+      <div>{open && component}</div>
+      {/* {component} */}
     </div>
   )
 }

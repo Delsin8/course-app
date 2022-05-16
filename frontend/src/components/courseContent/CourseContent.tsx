@@ -41,10 +41,7 @@ const CourseContent: React.FC<courseContent> = ({ courseID, inactive }) => {
   if (isLoading) return <SkeletonCourseContent inactive={inactive} />
 
   return (
-    <div
-      id="test"
-      className={`${style.wrapper} ${inactive ? style.inactive : ''}`}
-    >
+    <div className={`${style.wrapper} ${inactive ? style.inactive : ''}`}>
       {data?.sections.map(s => (
         <div className={style.sectionWrapper} key={s._id}>
           <div className={style.title}>{s.title}</div>

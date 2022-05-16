@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout/Layout'
 import Author from '../../components/author/Author'
 import Review from '../../components/review/Review'
 import { useContext, useEffect, useState } from 'react'
-import { course, course2, section } from '../../types'
+import { course, course2, review, section } from '../../types'
 import Title from '../../components/typography/Title'
 import BuyingWindow from '../../components/course/BuyingWindow'
 import SkeletonCoursePage from './Skeleton/SkeletonCoursePage'
@@ -19,6 +19,7 @@ import {
 } from '../../components/notification/Notification'
 import { ToastContainer } from 'react-toastify'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export interface course3 extends course {
   sections: section[]
@@ -66,6 +67,11 @@ const CoursePage = () => {
       console.log(error)
     }
   }
+
+  const displayReviews = (reviews: review[]) => {
+    return reviews.slice(0, 4)
+  }
+
   return (
     <Layout>
       {/* info */}
@@ -85,7 +91,7 @@ const CoursePage = () => {
             <Section key={d._id} {...d} />
           ))}
         </div>
-        <div
+        {/* <div
           style={{
             textAlign: 'center',
             textDecoration: 'underline',
@@ -93,7 +99,7 @@ const CoursePage = () => {
           }}
         >
           Show full course content
-        </div>
+        </div> */}
       </div>
       {/* authors */}
       <div>
@@ -104,12 +110,15 @@ const CoursePage = () => {
           ))}
         </div>
       </div>
-      {/* comments */}
-      <Title centered>Comments</Title>
-      <div className={style.commentSection}>
-        {data?.reviews.map(c => (
+      {/* reviews */}
+      <Title centered>Reviews</Title>
+      <div className={style.reviewSection}>
+        {displayReviews(data!.reviews).map(c => (
           <Review key={c._id} {...c} />
         ))}
+        {data!.reviews.length > 4 && (
+          <Link to={`/reviews/${data!._id}`}>See all reviews</Link>
+        )}
         {user && (
           <Modal title="Some title" body={<ReviewBody dispatch={sendReview} />}>
             Write a review

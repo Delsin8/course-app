@@ -12,6 +12,7 @@ import { UserContext } from './UserContext'
 import { client } from './api/client'
 import NotFoundPage from './pages/NotFound/NotFoundPage'
 import UserPage from './pages/User/UserPage'
+import ReviewsPage from './pages/Reviews/ReviewsPage'
 // import UserPage from './pages/User/UserPage'
 
 const App = () => {
@@ -44,8 +45,9 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/courses/:courseID" element={<CoursePage />} />
           <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/courses/:courseID" element={<CoursePage />} />
+          <Route path="/reviews/:courseID" element={<ReviewsPage />} />
           <Route path="/lessons/:lessonID" element={<LessonPage />} />
 
           <Route path="/signup" element={<SignupPage />} />
