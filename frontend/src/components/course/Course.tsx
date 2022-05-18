@@ -14,7 +14,11 @@ export const countHours = (d: number) => {
   return duration
 }
 
-const Course: React.FC<course2> = ({
+interface ICourse extends course2 {
+  type?: 'default' | 'list'
+}
+
+const Course: React.FC<ICourse> = ({
   _id,
   authors,
   description,
@@ -25,64 +29,84 @@ const Course: React.FC<course2> = ({
   students,
   title,
   votes,
+  type = 'default',
 }) => {
-  return (
-    <Link to={`/courses/${_id}`} className={style.wrapper} title={title}>
-      {/* img */}
-      <div className={style.imageWrapper}>
-        <img src="/images/PEPE.png" />
-      </div>
-      {/* title */}
-      <h4
-        style={{
-          padding: '0 4px',
-          textAlign: 'center',
-          margin: '4px 0',
-          width: '98%',
-          textOverflow: 'ellipsis',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {title}
-      </h4>
-      {/* stats */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '0 4px',
-        }}
-      >
-        <div>
-          <div className={style.stat}>
-            <BiBook />
-            {lessons} lessons
+  switch (type) {
+    case 'list':
+      return (
+        <div className={style.listWrapper}>
+          <div style={{ width: '100px', height: '100px', flexShrink: 0 }}>
+            <img
+              src="/images/PEPE.png"
+              style={{ height: '100%', width: '100%' }}
+            />
           </div>
-          <div className={style.stat}>
-            <AiOutlineClockCircle />
-            {countHours(duration)}
+          <div>
+            <div className={style.listTitle}>{title}</div>
+            <div className={style.listDescription}>{description}</div>
           </div>
         </div>
-        <div>
-          <div className={style.stat} style={{ justifyContent: 'end' }}>
-            {avg_rating === null
-              ? 'not rated'
-              : `${avg_rating.toFixed(1)}(${votes})`}
-            <AiFillStar />
+      )
+
+    default:
+      return (
+        <Link to={`/courses/${_id}`} className={style.wrapper} title={title}>
+          {/* img */}
+          <div className={style.imageWrapper}>
+            <img src="/images/PEPE.png" />
           </div>
-          <div className={style.stat} style={{ justifyContent: 'end' }}>
-            <span style={{ paddingRight: '1px' }}>
-              {students || 0} students
-            </span>
-            <BsFillPeopleFill />
+          {/* title */}
+          <h4
+            style={{
+              padding: '0 4px',
+              textAlign: 'center',
+              margin: '4px 0',
+              width: '98%',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {title}
+          </h4>
+          {/* stats */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              padding: '0 4px',
+            }}
+          >
+            <div>
+              <div className={style.stat}>
+                <BiBook />
+                {lessons} lessons
+              </div>
+              <div className={style.stat}>
+                <AiOutlineClockCircle />
+                {countHours(duration)}
+              </div>
+            </div>
+            <div>
+              <div className={style.stat} style={{ justifyContent: 'end' }}>
+                {avg_rating === null
+                  ? 'not rated'
+                  : `${avg_rating.toFixed(1)}(${votes})`}
+                <AiFillStar />
+              </div>
+              <div className={style.stat} style={{ justifyContent: 'end' }}>
+                <span style={{ paddingRight: '1px' }}>
+                  {students || 0} students
+                </span>
+                <BsFillPeopleFill />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      {/* price */}
-      <h2 className={style.price}>{price}$</h2>
-    </Link>
-  )
+          {/* price */}
+          <h2 className={style.price}>{price}$</h2>
+        </Link>
+      )
+  }
 }
 
 export default Course

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import style from './displayWindow.module.scss'
 
 interface displayWindow {
   icon: JSX.Element
+  link?: string
   component: JSX.Element
 }
 
-const DisplayWindow: React.FC<displayWindow> = ({ icon, component }) => {
+const DisplayWindow: React.FC<displayWindow> = ({ icon, component, link }) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -17,9 +19,14 @@ const DisplayWindow: React.FC<displayWindow> = ({ icon, component }) => {
       className={style.wrapper}
       // onClick={() => console.log(123)}
     >
-      <div className={style.icon}>{icon}</div>
+      {link ? (
+        <Link to={link}>
+          <div className={style.icon}>{icon}</div>
+        </Link>
+      ) : (
+        <div className={style.icon}>{icon}</div>
+      )}
       <div>{open && component}</div>
-      {/* {component} */}
     </div>
   )
 }

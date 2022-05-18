@@ -40,10 +40,15 @@ const Header = () => {
         {user ? (
           <div className={`${style.userSection} ${style.inactiveFlex}`}>
             <DisplayWindow
-              component={<PurchasedCourses />}
               icon={<VscBook />}
+              link="/courses/list"
+              component={<PurchasedCourses />}
             />
-            <DisplayWindow component={<Wishlist />} icon={<GrFavorite />} />
+            <DisplayWindow
+              icon={<GrFavorite />}
+              link="/courses/list"
+              component={<Wishlist />}
+            />
             <DisplayWindow
               component={<UserProfile />}
               icon={<HiUserCircle style={{ fontSize: '2.5rem' }} />}
@@ -68,13 +73,16 @@ const Header = () => {
             <div>
               <Link to="/">Github</Link>
             </div>
-            <div>
-              <DisplayWindow
-                component={<PurchasedCourses />}
-                icon={<VscBook />}
-              />
-              <DisplayWindow component={<Wishlist />} icon={<GrFavorite />} />
-            </div>
+            {user ? (
+              <Link to="/courses/list">
+                <div> My courses/Wishlist</div>
+              </Link>
+            ) : (
+              <>
+                <Link to="/signin">Signin</Link>
+                <Link to="/signin">Signup</Link>
+              </>
+            )}
           </div>
         )}
       </nav>

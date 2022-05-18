@@ -20,11 +20,32 @@
   list-style: none;
 }
 
-.list {
-  li {
-    border: 1px solid black;
-    border-radius: 6px;
-    padding: 4px 8px;
-    cursor: pointer;
+.tab {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.listTab {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  opacity: 0.6;
+  border-bottom: 2px solid black;
+
+  @include m.sm {
+    font-size: 1.5rem;
   }
+  @include m.md {
+    font-size: 1.75rem;
+  }
+  @include m.lg {
+    font-size: 2rem;
+  }
+}
+
+.listActive {
+  opacity: 1;
 }

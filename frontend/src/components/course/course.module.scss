@@ -197,3 +197,23 @@ $br: 8px;
   align-items: center;
   gap: 8px;
 }
+
+// list course type
+.listWrapper {
+  display: flex;
+  gap: 0.5rem;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.listTitle {
+  font-weight: 500;
+}
+
+.listDescription {
+  font-weight: 300;
+  max-height: 60px;
+  overflow-y: hidden;
+}

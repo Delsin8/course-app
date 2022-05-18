@@ -13,6 +13,7 @@ import { client } from './api/client'
 import NotFoundPage from './pages/NotFound/NotFoundPage'
 import UserPage from './pages/User/UserPage'
 import ReviewsPage from './pages/Reviews/ReviewsPage'
+import CoursesListPage from './pages/Course/CoursesListPage'
 // import UserPage from './pages/User/UserPage'
 
 const App = () => {
@@ -47,8 +48,10 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:courseID" element={<CoursePage />} />
-          <Route path="/reviews/:courseID" element={<ReviewsPage />} />
           <Route path="/lessons/:lessonID" element={<LessonPage />} />
+
+          <Route path="/courses/list" element={<CoursesListPage />} />
+          <Route path="/reviews/:courseID" element={<ReviewsPage />} />
 
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />

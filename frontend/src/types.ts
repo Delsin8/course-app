@@ -109,6 +109,7 @@ export interface filter {
 export interface tab {
   name: string
   content: ReactNode
+  icon?: JSX.Element
 }
 
 export interface wishlist {
