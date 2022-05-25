@@ -10,7 +10,7 @@ import _ from 'lodash'
 import { order, Sort, sortBy } from '../../components/sortingWindow/sort.types'
 import SortingWindow from '../../components/sortingWindow/SortingWindow'
 import Pagination from './Pagination'
-import SkeletonCoursesPage from './Skeleton/SkeletonCoursesPage'
+import SkeletonCoursesPage from './SkeletonCourse/SkeletonCoursesPage'
 import { useSearchParams } from 'react-router-dom'
 
 const CoursesPage: React.FC = () => {

@@ -7,7 +7,7 @@ import { client } from '../../api/client'
 import Course from '../../components/course/Course'
 import { Link } from 'react-router-dom'
 import Tab from '../../components/tab/Tab'
-import SkeletonCoursesListPage from './Skeleton/SkeletonCoursesListPage'
+import SkeletonCoursesListPage from './SkeletonCourse/SkeletonCoursesListPage'
 
 const CoursesListPage = () => {
   const [courses, setCourses] = useState<course[]>([])
