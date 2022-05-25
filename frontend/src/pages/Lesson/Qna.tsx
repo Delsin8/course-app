@@ -7,7 +7,7 @@ import Title from '../../components/typography/Title'
 import Modal from '../../components/modal/Modal'
 import QuestionBody from './Modal/QuestionBody'
 import { SubmitHandler } from 'react-hook-form'
-import { SkeletonQuestions } from './Skeleton/SkeletonLessonComponents'
+import { SkeletonQuestions } from './SkeletonLessonPage/SkeletonLessonComponents'
 
 interface qna {
   lessonID?: string

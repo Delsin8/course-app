@@ -1,4 +1,4 @@
-import { SkeletonCircle, SkeletonLine } from '../skeleton/Skeleton'
+import { SkeletonCircle, SkeletonLine } from '../skeleton/SkeletonMain'
 import style from './course.module.scss'
 
 const SkeletonCourse = () => {

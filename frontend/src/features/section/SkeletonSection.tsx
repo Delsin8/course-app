@@ -1,7 +1,7 @@
 import {
   SkeletonCircle,
   SkeletonLine,
-} from '../../components/skeleton/Skeleton'
+} from '../../components/skeleton/SkeletonMain'
 import style from './section.module.scss'
 
 const SkeletonSection = () => {

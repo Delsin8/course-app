@@ -1,4 +1,4 @@
-import { SkeletonRectangle } from '../../../components/skeleton/Skeleton'
+import { SkeletonRectangle } from '../../../components/skeleton/SkeletonMain'
 import Layout from '../../../layouts/Layout/Layout'
 import style from '../course.module.scss'
 

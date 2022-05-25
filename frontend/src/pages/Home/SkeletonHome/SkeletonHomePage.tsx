@@ -5,7 +5,7 @@ import {
   SkeletonLine,
   SkeletonRectangle,
   SkeletonTitle,
-} from '../../../components/skeleton/Skeleton'
+} from '../../../components/skeleton/SkeletonMain'
 
 const SkeletonHomePage = () => {
   return (

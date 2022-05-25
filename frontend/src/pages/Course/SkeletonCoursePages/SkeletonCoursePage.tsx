@@ -4,7 +4,7 @@ import SkeletonSection from '../../../features/section/SkeletonSection'
 import {
   SkeletonLine,
   SkeletonTitle,
-} from '../../../components/skeleton/Skeleton'
+} from '../../../components/skeleton/SkeletonMain'
 import Layout from '../../../layouts/Layout/Layout'
 import style from '../course.module.scss'
 

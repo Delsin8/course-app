@@ -7,8 +7,8 @@ import Layout from '../../layouts/Layout/Layout'
 import style from './lesson.module.scss'
 import Qna from './Qna'
 import { useParams } from 'react-router-dom'
-import { SkeletonRectangleCustom } from '../../components/skeleton/Skeleton'
-import { SkeletonLessonPage } from './Skeleton/SkeletonLessonComponents'
+import { SkeletonRectangleCustom } from '../../components/skeleton/SkeletonMain'
+import { SkeletonLessonPage } from './SkeletonLessonPage/SkeletonLessonComponents'
 
 const LessonPage = () => {
   const [lesson, setLesson] = useState<lesson>()

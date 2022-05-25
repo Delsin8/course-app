@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { client } from '../../api/client'
-import { SkeletonAnswers } from '../../pages/Lesson/Skeleton/SkeletonLessonComponents'
+import { SkeletonAnswers } from '../../pages/Lesson/SkeletonLessonPage/SkeletonLessonComponents'
 import { answer } from '../../types'
 import Answer from './Answer'
 import style from './qna.module.scss'

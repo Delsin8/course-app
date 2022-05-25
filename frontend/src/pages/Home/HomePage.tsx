@@ -7,7 +7,7 @@ import Layout from '../../layouts/Layout/Layout'
 import { course } from '../../types'
 import _ from 'lodash'
 import Search from '../../features/search/Search'
-import SkeletonHomePage from './Skeleton/SkeletonHomePage'
+import SkeletonHomePage from './SkeletonHome/SkeletonHomePage'
 import {
   getHighestRatedCourses,
   getMostPopularCourses,
