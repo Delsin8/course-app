@@ -11,6 +11,7 @@ const questionRoutes = require('./routes/question.routes')
 const answerRoutes = require('./routes/answer.routes')
 const purchasedCourseRoutes = require('./routes/purchasedCourse.routes')
 const cors = require('cors')
+const path = require('path')
 
 const app = express()
 const port = process.env.PORT || 5000
