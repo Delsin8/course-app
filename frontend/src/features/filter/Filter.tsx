@@ -20,8 +20,8 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
     <div className={style.wrapper}>
       {/* price */}
       <div className={style.filterWrapper}>
-        <div style={{ textAlign: 'center', paddingBottom: '4px' }}>Price</div>
-        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+        <div className={style.filterTitle}>Price</div>
+        <div className={style.flex} style={{ gap: '4px' }}>
           <input
             id="price_from"
             name="price_from"
@@ -49,19 +49,19 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
       </div>
       {/* rating */}
       <div className={style.filterWrapper}>
-        <div style={{ textAlign: 'center', paddingBottom: '4px' }}>Rating</div>
+        <div className={style.filterTitle}>Rating</div>
         <div className={style.filterProperties}>
           <div className={style.flex}>
             <input
               type="radio"
               name="rating"
               checked={isChecked('rating', -1)}
-              style={{ margin: '0 4px 0 0' }}
+              className={style.marginRight}
               onChange={() => setFilters({ type: 'rating', value: -1 })}
             />
             <span>
               All{' '}
-              <span style={{ opacity: '0.4' }}>
+              <span className={style.lowOpacity}>
                 ({courseAmount.find(c => c.name === 'rating_all')?.amount})
               </span>
             </span>
@@ -71,12 +71,12 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
               type="radio"
               name="rating"
               checked={isChecked('rating', 3)}
-              style={{ margin: '0 4px 0 0' }}
+              className={style.marginRight}
               onChange={() => setFilters({ type: 'rating', value: 3 })}
             />
             <span>
               3+
-              <span style={{ opacity: '0.4' }}>
+              <span className={style.lowOpacity}>
                 ({courseAmount.find(c => c.name === 'rating_3')?.amount})
               </span>
             </span>
@@ -86,12 +86,12 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
               type="radio"
               name="rating"
               checked={isChecked('rating', 3.5)}
-              style={{ margin: '0 4px 0 0' }}
+              className={style.marginRight}
               onChange={() => setFilters({ type: 'rating', value: 3.5 })}
             />
             <span>
               3.5+
-              <span style={{ opacity: '0.4' }}>
+              <span className={style.lowOpacity}>
                 ({courseAmount.find(c => c.name === 'rating_35')?.amount})
               </span>
             </span>
@@ -101,12 +101,12 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
               type="radio"
               name="rating"
               checked={isChecked('rating', 4)}
-              style={{ margin: '0 4px 0 0' }}
+              className={style.marginRight}
               onChange={() => setFilters({ type: 'rating', value: 4 })}
             />
             <span>
               4+
-              <span style={{ opacity: '0.4' }}>
+              <span className={style.lowOpacity}>
                 ({courseAmount.find(c => c.name === 'rating_4')?.amount})
               </span>
             </span>
@@ -116,12 +116,12 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
               type="radio"
               name="rating"
               checked={isChecked('rating', 4.5)}
-              style={{ margin: '0 4px 0 0' }}
+              className={style.marginRight}
               onChange={e => setFilters({ type: 'rating', value: 4.5 })}
             />
             <span>
               4.5+
-              <span style={{ opacity: '0.4' }}>
+              <span className={style.lowOpacity}>
                 ({courseAmount.find(c => c.name === 'rating_45')?.amount})
               </span>
             </span>
@@ -131,12 +131,10 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
       {/* duration */}
       <div className={style.filterWrapper}>
         {/* name of the filter */}
-        <div style={{ textAlign: 'center', paddingBottom: '4px' }}>
-          Duration
-        </div>
+        <div className={style.filterTitle}>Duration</div>
         {/* filter properties */}
         <div className={style.filterProperties}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div className={style.flex}>
             <input
               type="checkbox"
               checked={isChecked('duration', 'short')}
@@ -145,11 +143,11 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
               }
             />
             Less than 6 hours
-            <span style={{ opacity: '0.4' }}>
+            <span className={style.lowOpacity}>
               ({courseAmount.find(c => c.name === 'duration_short')?.amount})
             </span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div className={style.flex}>
             <input
               type="checkbox"
               checked={isChecked('duration', 'medium')}
@@ -158,18 +156,18 @@ const Filter: React.FC<s> = ({ filters, setFilters, courseAmount }) => {
               }
             />
             6-12h
-            <span style={{ opacity: '0.4' }}>
+            <span className={style.lowOpacity}>
               ({courseAmount.find(c => c.name === 'duration_medium')?.amount})
             </span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div className={style.flex}>
             <input
               type="checkbox"
               checked={isChecked('duration', 'long')}
               onChange={e => setFilters({ type: 'duration', value: 'long' }, e)}
             />
             More than 12 hours
-            <span style={{ opacity: '0.4' }}>
+            <span className={style.lowOpacity}>
               ({courseAmount.find(c => c.name === 'duration_long')?.amount})
             </span>
           </div>

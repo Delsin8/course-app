@@ -1,21 +1,21 @@
 import { useState } from 'react'
-import { tab as ITab } from '../../types'
+import { tab } from '../../types'
 import style from './tab.module.scss'
 
-interface tab {
-  tabs: ITab[]
+interface Itab {
+  tabs: tab[]
   inactive?: boolean
   type?: 'default' | 'list'
 }
 
-const Tab: React.FC<tab> = ({ tabs, inactive, type }) => {
-  const [currentTab, setCurrentTab] = useState<ITab>(tabs[0])
+const Tab: React.FC<Itab> = ({ tabs, inactive, type }) => {
+  const [currentTab, setCurrentTab] = useState<tab>(tabs[0])
 
-  const setTab = (tab: ITab) => {
+  const setTab = (tab: tab) => {
     setCurrentTab(tab)
   }
 
-  const isActive = (tab: ITab) => {
+  const isActive = (tab: tab) => {
     if (currentTab == tab) {
       if (type === 'list') return style.listActive
       return style.active

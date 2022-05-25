@@ -8,7 +8,6 @@ export interface button {
 
 export interface outlinedButton extends button {
   outlineColor: string
-  glowing?: boolean
 }
 
 export interface containedButton extends button {

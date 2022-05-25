@@ -1,9 +1,12 @@
-import { SkeletonCircle, SkeletonLine } from '../skeleton/Skeleton'
-import style from './course.module.scss'
+import {
+  SkeletonCircle,
+  SkeletonLine,
+} from '../../components/skeleton/Skeleton'
+import style from './section.module.scss'
 
 const SkeletonSection = () => {
   return (
-    <div className={style.skeleton}>
+    <div className={style.skeleton} style={{ gap: '8px' }}>
       <SkeletonCircle />
       <div>
         {[0, 1, 2].map(s => (

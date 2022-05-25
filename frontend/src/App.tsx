@@ -14,30 +14,10 @@ import NotFoundPage from './pages/NotFound/NotFoundPage'
 import UserPage from './pages/User/UserPage'
 import ReviewsPage from './pages/Reviews/ReviewsPage'
 import CoursesListPage from './pages/Course/CoursesListPage'
-// import UserPage from './pages/User/UserPage'
+import useCheck from './useCheck'
 
 const App = () => {
-  const [user, setUser] = useState(false)
-  useEffect(() => {
-    const checkUser = async () => {
-      const token = localStorage.getItem('token')
-      if (!token) {
-        setUser(false)
-        return
-      }
-
-      const url = 'http://localhost:5000/api/users/check'
-      const res = await client.get(url, { headers: { 'x-api-key': token } })
-      if (res.data?.valid === true) {
-        setUser(true)
-        return
-      }
-      setUser(false)
-      return
-    }
-
-    checkUser()
-  }, [])
+  const [user, setUser] = useCheck()
 
   return (
     <>

@@ -8,7 +8,5 @@ export interface modal {
 }
 
 export interface modalContainer extends modal {
-  //   body: ReactNode
-  // footer
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }

@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import style from './header.module.scss'
 import { useContext, useState } from 'react'
-import UserProfile from '../../components/userProfile/UserProfile'
-import Search from '../../feature/search/Search'
+import UserProfile from '../../features/userProfile/UserProfile'
+import Search from '../../features/search/Search'
 import DisplayWindow from '../../components/display-window/DisplayWindow'
-import PurchasedCourses from '../../feature/purchasedCourse/PurchasedCourses'
-import Wishlist from '../../feature/wishlist/Wishlist'
+import PurchasedCourses from '../../features/purchasedCourse/PurchasedCourses'
+import Wishlist from '../../features/wishlist/Wishlist'
 import { UserContext } from '../../UserContext'
 
 import { GiFlowerTwirl } from 'react-icons/gi'
@@ -31,12 +31,12 @@ const Header = () => {
             <Link to="/courses">Courses</Link>
           </li>
           <li className={style.inactive}>
-            <Link to="/">Github</Link>
+            <a href="https://github.com/Delsin8/course-app">Github</a>
           </li>
         </ul>
-        {/* search */}
+
         <Search />
-        {/* user */}
+
         {user ? (
           <div className={`${style.userSection} ${style.inactiveFlex}`}>
             <DisplayWindow
@@ -57,7 +57,7 @@ const Header = () => {
         ) : (
           <div className={`${style.authButtons} ${style.inactiveFlex}`}>
             <Link to="/signup">Signup</Link>
-            <span style={{ color: 'black', opacity: '0.1' }}>|</span>
+            <span className={style.lowOpacity}>|</span>
             <Link to="/signin">Signin</Link>
           </div>
         )}
@@ -71,17 +71,17 @@ const Header = () => {
               <Link to="/courses">Courses</Link>
             </div>
             <div>
-              <Link to="/">Github</Link>
+              <a href="https://github.com/Delsin8/course-app">Github</a>
             </div>
             {user ? (
               <Link to="/courses/list">
                 <div> My courses/Wishlist</div>
               </Link>
             ) : (
-              <>
+              <div className={style.flexColumn}>
                 <Link to="/signin">Signin</Link>
-                <Link to="/signin">Signup</Link>
-              </>
+                <Link to="/signup">Signup</Link>
+              </div>
             )}
           </div>
         )}

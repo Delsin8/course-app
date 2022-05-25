@@ -1,6 +1,7 @@
 import { bioPlaceholder } from '../../constants/data'
 import { author } from '../../types'
 import style from './author.module.scss'
+import { HiUserCircle } from 'react-icons/hi'
 
 const Author: React.FC<author> = ({
   first_name,
@@ -12,20 +13,17 @@ const Author: React.FC<author> = ({
   return (
     <div className={style.wrapper}>
       <div className={style.mainSection}>
-        {/* img */}
         <div className={style.imageWrapper}>
-          <img src="/images/PEPE.png" />
+          <HiUserCircle style={{ fontSize: '60px' }} />
         </div>
-        {/* info */}
         <div>
-          <h3 style={{ margin: '2px 0' }}>
+          <h3 className={style.title}>
             {first_name} {last_name}
           </h3>
           <div className={style.grey}>Courses: {courses_owned}</div>
           <div className={style.grey}>Students: {students}</div>
         </div>
       </div>
-      {/* biography */}
       <div className={style.biography}>{bio || bioPlaceholder}</div>
     </div>
   )

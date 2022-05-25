@@ -1,6 +1,6 @@
 import SkeletonAuthor from '../../../components/author/SkeletonAuthor'
 import SkeletonComment from '../../../components/review/SkeletonReview'
-import SkeletonSection from '../../../components/course/SkeletonSection'
+import SkeletonSection from '../../../features/section/SkeletonSection'
 import {
   SkeletonLine,
   SkeletonTitle,

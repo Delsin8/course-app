@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './course.module.scss'
+import style from './section.module.scss'
 import CountTime from '../../utils/countTime'
 import { section } from '../../types'
 
@@ -21,8 +21,8 @@ const Section: React.FC<section> = ({
           {lessonsAmount} lessons
         </div>
         <div
-          className={`${style.smallFontSize} ${style.fontItalic}`}
-          style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+          className={`${style.smallFontSize} ${style.fontItalic} ${style.flex}`}
+          style={{ gap: '4px' }}
         >
           {difficulty} <div className={style.difficultyIndicator}></div>
         </div>

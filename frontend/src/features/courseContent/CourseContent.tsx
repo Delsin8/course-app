@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { course, section } from '../../types'
+import { coursePopulated, section } from '../../types'
 import { client } from '../../api/client'
 import style from './courseContent.module.scss'
 import SkeletonCourseContent from './SkeletonCourseContent'
@@ -11,32 +11,27 @@ interface courseContent {
 }
 
 const CourseContent: React.FC<courseContent> = ({ courseID, inactive }) => {
-  const [data, setData] = useState<course>()
+  const [data, setData] = useState<coursePopulated>()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (courseID) {
       const fetchCourseContent = async () => {
-        const url = `http://localhost:5000/api/courses/${courseID}?content=1`
+        try {
+          const url = `http://localhost:5000/api/courses/${courseID}?content=1`
 
-        const response = await client.get(url)
+          const response = await client.get(url)
 
-        if (response.status === 200) {
           setData(response.data)
-          // const time = 30000
-          // function delay(time: number) {
-          //   return new Promise(resolve => setTimeout(resolve, time))
-          // }
-
-          // delay(time).then(() => setIsLoading(false))
           setIsLoading(false)
+        } catch (error) {
+          console.log(error)
         }
-        // else error
       }
 
       fetchCourseContent()
     }
-  }, [])
+  }, [courseID])
 
   if (isLoading) return <SkeletonCourseContent inactive={inactive} />
 

@@ -23,10 +23,16 @@ const getQuestion = (req, res) => {
 }
 
 const getQuestions = (req, res) => {
-  Question.find({}, (err, data) => {
-    if (err) return res.status(400).json(err)
-    res.json(data)
-  })
+  const { lessonID } = req.params
+
+  if (lessonID.match(/^[0-9a-fA-F]{24}$/)) {
+    Question.find({ lesson: lessonID })
+      .populate('user')
+      .exec((err, data) => {
+        if (err) return res.status(400).json(err)
+        res.json(data)
+      })
+  }
 }
 
 const updateQuestion = (req, res) => {

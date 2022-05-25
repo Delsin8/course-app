@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { lesson, tab } from '../../types'
 import { client } from '../../api/client'
-import CourseContent from '../../components/courseContent/CourseContent'
+import CourseContent from '../../features/courseContent/CourseContent'
 import Tab from '../../components/tab/Tab'
 import Layout from '../../layouts/Layout/Layout'
 import style from './lesson.module.scss'
 import Qna from './Qna'
 import { useParams } from 'react-router-dom'
-import Title from '../../components/typography/Title'
-import Modal from '../../components/modal/Modal'
-import QuestionBody from './Modal/QuestionBody'
+import { SkeletonRectangleCustom } from '../../components/skeleton/Skeleton'
+import { SkeletonLessonPage } from './Skeleton/SkeletonLessonComponents'
 
 const LessonPage = () => {
   const [lesson, setLesson] = useState<lesson>()
@@ -23,29 +22,31 @@ const LessonPage = () => {
     },
     {
       name: 'Q&A',
-      content: <Qna lesson={lesson} />,
+      content: <Qna lessonID={lesson?._id} />,
     },
   ]
   useEffect(() => {
     const fetchLesson = async () => {
-      const url = `http://localhost:5000/api/lessons/${lessonID}?full=1`
-      const token = localStorage.getItem('token')
+      try {
+        const url = `http://localhost:5000/api/lessons/${lessonID}?full=1`
+        const token = localStorage.getItem('token')
 
-      const response = await client.get(url, {
-        headers: { 'x-api-key': token },
-      })
+        const response = await client.get(url, {
+          headers: { 'x-api-key': token },
+        })
 
-      if (response.status === 200) {
         setIsLoading(false)
         setLesson(response.data)
+        console.log(response.data)
+      } catch (error) {
+        console.log(error)
       }
-      // else error
     }
 
     fetchLesson()
-  }, [lessonID])
+  }, [lessonID, isLoading])
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <SkeletonLessonPage />
   return (
     <Layout big>
       <div className={style.wrapper}>
@@ -53,22 +54,13 @@ const LessonPage = () => {
         <div>
           <div className={style.videoWrapper}>
             <video controls width={800}>
-              <source src="/videos/1.mkv" />
+              <source src="/" />
             </video>
           </div>
           {/* tabs */}
           <Tab tabs={tabs} inactive />
           {/* question */}
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <Title>Questions</Title>
-            <Modal
-              body={<QuestionBody lessonID={lesson!._id} />}
-              title={lesson!.title}
-            >
-              Ask a question
-            </Modal>
-          </div>
-          <Qna lesson={lesson} inactive />
+          <Qna lessonID={lesson?._id} lessonTitle={lesson?.title} inactive />
         </div>
         {/* section */}
         <CourseContent courseID={lesson?.section.course} inactive />

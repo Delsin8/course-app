@@ -1,16 +1,18 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { client } from '../../api/client'
+import { UserContext } from '../../UserContext'
 import { ContainedButton } from '../../components/button/Button'
 import Title from '../../components/typography/Title'
 import Layout from '../../layouts/Layout/Layout'
 import style from './authPages.module.scss'
 
-import { ToastContainer } from 'react-toastify'
 import {
   notifyFailure,
   notifySuccess,
 } from '../../components/notification/Notification'
+import { useContext } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 interface input {
   email: string
@@ -27,15 +29,22 @@ const SignupPage = () => {
     formState: { errors },
   } = useForm<input>()
 
+  const { setUser } = useContext(UserContext)
+
   const handleSignup: SubmitHandler<input> = async data => {
     try {
       const { email, first_name, password } = data
-      await client.post(
+      const response = await client.post(
         'http://localhost:5000/api/users/signup',
         JSON.stringify({ email, first_name, password })
       )
+      localStorage.setItem('token', JSON.stringify(response.data.token))
+      setUser(true)
+      console.log('success')
       notifySuccess('You have successfully registered')
     } catch (error) {
+      console.log('fail')
+
       notifyFailure('Something went wrong')
     }
   }
@@ -43,7 +52,6 @@ const SignupPage = () => {
   return (
     <Layout>
       <div className={style.wrapper}>
-        {/* welcome */}
         <Title>Welcome</Title>
         {/* form */}
         <form className={style.form} onSubmit={handleSubmit(handleSignup)}>
@@ -129,6 +137,8 @@ const SignupPage = () => {
           <Link to="/signin">Already have an account?</Link>
         </div>
       </div>
+
+      <ToastContainer />
     </Layout>
   )
 }

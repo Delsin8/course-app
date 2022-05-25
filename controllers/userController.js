@@ -29,7 +29,8 @@ const signup = async (req, res) => {
   try {
     user.save((err, data) => {
       if (err) return res.status(400).json(err)
-      return res.json({ message: "You've been successfully registered" })
+      const token = generateToken(user._id, user.first_name)
+      return res.json({ token })
     })
   } catch (err) {
     res.status(400).json(err)
@@ -38,7 +39,7 @@ const signup = async (req, res) => {
 
 const signin = async (req, res) => {
   const { email, password } = req.body
-  //validate input data
+
   const user = await User.findOne({ email })
   if (!user) return res.status(400).json({ message: 'Credentials are wrong' })
 
@@ -47,8 +48,6 @@ const signin = async (req, res) => {
 
   const token = generateToken(user._id, user.first_name)
   res.json({ token })
-
-  // return res.status(200).send('You were logged in')
 }
 
 const getUser = (req, res) => {
@@ -70,10 +69,12 @@ const getUsers = (req, res) => {
 }
 
 const updateUser = (req, res) => {
-  const { first_name, last_name, profession } = req.body
+  const { first_name, last_name, bio } = req.body
+  const id = req.user.payload.id
+
   User.findByIdAndUpdate(
-    req.params.id,
-    { first_name, last_name, profession },
+    id,
+    { first_name, last_name, bio },
     { new: true },
     (err, data) => {
       if (err) return res.status(400).send(err)

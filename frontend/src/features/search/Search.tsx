@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import style from './search.module.scss'
 
 interface search {
@@ -9,7 +9,14 @@ interface search {
 
 const Search: React.FC<search> = ({ heroSection }) => {
   const [search, setSearch] = useState('')
+  const navigate = useNavigate()
 
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setSearch(e.currentTarget.value)
+      navigate(`/courses?search=${search}`)
+    }
+  }
   return (
     <div
       className={`${style.searchWrapper} ${
@@ -22,6 +29,7 @@ const Search: React.FC<search> = ({ heroSection }) => {
         }`}
         placeholder="Search..."
         onChange={e => setSearch(e.target.value)}
+        onKeyDown={e => handleSearch(e)}
       />
       <span
         className={`${style.searchButton} ${

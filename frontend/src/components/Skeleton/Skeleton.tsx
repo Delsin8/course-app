@@ -46,6 +46,13 @@ export const SkeletonRectangle: React.FC<skeletonRectangle> = ({
   )
 }
 
-export const SkeletonBigRectangle = () => {
-  return <div className={`${style.skeleton} ${style.bigRectangle}`}></div>
+interface skeletonRectangleCustom {
+  height: string
+  width: string
+}
+export const SkeletonRectangleCustom: React.FC<skeletonRectangleCustom> = ({
+  height,
+  width,
+}) => {
+  return <div className={`${style.skeleton}`} style={{ height, width }}></div>
 }

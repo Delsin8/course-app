@@ -1,11 +1,4 @@
-import SkeletonAuthor from '../../../components/author/SkeletonAuthor'
-import SkeletonComment from '../../../components/review/SkeletonReview'
-import SkeletonSection from '../../../components/course/SkeletonSection'
-import {
-  SkeletonLine,
-  SkeletonTitle,
-  SkeletonRectangle,
-} from '../../../components/skeleton/Skeleton'
+import { SkeletonRectangle } from '../../../components/skeleton/Skeleton'
 import Layout from '../../../layouts/Layout/Layout'
 import style from '../course.module.scss'
 

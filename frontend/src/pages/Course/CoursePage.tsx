@@ -1,14 +1,13 @@
-import Section from '../../components/course/Section'
+import Section from '../../features/section/Section'
 import style from './course.module.scss'
 import Layout from '../../layouts/Layout/Layout'
 import Author from '../../components/author/Author'
 import Review from '../../components/review/Review'
 import { useContext, useEffect, useState } from 'react'
-import { course, course2, review, section } from '../../types'
+import { coursePopulated, review, section } from '../../types'
 import Title from '../../components/typography/Title'
-import BuyingWindow from '../../components/course/BuyingWindow'
+import BuyingWindow from '../../components/course/buyingWindow/BuyingWindow'
 import SkeletonCoursePage from './Skeleton/SkeletonCoursePage'
-import { OutlinedButton } from '../../components/button/Button'
 import Modal from '../../components/modal/Modal'
 import ReviewBody, { ratingType } from './Modal/ReviewBody'
 import { client } from '../../api/client'
@@ -21,12 +20,8 @@ import { ToastContainer } from 'react-toastify'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-export interface course3 extends course {
-  sections: section[]
-}
-
 const CoursePage = () => {
-  const [data, setData] = useState<course3>()
+  const [data, setData] = useState<coursePopulated>()
   const [isLoading, setIsLoading] = useState(true)
   const { user } = useContext(UserContext)
   const { courseID } = useParams()
@@ -39,11 +34,13 @@ const CoursePage = () => {
       },
     }
     const fetchCourse = async () => {
-      const response = await fetch(url, options)
-      if (response.ok) {
-        setData(await response.json())
+      try {
+        const response = await client.get(url, options)
+        setData(response.data)
         setIsLoading(false)
-      } else console.log('Something went wrong')
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     fetchCourse()
@@ -74,16 +71,14 @@ const CoursePage = () => {
 
   return (
     <Layout>
-      {/* info */}
       <div className={style.infoSection} onClick={() => console.log(data)}>
         <Title centered noMarginBottom>
           {data?.title}
         </Title>
         <div className={style.description}>{data?.description}</div>
       </div>
-      {/* course content */}
       <div className={style.sectionsWrapper}>
-        <div style={{ paddingBottom: '.4rem', fontWeight: '500' }}>
+        <div className={style.bold} style={{ paddingBottom: '.4rem' }}>
           This course consists of these sections:
         </div>
         <div className={style.sections}>
@@ -91,15 +86,6 @@ const CoursePage = () => {
             <Section key={d._id} {...d} />
           ))}
         </div>
-        {/* <div
-          style={{
-            textAlign: 'center',
-            textDecoration: 'underline',
-            fontSize: '.8rem',
-          }}
-        >
-          Show full course content
-        </div> */}
       </div>
       {/* authors */}
       <div>

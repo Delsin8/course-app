@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
-const cookieParser = require('cookie-parser')
 const courseRoutes = require('./routes/course.routes')
 const userRoutes = require('./routes/user.routes')
 const reviewRoutes = require('./routes/review.routes')
@@ -17,8 +16,11 @@ const app = express()
 const port = process.env.PORT || 5000
 
 app.use(express.json())
-app.use(cookieParser())
 app.use(cors())
+
+// react app
+app.use(express.static(path.join(__dirname, './frontend/build')))
+
 // routes
 app.use('/api/users', userRoutes)
 app.use('/api/courses', courseRoutes)
@@ -29,6 +31,10 @@ app.use('/api/answers', answerRoutes)
 app.use('/api/reviews', reviewRoutes)
 app.use('/api/wishlists', wishlistRoutes)
 app.use('/api/purchased-courses', purchasedCourseRoutes)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/build/index.html'))
+})
 
 async function start() {
   try {

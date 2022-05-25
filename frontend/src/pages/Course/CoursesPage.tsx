@@ -1,9 +1,9 @@
 import style from './course.module.scss'
-import { course, course as ICourse, course2, filter } from '../../types'
+import { course, filter } from '../../types'
 import Course from '../../components/course/Course'
 import Layout from '../../layouts/Layout/Layout'
-import FilterItem from '../../components/filter/FilterItem'
-import Filter from '../../components/filter/Filter'
+import FilterItem from '../../features/filter/FilterItem'
+import Filter from '../../features/filter/Filter'
 import { useEffect, useState } from 'react'
 import { getCoursesAmount, getFilteredCourses } from '../../functions/filter'
 import _ from 'lodash'
@@ -11,17 +11,10 @@ import { order, Sort, sortBy } from '../../components/sortingWindow/sort.types'
 import SortingWindow from '../../components/sortingWindow/SortingWindow'
 import Pagination from './Pagination'
 import SkeletonCoursesPage from './Skeleton/SkeletonCoursesPage'
-import { Link, useSearchParams } from 'react-router-dom'
-
-interface ICourse2 extends ICourse {
-  avg_rating: number
-  votes: number
-  lessons: number
-  duration: number
-}
+import { useSearchParams } from 'react-router-dom'
 
 const CoursesPage: React.FC = () => {
-  const [courses, setCourses] = useState<course2[]>([])
+  const [courses, setCourses] = useState<course[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -82,31 +75,14 @@ const CoursesPage: React.FC = () => {
   const [sort, setSort] = useState<Sort>(defaultSort)
 
   const getPreparedCourses = (
-    courses: course2[],
+    courses: course[],
     filters: filter[],
     sort: Sort
   ) => {
     const filtered = getFilteredCourses(courses, filters)
     const sorted = _.orderBy(filtered, sort.sortBy, sort.order)
 
-    // const paginated = sorted.slice(indexOfFirstCourse, indexOfLastCourse)
-
     return sorted
-  }
-
-  const handleSetSort = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const target = e.target as typeof e.target & {
-      sortBy: { value: sortBy }
-      order: { value: order }
-    }
-
-    const newSorting: Sort = {
-      sortBy: target.sortBy.value,
-      order: target.order.value,
-    }
-
-    setSort(newSorting)
   }
 
   // pagination
@@ -116,7 +92,7 @@ const CoursesPage: React.FC = () => {
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage
 
   // get final version of courses
-  const getCourses = (courses: course2[], filters: filter[], sort: Sort) => {
+  const getCourses = (courses: course[], filters: filter[], sort: Sort) => {
     const finalCourses = getPreparedCourses(courses, filters, sort)
     return finalCourses.slice(indexOfFirstCourse, indexOfLastCourse)
   }
@@ -124,7 +100,6 @@ const CoursesPage: React.FC = () => {
   if (isLoading) return <SkeletonCoursesPage />
   return (
     <Layout big>
-      {/* <div className={style.wrapper}> */}
       {/* filter */}
       <div className={style.mainSection}>
         <Filter
@@ -135,7 +110,6 @@ const CoursesPage: React.FC = () => {
         {/* filter items */}
         <div>
           <div className={style.filterItems}>
-            {/*  */}
             <div
               onClick={() => setShowSortingWindow(!showSortingWindow)}
               className={style.sortButton}
@@ -148,7 +122,6 @@ const CoursesPage: React.FC = () => {
                 showWindow={setShowSortingWindow}
               />
             )}
-            {/*  */}
             {filters.map(f => (
               <FilterItem
                 key={Math.random()}

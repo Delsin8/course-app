@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../../UserContext'
-import style from '../display-window/displayWindow.module.scss'
+import style from '../../components/display-window/displayWindow.module.scss'
 
 const UserProfile = () => {
   const { setUser } = useContext(UserContext)

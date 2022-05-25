@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
-import { course } from '../../types'
+import { coursePopulated } from '../../types'
 import style from '../../components/display-window/displayWindow.module.scss'
 
 interface purchasedCourseItem {
-  course: course
+  course: coursePopulated
 }
 
 const PurchasedCourseItem: React.FC<purchasedCourseItem> = ({ course }) => {
-  const getLessonID = (course: course) => {
+  const getLessonID = (course: coursePopulated) => {
     const lesson = course.sections.find(c => {
       return c.lessons.find(l => l)
     })
@@ -21,7 +21,10 @@ const PurchasedCourseItem: React.FC<purchasedCourseItem> = ({ course }) => {
       className={`${style.flex} ${style.item}`}
     >
       <div onClick={() => console.log(course)}>
-        <img src="/images/PEPE.png" className={style.iconPurchasedCourse} />
+        <img
+          src={`/images/${course.thumbnail || 'course_default.jpg'}`}
+          className={style.iconPurchasedCourse}
+        />
       </div>
       <div className={style.title}>{course.title}</div>
     </Link>

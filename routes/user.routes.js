@@ -15,7 +15,7 @@ router.post('/signup', signup)
 router.post('/signin', signin)
 router.get('/check', auth, getUser)
 router.get('/', getUsers)
-router.put('/:id', updateUser)
+router.put('/', auth, updateUser)
 router.delete('/:id', deleteUser)
 
 module.exports = router

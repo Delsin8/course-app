@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './course.module.scss'
-import { course2, course } from '../../types'
+import { course } from '../../types'
 import { BiBook } from 'react-icons/bi'
 import { AiOutlineClockCircle, AiFillStar } from 'react-icons/ai'
 import { BsFillPeopleFill } from 'react-icons/bs'
@@ -14,13 +14,12 @@ export const countHours = (d: number) => {
   return duration
 }
 
-interface ICourse extends course2 {
+interface ICourse extends course {
   type?: 'default' | 'list'
 }
 
 const Course: React.FC<ICourse> = ({
   _id,
-  authors,
   description,
   duration,
   lessons,
@@ -29,16 +28,17 @@ const Course: React.FC<ICourse> = ({
   students,
   title,
   votes,
+  thumbnail,
   type = 'default',
 }) => {
   switch (type) {
     case 'list':
       return (
         <div className={style.listWrapper}>
-          <div style={{ width: '100px', height: '100px', flexShrink: 0 }}>
+          <div className={style.listImageWrapper}>
             <img
-              src="/images/PEPE.png"
-              style={{ height: '100%', width: '100%' }}
+              src={`/images/${thumbnail || 'course_default.jpg'}`}
+              className={style.image}
             />
           </div>
           <div>
@@ -53,30 +53,15 @@ const Course: React.FC<ICourse> = ({
         <Link to={`/courses/${_id}`} className={style.wrapper} title={title}>
           {/* img */}
           <div className={style.imageWrapper}>
-            <img src="/images/PEPE.png" />
+            <img
+              className={style.image}
+              src={`/images/${thumbnail || 'course_default.jpg'}`}
+            />
           </div>
           {/* title */}
-          <h4
-            style={{
-              padding: '0 4px',
-              textAlign: 'center',
-              margin: '4px 0',
-              width: '98%',
-              textOverflow: 'ellipsis',
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {title}
-          </h4>
+          <h4 className={style.courseTitle}>{title}</h4>
           {/* stats */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '0 4px',
-            }}
-          >
+          <div className={style.statsWrapper}>
             <div>
               <div className={style.stat}>
                 <BiBook />

@@ -13,12 +13,16 @@ const ReviewsPage = () => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const url = `http://localhost:5000/api/reviews/${courseID}`
-      const res = await client.get(url)
+      try {
+        const url = `http://localhost:5000/api/reviews/${courseID}`
+        const res = await client.get(url)
 
-      setIsLoading(false)
-      if (res.status < 204) {
-        setReviews(res.data)
+        setIsLoading(false)
+        if (res.status < 204) {
+          setReviews(res.data)
+        }
+      } catch (error) {
+        console.log(error)
       }
     }
 

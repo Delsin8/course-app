@@ -2,9 +2,9 @@ const Course = require('../models/Course')
 const mongoose = require('mongoose')
 
 const createCourse = (req, res) => {
-  const { title, description, price, authors, language } = req.body
+  const { title, description, price, authors, language, thumbnail } = req.body
   Course.create(
-    { title, description, price, authors, language },
+    { title, description, price, authors, language, thumbnail },
     (err, data) => {
       if (err) return res.status(400).send(err)
       res.status(201).json(data)
@@ -367,10 +367,10 @@ const getCourses = async (req, res) => {
 }
 
 const updateCourse = (req, res) => {
-  const { title, description, price, authors, language } = req.body
+  const { title, description, price, authors, language, thumbnail } = req.body
   Course.findByIdAndUpdate(
     req.params.id,
-    { title, description, price, authors, language },
+    { title, description, price, authors, language, thumbnail },
     { new: true },
     (err, data) => {
       if (err) return res.status(400).send(err)

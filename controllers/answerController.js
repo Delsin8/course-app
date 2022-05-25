@@ -20,6 +20,19 @@ const getAnswer = (req, res) => {
   } else res.status(404).send('No results found.')
 }
 
+const getAnswers = (req, res) => {
+  const { questionID } = req.params
+
+  if (questionID.match(/^[0-9a-fA-F]{24}$/)) {
+    Answer.find({ question: questionID })
+      .populate('user')
+      .exec((err, data) => {
+        if (err) return res.status(400).json(err)
+        res.json(data)
+      })
+  } else res.status(404).send('No results found.')
+}
+
 const updateAnswer = (req, res) => {
   const { body, user, question } = req.body
   Answer.findByIdAndUpdate(
@@ -44,4 +57,10 @@ const deleteAnswer = async (req, res) => {
   res.sendStatus(404)
 }
 
-module.exports = { createAnswer, getAnswer, updateAnswer, deleteAnswer }
+module.exports = {
+  createAnswer,
+  getAnswer,
+  getAnswers,
+  updateAnswer,
+  deleteAnswer,
+}

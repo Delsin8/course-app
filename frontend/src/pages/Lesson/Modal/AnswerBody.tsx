@@ -1,9 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import style from '../lesson.module.scss'
-import {
-  ContainedButton,
-  OutlinedButton,
-} from '../../../components/button/Button'
+import { OutlinedButton } from '../../../components/button/Button'
 import { user } from '../../../types'
 
 import questionStyle from '../../../components/qna/qna.module.scss'
@@ -33,17 +30,21 @@ const AnswerBody: React.FC<answerBody> = ({
   } = useForm<input>()
 
   const handleAnswering: SubmitHandler<input> = async ({ answer }) => {
-    const url = `http://localhost:5000/api/answers`
-    const token = localStorage.getItem('token')
-    const response = await client.post(
-      url,
-      JSON.stringify({ question: questionID, body: answer }),
-      {
-        headers: {
-          'x-api-key': token,
-        },
-      }
-    )
+    try {
+      const url = `http://localhost:5000/api/answers`
+      const token = localStorage.getItem('token')
+      await client.post(
+        url,
+        JSON.stringify({ question: questionID, body: answer }),
+        {
+          headers: {
+            'x-api-key': token,
+          },
+        }
+      )
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

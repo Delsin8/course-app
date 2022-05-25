@@ -1,7 +1,7 @@
 import Layout from '../../../layouts/Layout/Layout'
 import style from '../home.module.scss'
 import {
-  SkeletonBigRectangle,
+  SkeletonRectangleCustom,
   SkeletonLine,
   SkeletonRectangle,
   SkeletonTitle,
@@ -11,7 +11,7 @@ const SkeletonHomePage = () => {
   return (
     <Layout>
       {/* hero sectino */}
-      <SkeletonBigRectangle />
+      <SkeletonRectangleCustom height="50vh" width="100%" />
       <SkeletonTitle centered />
       <SkeletonLine tall />
       {/* courses */}

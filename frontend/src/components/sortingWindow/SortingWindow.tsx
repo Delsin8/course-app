@@ -1,15 +1,10 @@
 import { useState } from 'react'
 import { ContainedButton, OutlinedButton } from '../button/Button'
-import { order, sortBy } from './sort.types'
+import { order, sortBy, sortingWindow } from './sort.types'
 import style from './sortingWindow.module.scss'
 import { HiSortAscending, HiSortDescending, HiStar } from 'react-icons/hi'
 import { FaRegMoneyBillAlt } from 'react-icons/fa'
 import { BsFillPeopleFill } from 'react-icons/bs'
-
-interface sortingWindow {
-  setSorting: Function
-  showWindow: Function
-}
 
 const SortingWindow: React.FC<sortingWindow> = ({ setSorting, showWindow }) => {
   const [sortBy, setSortBy] = useState<sortBy>()
@@ -76,12 +71,7 @@ const SortingWindow: React.FC<sortingWindow> = ({ setSorting, showWindow }) => {
           </div>
         </div>
         <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '6px',
-          }}
+          className={style.controlButtonsWrapper}
           onClick={() => handleSetSorting(sortBy, order)}
         >
           <div onClick={() => showWindow(false)}>

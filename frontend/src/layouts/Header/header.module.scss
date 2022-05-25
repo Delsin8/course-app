@@ -9,7 +9,7 @@ $br: 8px;
   position: relative;
   padding: 0 5%;
   font-size: 20px;
-  border-bottom: 1px solid black;
+  box-shadow: 0 0 1px grey;
 }
 
 ul {
@@ -82,4 +82,14 @@ ul li a {
   @include m.lg {
     display: block;
   }
+}
+
+.lowOpacity {
+  color: black;
+  opacity: 0.1;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
 }

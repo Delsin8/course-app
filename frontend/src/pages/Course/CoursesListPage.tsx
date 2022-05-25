@@ -1,58 +1,59 @@
 import Layout from '../../layouts/Layout/Layout'
 import style from './course.module.scss'
 import { VscBook } from 'react-icons/vsc'
-import { GrFavorite } from 'react-icons/gr'
 import { useEffect, useState } from 'react'
-import { course2, tab } from '../../types'
+import { course, tab } from '../../types'
 import { client } from '../../api/client'
 import Course from '../../components/course/Course'
 import { Link } from 'react-router-dom'
 import Tab from '../../components/tab/Tab'
+import SkeletonCoursesListPage from './Skeleton/SkeletonCoursesListPage'
 
 const CoursesListPage = () => {
-  const [courses, setCourses] = useState<course2[]>([])
-  const [wishlist, setWishlist] = useState<{ courses: course2[] }>()
+  const [courses, setCourses] = useState<course[]>([])
+  const [wishlist, setWishlist] = useState<{ courses: course[] }>()
   const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
+    // courses
     const fetchCourses = async () => {
-      // !check user
-      const url = 'http://localhost:5000/api/purchased-courses'
-      const token = localStorage.getItem('token')
-      const response = await client.get(url, {
-        headers: { 'x-api-key': token },
-      })
-      if (response.status < 204) {
+      try {
+        const url = 'http://localhost:5000/api/purchased-courses'
+        const token = localStorage.getItem('token')
+        const response = await client.get(url, {
+          headers: { 'x-api-key': token },
+        })
+
         setCourses(response.data)
-        setIsLoading(false)
-      } else console.log('Something went wrong')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    // wishlist
+    const fetchWishlist = async () => {
+      try {
+        const url = 'http://localhost:5000/api/wishlists'
+        const token = localStorage.getItem('token')
+        const response = await client.get(url, {
+          headers: { 'x-api-key': token },
+        })
+
+        setWishlist(response.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     fetchCourses()
-
-    // wishlist
-    const fetchWishlist = async () => {
-      // !check user
-      const url = 'http://localhost:5000/api/wishlists'
-      const token = localStorage.getItem('token')
-      const response = await client.get(url, {
-        headers: { 'x-api-key': token },
-      })
-      if (response.status < 204) {
-        setWishlist(response.data)
-        setIsLoading(false)
-      } else console.log('Something went wrong')
-    }
-
-    fetchWishlist()
+      .then(() => setIsLoading(false))
+      .then(() => fetchWishlist())
   }, [])
 
   const tabs: tab[] = [
     {
       name: 'Owned Courses',
       content: (
-        <div
-          style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}
-        >
+        <div className={style.reviewSection} style={{ gap: '.75rem' }}>
           {courses.map(c => (
             <Link to="/courses/d" key={`owned_course_${c._id}`}>
               <Course type="list" {...c} />
@@ -65,9 +66,7 @@ const CoursesListPage = () => {
     {
       name: 'Wishlist',
       content: (
-        <div
-          style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}
-        >
+        <div className={style.reviewSection} style={{ gap: '.75rem' }}>
           {wishlist?.courses.map(c => (
             <Link to="/courses/d" key={`wishlist_${c._id}`}>
               <Course type="list" {...c} />
@@ -79,7 +78,7 @@ const CoursesListPage = () => {
     },
   ]
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <SkeletonCoursesListPage />
 
   return (
     <Layout>

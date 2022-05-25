@@ -1,63 +1,25 @@
 import { ReactNode } from 'react'
 
-// export interface course {
-//   _id: string
-//   title: string
-//   description: string
-//   authors: author[]
-//   price: number
-//   lessons: number
-//   //
-//   duration: number
-//   avg_rating: number
-//   votes: number
-//   students: number
-
-//   language: string
-//   created_at: Date
-//   updated_at: Date
-// }
-
-export interface course2 {
-  _id: string
-  title: string
-  description: string
-  authors: string[]
-  price: number
-  lessons: number
-  //
-  duration: number
-  avg_rating: number
-  votes: number
-  students: number
-  //
-  language: string
-  created_at: Date
-  updated_at: Date
-}
-
-// real one
 export interface course {
   _id: string
   title: string
   description: string
-  authors: author[]
-  sections: section[]
-  reviews: review[]
   price: number
-  preview_video: string
-  language: string
-
-  //
+  lessons: number
   duration: number
   avg_rating: number
   votes: number
   students: number
-  lessons: number
-  //
-
+  language: string
+  thumbnail?: string
   created_at: Date
   updated_at: Date
+}
+
+export interface coursePopulated extends course {
+  authors: author[]
+  sections: section[]
+  reviews: review[]
 }
 
 export interface user {

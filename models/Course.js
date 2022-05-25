@@ -19,6 +19,7 @@ const CourseSchema = new mongoose.Schema(
       validate: a => Array.isArray(a) && a.length > 0,
     },
     price: { type: Number, required: true },
+    thumbnail: { type: String },
     // preview_video: { type: String, default: './videos/default_preview.smth' },
     // publishing_date: { type: Date, required: true },
     // publisher: { type: String, required: true },

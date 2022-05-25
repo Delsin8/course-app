@@ -17,7 +17,6 @@ const DisplayWindow: React.FC<displayWindow> = ({ icon, component, link }) => {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       className={style.wrapper}
-      // onClick={() => console.log(123)}
     >
       {link ? (
         <Link to={link}>

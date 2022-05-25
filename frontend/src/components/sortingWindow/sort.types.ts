@@ -6,3 +6,8 @@ export interface Sort {
   sortBy: sortBy
   order: order
 }
+
+export interface sortingWindow {
+  setSorting: Function
+  showWindow: Function
+}

@@ -12,7 +12,7 @@ const router = Router()
 
 router.post('/', auth, createQuestion)
 router.get('/:id', getQuestion)
-router.get('/', getQuestions)
+router.get('/lesson/:lessonID', getQuestions)
 router.put('/:id', updateQuestion)
 router.delete('/:id', deleteQuestion)
 

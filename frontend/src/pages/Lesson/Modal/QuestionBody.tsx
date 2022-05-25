@@ -1,16 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import style from '../lesson.module.scss'
-import {
-  ContainedButton,
-  OutlinedButton,
-} from '../../../components/button/Button'
-import { user } from '../../../types'
+import { OutlinedButton } from '../../../components/button/Button'
 
-import questionStyle from '../../../components/qna/qna.module.scss'
 import { client } from '../../../api/client'
 
 interface questionBody {
   lessonID: string
+  handleQuestion: SubmitHandler<input>
 }
 
 interface input {
@@ -18,35 +14,16 @@ interface input {
   body: string
 }
 
-const QuestionBody: React.FC<questionBody> = ({ lessonID }) => {
+const QuestionBody: React.FC<questionBody> = ({ lessonID, handleQuestion }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<input>()
 
-  const handleQuestioning: SubmitHandler<input> = async ({ body, title }) => {
-    const url = `http://localhost:5000/api/questions`
-    const token = localStorage.getItem('token')
-    const response = await client.post(
-      url,
-      JSON.stringify({ lesson: lessonID, body, title }),
-      {
-        headers: {
-          'x-api-key': token,
-        },
-      }
-    )
-  }
-
   return (
     <div>
-      {/* <div className={questionStyle.title}>
-        {lessonTitle}{' '}
-      </div> */}
-      {/* <div className={questionStyle.body}>{body}</div> */}
-      {/* <div className={style.border}></div> */}
-      <form onSubmit={handleSubmit(handleQuestioning)}>
+      <form onSubmit={handleSubmit(handleQuestion)}>
         <div>
           {/* title */}
           <textarea

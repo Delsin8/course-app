@@ -60,3 +60,10 @@
   font-weight: 500;
   border-bottom: 1px solid;
 }
+
+.controlButtonsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}

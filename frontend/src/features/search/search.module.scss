@@ -12,7 +12,6 @@ $br: 18px;
   }
 }
 .search {
-  // border: 1.px solid black;
   border: none;
   box-shadow: 0 0 1px black;
   border-radius: $br;
@@ -20,7 +19,6 @@ $br: 18px;
   width: 100%;
   outline: none;
   padding: 4px 10px;
-  // padding-left: 10px;
 }
 .searchButton {
   &,
@@ -28,7 +26,6 @@ $br: 18px;
     display: flex;
     align-items: center;
   }
-  // height: 20px;
   a {
     svg {
       fill: grey;
@@ -45,18 +42,14 @@ $br: 18px;
 // hero section
 .heroSectionWrapper {
   width: 100%;
-  // font-size: 2rem;
 }
 
 .heroSectionSearch {
   padding: 10px 14px;
   font-size: 1.1rem;
-
-  // border-radius: 0 0 0 $br;
 }
 
 .heroSectionSearchButon {
   padding: 10px;
   font-size: 1.1rem;
-  // border-radius: 0 0 $br 0;
 }

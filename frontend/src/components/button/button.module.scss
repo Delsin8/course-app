@@ -13,29 +13,6 @@ $glowingColor2: #ce4afd;
   cursor: pointer;
 }
 
-.btnOutlined {
-}
-
 .btnContained {
   border: none;
-}
-
-// glowing button
-@keyframes glowing {
-  0% {
-    box-shadow: $glowingColor;
-  }
-  50% {
-    box-shadow: 0 0 6px $glowingColor2;
-  }
-  100% {
-    box-shadow: $glowingColor;
-  }
-}
-.glowing {
-  animation: glowing 3000ms infinite;
-}
-
-.big {
-  font-size: 1.2rem;
 }

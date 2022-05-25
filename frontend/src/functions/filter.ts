@@ -1,6 +1,6 @@
-import { course2, filter } from '../types'
+import { course, filter } from '../types'
 
-export const getFilteredCourses = (courses: course2[], filters: filter[]) => {
+export const getFilteredCourses = (courses: course[], filters: filter[]) => {
   return courses.filter(c => {
     const showMinPrice = isShowByMinPrice(c, filters)
     const showMaxPrice = isShowByMaxPrice(c, filters)
@@ -11,7 +11,7 @@ export const getFilteredCourses = (courses: course2[], filters: filter[]) => {
   })
 }
 
-export const getCoursesAmount = (courses: course2[]) => {
+export const getCoursesAmount = (courses: course[]) => {
   const items: { name: string; amount: any }[] = [
     {
       name: 'rating_all',
@@ -53,28 +53,28 @@ export const getCoursesAmount = (courses: course2[]) => {
 }
 
 // filtering functions
-const isShowByMinPrice = (course: course2, filters: filter[]) => {
+const isShowByMinPrice = (course: course, filters: filter[]) => {
   const priceFromFilter = filters.find(f => f.type === 'price_from')
   if (!priceFromFilter) return true
 
   if (course.price >= priceFromFilter?.value) return true
   return false
 }
-const isShowByMaxPrice = (course: course2, filters: filter[]) => {
+const isShowByMaxPrice = (course: course, filters: filter[]) => {
   const priceToFilter = filters.find(f => f.type === 'price_to')
   if (!priceToFilter) return true
 
   if (course.price <= priceToFilter?.value) return true
   return false
 }
-const isShowByRating = (course: course2, filters: filter[]) => {
+const isShowByRating = (course: course, filters: filter[]) => {
   const ratingFilter = filters.find(f => f.type === 'rating')
   if (!ratingFilter || ratingFilter.value === -1) return true
 
   if (course.avg_rating >= ratingFilter.value) return true
   return false
 }
-const isShowByDuration = (course: course2, filters: filter[]) => {
+const isShowByDuration = (course: course, filters: filter[]) => {
   const durationFilter = filters.filter(f => f.type === 'duration')
   if (!durationFilter.length) return true
 

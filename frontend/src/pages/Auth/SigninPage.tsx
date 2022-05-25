@@ -47,7 +47,6 @@ const SigninPage = () => {
   return (
     <Layout>
       <div className={style.wrapper}>
-        {/* welcome */}
         <Title>Welcome</Title>
         {/* form */}
         <form className={style.form} onSubmit={handleSubmit(handleSignin)}>
@@ -75,8 +74,6 @@ const SigninPage = () => {
               },
             })}
           />
-          {/* <FormElement placeholder="Email" {...register('email')} /> */}
-          {/* <FormElement placeholder="Password" {...register('password')} /> */}
           {errors.password && (
             <div className={style.errorMessage}>{errors.password.message}</div>
           )}
