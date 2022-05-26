@@ -18,7 +18,7 @@ const CoursesListPage = () => {
     // courses
     const fetchCourses = async () => {
       try {
-        const url = 'http://localhost:5000/api/purchased-courses'
+        const url = '/api/purchased-courses'
         const token = localStorage.getItem('token')
         const response = await client.get(url, {
           headers: { 'x-api-key': token },
@@ -32,7 +32,7 @@ const CoursesListPage = () => {
     // wishlist
     const fetchWishlist = async () => {
       try {
-        const url = 'http://localhost:5000/api/wishlists'
+        const url = '/api/wishlists'
         const token = localStorage.getItem('token')
         const response = await client.get(url, {
           headers: { 'x-api-key': token },

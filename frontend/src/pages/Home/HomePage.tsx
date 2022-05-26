@@ -20,7 +20,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const url = 'http://localhost:5000/api/courses?full=1'
+        const url = '/api/courses?full=1'
         const response = await client.get(url)
 
         setCourses(response.data)

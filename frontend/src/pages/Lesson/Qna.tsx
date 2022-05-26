@@ -26,7 +26,7 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const url = `http://localhost:5000/api/questions/lesson/${lessonID}`
+      const url = `/api/questions/lesson/${lessonID}`
       try {
         const res = await client.get(url)
 
@@ -47,7 +47,7 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
     title,
   }) => {
     try {
-      const url = `http://localhost:5000/api/questions`
+      const url = `/api/questions`
       const token = localStorage.getItem('token')
 
       const res = await client.post(

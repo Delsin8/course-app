@@ -31,7 +31,7 @@ const AnswerBody: React.FC<answerBody> = ({
 
   const handleAnswering: SubmitHandler<input> = async ({ answer }) => {
     try {
-      const url = `http://localhost:5000/api/answers`
+      const url = `/api/answers`
       const token = localStorage.getItem('token')
       await client.post(
         url,

@@ -36,7 +36,7 @@ const BuyingWindow: React.FC<buyingWindow> = ({
 
       try {
         const token = localStorage.getItem('token')
-        const url = `http://localhost:5000/api/purchased-courses/check/${_id}`
+        const url = `/api/purchased-courses/check/${_id}`
         const res = await client.get(url, { headers: { 'x-api-key': token } })
 
         setIsLoading(false)
@@ -67,7 +67,7 @@ const BuyingWindow: React.FC<buyingWindow> = ({
     try {
       const token = localStorage.getItem('token')
       const res = await client.post(
-        'http://localhost:5000/api/purchased-courses',
+        '/api/purchased-courses',
         JSON.stringify({
           course: _id,
         }),
@@ -91,7 +91,7 @@ const BuyingWindow: React.FC<buyingWindow> = ({
     try {
       const token = localStorage.getItem('token')
       client.put(
-        'http://localhost:5000/api/wishlists',
+        '/api/wishlists',
         JSON.stringify({
           course: _id,
         }),

@@ -20,9 +20,7 @@ const CoursesPage: React.FC = () => {
 
   useEffect(() => {
     const search = searchParams.get('search')
-    const url = `http://localhost:5000/api/courses?full=1${
-      search ? `&search=${search}` : ''
-    }
+    const url = `/api/courses?full=1${search ? `&search=${search}` : ''}
     `
     const options: RequestInit = {
       headers: {

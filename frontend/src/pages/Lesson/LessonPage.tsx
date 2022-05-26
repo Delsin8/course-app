@@ -28,7 +28,7 @@ const LessonPage = () => {
   useEffect(() => {
     const fetchLesson = async () => {
       try {
-        const url = `http://localhost:5000/api/lessons/${lessonID}?full=1`
+        const url = `/api/lessons/${lessonID}?full=1`
         const token = localStorage.getItem('token')
 
         const response = await client.get(url, {

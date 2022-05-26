@@ -29,7 +29,7 @@ const UserPage = () => {
     const { bio, first_name, last_name } = sanitizedValues
 
     try {
-      const url = 'http://localhost:5000/api/users'
+      const url = '/api/users'
       await client.put(url, JSON.stringify({ bio, first_name, last_name }), {
         headers: { 'x-api-key': token },
       })

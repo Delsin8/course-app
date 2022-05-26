@@ -11,7 +11,7 @@ import { client } from '../api/client'
 //   title,
 // }) => {
 //   try {
-//     const url = `http://localhost:5000/api/questions`
+//     const url = `/api/questions`
 //     const token = localStorage.getItem('token')
 //     await client.post(url, JSON.stringify({ lesson: lessonID, body, title }), {
 //       headers: {

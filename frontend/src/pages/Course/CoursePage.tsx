@@ -27,7 +27,7 @@ const CoursePage = () => {
   const { courseID } = useParams()
 
   useEffect(() => {
-    const url = `http://localhost:5000/api/courses/${courseID}?full=1`
+    const url = `/api/courses/${courseID}?full=1`
     const options: RequestInit = {
       headers: {
         'content-type': 'application/json',
@@ -50,7 +50,7 @@ const CoursePage = () => {
 
   const sendReview = async (text: string, rating: ratingType) => {
     try {
-      const url = 'http://localhost:5000/api/reviews'
+      const url = '/api/reviews'
       const token = localStorage.getItem('token')
 
       const res = await client.post(

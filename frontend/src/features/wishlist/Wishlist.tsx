@@ -9,7 +9,7 @@ const Wishlist = () => {
   useEffect(() => {
     const fetchPurchasedCourses = async () => {
       try {
-        const url = 'http://localhost:5000/api/wishlists'
+        const url = '/api/wishlists'
         const token = localStorage.getItem('token')
 
         const response = await client.get(url, {

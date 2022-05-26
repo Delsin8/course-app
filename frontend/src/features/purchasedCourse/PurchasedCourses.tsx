@@ -9,7 +9,7 @@ const PurchasedCourses = () => {
   useEffect(() => {
     const fetchPurchasedCourses = async () => {
       try {
-        const url = 'http://localhost:5000/api/purchased-courses'
+        const url = '/api/purchased-courses'
         const token = localStorage.getItem('token')
 
         const response = await client.get(url, {

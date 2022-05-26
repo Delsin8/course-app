@@ -14,7 +14,7 @@ const ReviewsPage = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const url = `http://localhost:5000/api/reviews/${courseID}`
+        const url = `/api/reviews/${courseID}`
         const res = await client.get(url)
 
         setIsLoading(false)

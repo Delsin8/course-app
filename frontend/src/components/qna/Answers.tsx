@@ -15,7 +15,7 @@ const Answers: React.FC<answers> = ({ questionID }) => {
 
   useEffect(() => {
     const fetchAnswers = async () => {
-      const url = `http://localhost:5000/api/answers/question/${questionID}`
+      const url = `/api/answers/question/${questionID}`
       try {
         const res = await client.get(url)
 

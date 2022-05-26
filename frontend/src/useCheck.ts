@@ -12,7 +12,7 @@ const useCheck = (): [boolean, (u: boolean) => void] => {
         return
       }
 
-      const url = 'http://localhost:5000/api/users/check'
+      const url = '/api/users/check'
       const res = await client.get(url, { headers: { 'x-api-key': token } })
       if (res.data?.valid === true) {
         setUser(true)

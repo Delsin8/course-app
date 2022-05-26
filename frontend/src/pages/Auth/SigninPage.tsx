@@ -33,7 +33,7 @@ const SigninPage = () => {
 
     try {
       const response = await client.post(
-        'http://localhost:5000/api/users/signin',
+        '/api/users/signin',
         JSON.stringify({ email, password })
       )
       localStorage.setItem('token', JSON.stringify(response.data.token))

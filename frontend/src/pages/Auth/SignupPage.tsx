@@ -35,7 +35,7 @@ const SignupPage = () => {
     try {
       const { email, first_name, password } = data
       const response = await client.post(
-        'http://localhost:5000/api/users/signup',
+        '/api/users/signup',
         JSON.stringify({ email, first_name, password })
       )
       localStorage.setItem('token', JSON.stringify(response.data.token))
