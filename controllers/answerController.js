@@ -1,36 +1,48 @@
 const Answer = require('../models/Answer')
 
 const createAnswer = (req, res) => {
-  const user = req.user.payload.id
+  try {
+    const user = req.user.payload.id
 
-  const { body, question } = req.body
-  Answer.create({ body, user, question }, (err, data) => {
-    if (err) return res.status(400).send(err)
-    res.status(201).json(data)
-  })
+    const { body, question } = req.body
+    Answer.create({ body, user, question }, (err, data) => {
+      if (err) return res.status(400).send(err)
+      res.status(201).json(data)
+    })
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const getAnswer = (req, res) => {
-  const id = req.params.id
-  if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    Answer.findById(id, (err, data) => {
-      if (err) return res.status(400).json(err)
-      res.json(data)
-    })
-  } else res.status(404).send('No results found.')
-}
-
-const getAnswers = (req, res) => {
-  const { questionID } = req.params
-
-  if (questionID.match(/^[0-9a-fA-F]{24}$/)) {
-    Answer.find({ question: questionID })
-      .populate('user')
-      .exec((err, data) => {
+  try {
+    const id = req.params.id
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      Answer.findById(id, (err, data) => {
         if (err) return res.status(400).json(err)
         res.json(data)
       })
-  } else res.status(404).send('No results found.')
+    } else res.status(404).send('No results found.')
+  } catch (error) {
+    res.status(400).json(error)
+  }
+}
+
+const getAnswers = (req, res) => {
+  try {
+    const { questionID } = req.params
+
+    if (questionID.match(/^[0-9a-fA-F]{24}$/)) {
+      Answer.find({ question: questionID })
+        .populate('user')
+        .exec((err, data) => {
+          if (err) return res.status(400).json(err)
+          res.json(data)
+        })
+    } else res.status(404).send('No results found.')
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const updateAnswer = (req, res) => {

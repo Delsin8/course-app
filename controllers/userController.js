@@ -10,77 +10,93 @@ const generateToken = (id, first_name) => {
 }
 
 const signup = async (req, res) => {
-  const { email, password, first_name, last_name } = req.body
-  // validation
-  const validation_email = await User.findOne({ email })
-  if (validation_email)
-    return res.status(400).send('User with this email already exists.')
-  // hash password
-  const salt = await bcryptjs.genSalt(10)
-  const hashPassword = await bcryptjs.hash(password, salt)
-
-  // create a user
-  const user = new User({
-    email,
-    password: hashPassword,
-    first_name,
-    last_name,
-  })
   try {
+    const { email, password, first_name, last_name } = req.body
+    // validation
+    const validation_email = await User.findOne({ email })
+    if (validation_email)
+      return res.status(400).send('User with this email already exists.')
+    // hash password
+    const salt = await bcryptjs.genSalt(10)
+    const hashPassword = await bcryptjs.hash(password, salt)
+
+    // create a user
+    const user = new User({
+      email,
+      password: hashPassword,
+      first_name,
+      last_name,
+    })
     user.save((err, data) => {
       if (err) return res.status(400).json(err)
       const token = generateToken(user._id, user.first_name)
       return res.json({ token })
     })
-  } catch (err) {
-    res.status(400).json(err)
+  } catch (error) {
+    res.status(400).json(error)
   }
 }
 
 const signin = async (req, res) => {
-  const { email, password } = req.body
+  try {
+    const { email, password } = req.body
 
-  const user = await User.findOne({ email })
-  if (!user) return res.status(400).json({ message: 'Credentials are wrong' })
+    const user = await User.findOne({ email })
+    if (!user) return res.status(400).json({ message: 'Credentials are wrong' })
 
-  const checkPassword = await bcryptjs.compare(password, user.password)
-  if (!checkPassword) return res.status(400).send('Credentials are wrong')
+    const checkPassword = await bcryptjs.compare(password, user.password)
+    if (!checkPassword) return res.status(400).send('Credentials are wrong')
 
-  const token = generateToken(user._id, user.first_name)
-  res.json({ token })
+    const token = generateToken(user._id, user.first_name)
+    res.json({ token })
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const getUser = (req, res) => {
-  const user = req.user.payload.id
-  const userExists = User.exists({ _id: user })
-  if (userExists) return res.json({ valid: true })
-  return res.json({ valid: false })
+  try {
+    const user = req.user.payload.id
+    const userExists = User.exists({ _id: user })
+    if (userExists) return res.json({ valid: true })
+    return res.json({ valid: false })
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const getUsers = (req, res) => {
-  User.find({})
-    .populate('reviews')
-    .populate('courses_owned')
-    .populate('students')
-    .exec((err, data) => {
-      if (err) return res.status(400).json(err)
-      res.json(data)
-    })
+  try {
+    User.find({})
+      .populate('reviews')
+      .populate('courses_owned')
+      .populate('students')
+      .exec((err, data) => {
+        if (err) return res.status(400).json(err)
+        res.json(data)
+      })
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const updateUser = (req, res) => {
-  const { first_name, last_name, bio } = req.body
-  const id = req.user.payload.id
+  try {
+    const { first_name, last_name, bio } = req.body
+    const id = req.user.payload.id
 
-  User.findByIdAndUpdate(
-    id,
-    { first_name, last_name, bio },
-    { new: true },
-    (err, data) => {
-      if (err) return res.status(400).send(err)
-      res.status(200).json(data)
-    }
-  )
+    User.findByIdAndUpdate(
+      id,
+      { first_name, last_name, bio },
+      { new: true },
+      (err, data) => {
+        if (err) return res.status(400).send(err)
+        res.status(200).json(data)
+      }
+    )
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const deleteUser = async (req, res) => {
