@@ -70,12 +70,12 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
   if (isLoading) return <SkeletonQuestions />
   if (!lessonID) return <span></span>
   return (
-    <>
-      <div
-        className={`${style.questionsWrapper} ${
-          inactive ? style.inactive : style.flex
-        }`}
-      >
+    <div
+      className={`${style.questionsWrapper} ${
+        inactive ? style.inactive : style.flex
+      }`}
+    >
+      <div className="flex">
         <Title>Questions</Title>
         <Modal
           body={
@@ -91,7 +91,7 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
           <Question key={q._id} {...q} />
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

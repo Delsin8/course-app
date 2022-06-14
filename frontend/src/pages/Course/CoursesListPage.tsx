@@ -55,7 +55,7 @@ const CoursesListPage = () => {
       content: (
         <div className={style.reviewSection} style={{ gap: '.75rem' }}>
           {courses.map(c => (
-            <Link to="/courses/d" key={`owned_course_${c._id}`}>
+            <Link to={`/courses/${c._id}`} key={`owned_course_${c._id}`}>
               <Course type="list" {...c} />
             </Link>
           ))}
