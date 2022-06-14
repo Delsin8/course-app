@@ -2,8 +2,6 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import style from '../lesson.module.scss'
 import { OutlinedButton } from '../../../components/button/Button'
 
-import { client } from '../../../api/client'
-
 interface questionBody {
   lessonID: string
   handleQuestion: SubmitHandler<input>
@@ -47,7 +45,7 @@ const QuestionBody: React.FC<questionBody> = ({ lessonID, handleQuestion }) => {
           {/* body */}
           <textarea
             className={style.inputArea}
-            placeholder="Detailed question"
+            placeholder="Question"
             {...register('body', {
               required: 'Required',
               minLength: {

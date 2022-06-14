@@ -4,11 +4,8 @@
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr;
-  @include m.xsm {
+  @include m.sm {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  @include m.md {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   @include m.lg {
     grid-template-columns: repeat(3, minmax(0, 1fr));

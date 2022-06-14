@@ -59,6 +59,7 @@ const AnswerBody: React.FC<answerBody> = ({
         <div>
           <textarea
             className={style.inputArea}
+            placeholder="answer"
             {...register('answer', {
               required: 'Required',
               maxLength: {

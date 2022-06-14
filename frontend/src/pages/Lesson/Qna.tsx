@@ -71,9 +71,7 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
   if (!lessonID) return <span></span>
   return (
     <div
-      className={`${style.questionsWrapper} ${
-        inactive ? style.inactive : style.flex
-      }`}
+      className={`${style.questionsWrapper} ${inactive ? style.inactive : ''}`}
     >
       <div className={style.flex}>
         <Title>Questions</Title>
