@@ -28,6 +28,7 @@ const QuestionBody: React.FC<questionBody> = ({ lessonID, handleQuestion }) => {
           {/* title */}
           <textarea
             className={style.inputArea}
+            placeholder="Title"
             {...register('title', {
               required: 'Required',
               minLength: {
@@ -46,6 +47,7 @@ const QuestionBody: React.FC<questionBody> = ({ lessonID, handleQuestion }) => {
           {/* body */}
           <textarea
             className={style.inputArea}
+            placeholder="Detailed question"
             {...register('body', {
               required: 'Required',
               minLength: {

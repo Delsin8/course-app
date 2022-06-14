@@ -75,7 +75,7 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
         inactive ? style.inactive : style.flex
       }`}
     >
-      <div className="flex">
+      <div className={style.flex}>
         <Title>Questions</Title>
         <Modal
           body={
