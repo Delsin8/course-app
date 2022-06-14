@@ -71,7 +71,11 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
   if (!lessonID) return <span></span>
   return (
     <>
-      <div className={style.flex}>
+      <div
+        className={`${style.questionsWrapper} ${
+          inactive ? style.inactive : style.flex
+        }`}
+      >
         <Title>Questions</Title>
         <Modal
           body={
@@ -82,11 +86,7 @@ const Qna: React.FC<qna> = ({ inactive, lessonID, lessonTitle }) => {
           Ask a question
         </Modal>
       </div>
-      <div
-        className={`${style.questionsWrapper} ${
-          inactive ? style.inactive : ''
-        }`}
-      >
+      <div>
         {questions.map(q => (
           <Question key={q._id} {...q} />
         ))}

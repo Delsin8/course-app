@@ -37,7 +37,7 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <div onClick={() => console.log(courses)} className={style.heroSection}>
+      <div className={style.heroSection}>
         <div className={style.heroSectionContent}>
           <img src="/images/hero_section_1.png" />
         </div>

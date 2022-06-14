@@ -71,7 +71,7 @@ const CoursePage = () => {
 
   return (
     <Layout>
-      <div className={style.infoSection} onClick={() => console.log(data)}>
+      <div className={style.infoSection}>
         <Title centered noMarginBottom>
           {data?.title}
         </Title>

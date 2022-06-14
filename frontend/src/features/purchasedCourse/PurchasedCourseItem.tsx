@@ -20,7 +20,7 @@ const PurchasedCourseItem: React.FC<purchasedCourseItem> = ({ course }) => {
       to={`/lessons/${getLessonID(course)}`}
       className={`${style.flex} ${style.item}`}
     >
-      <div onClick={() => console.log(course)}>
+      <div>
         <img
           src={`/images/${course.thumbnail || 'course_default.jpg'}`}
           className={style.iconPurchasedCourse}

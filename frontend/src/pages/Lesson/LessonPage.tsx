@@ -7,7 +7,6 @@ import Layout from '../../layouts/Layout/Layout'
 import style from './lesson.module.scss'
 import Qna from './Qna'
 import { useParams } from 'react-router-dom'
-import { SkeletonRectangleCustom } from '../../components/skeleton/SkeletonMain'
 import { SkeletonLessonPage } from './SkeletonLessonPage/SkeletonLessonComponents'
 
 const LessonPage = () => {
@@ -37,7 +36,6 @@ const LessonPage = () => {
 
         setIsLoading(false)
         setLesson(response.data)
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
